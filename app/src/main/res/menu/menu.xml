@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Main" >
+    <item android:id="@+id/liquidacionUnidades"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="Liquidación de Unidades"
+        android:orderInCategory="1"
+        />
+    <item android:id="@+id/llenadoPipas"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Llenado de Pipas"
+        android:orderInCategory="2"
+        />
+    <item android:id="@+id/personal"
+        android:title="Personal"
+        android:orderInCategory="3"
+        />
+    <item android:id="@+id/administradorPipas"
+        android:title="Administrador de Pipas"
+        android:orderInCategory="4"
+        />
+    <item android:id="@+id/reportes"
+        android:title="Reportes"
+        android:orderInCategory="5"
+        />
+</menu>

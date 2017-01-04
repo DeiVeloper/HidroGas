@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp" >
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reportes"
+        android:textAlignment="center"
+        android:textSize="30dp"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/titulo">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/busquedaPipas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Búsqueda de Pipas: "
+                android:textAlignment="center"
+                android:textSize="20dp"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <TextView
+                android:id="@+id/noEconomico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No. Económico: "
+                android:textAlignment="center"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/editNoEconomico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint=" 01"
+                android:textSize="20dp"
+                />
+
+            <TextView
+                android:id="@+id/fechaBusqueda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha de Búsqueda: "
+                android:textAlignment="center"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:ems="10"
+                android:hint="13/01/1991"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="60dp"
+                android:layout_marginStart="60dp"
+                android:id="@+id/editFechaBusqueda" />
+
+            <Button
+                android:id="@+id/btnBuscar"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:text="Buscar"
+                android:layout_toRightOf="@+id/editFechaBusqueda"/>
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/listado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Listado de Pipas: "
+                android:textAlignment="center"
+                android:textSize="20dp"/>
+        </TableRow>+
+
+    </TableLayout>
+
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titulo"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="23dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginTop="26dp" />
+
+    <Button
+        android:id="@+id/btnExportar"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:text="Exportar"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
