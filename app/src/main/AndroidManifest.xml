@@ -16,29 +16,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".AdministradorPipas"
-            android:label="Register New Account"></activity>
-
-        <activity android:name=".AgregarEditarPersonal"
-            android:label="Register New Account"></activity>
-
-        <activity android:name=".AgregarPipas"
-            android:label="Register New Account"></activity>
-
-        <activity android:name=".LiquidacionUnidades"
-            android:label="Register New Account"></activity>
-
-        <activity android:name=".ListaLlenadoPipas"
-            android:label="Register New Account"></activity>
-
-        <activity android:name=".ListaPersonal"
-            android:label="Register New Account"></activity>
-
-        <activity android:name=".LlenarPipa"
-        android:label="Register New Account"></activity>
-
+        <activity android:name=".AdministradorPipas"/>
+        <activity android:name=".AgregarEditarPersonal"/>
+        <activity android:name=".AgregarPipas"/>
+        <activity android:name=".LiquidacionUnidades"/>
+        <activity android:name=".ListaLlenadoPipas"/>
+        <activity android:name=".ListaPersonal"/>
+        <activity android:name=".LlenarPipa"/>
         <activity android:name=".MainActivity"
-            android:label="Sistema De Control y Liquidación De Unidades"></activity>
+            android:label="Sistema De Control y Liquidación De Unidades"/>
     </application>
 
 </manifest>
