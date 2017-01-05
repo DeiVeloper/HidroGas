@@ -19,7 +19,6 @@ public class LiquidacionUnidades extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         //super.onCreate(savedInstanceState);
-        // Set View to register.xml
         //setContentView(R.layout.activity_liquidacion);
         btnImprimir = (Button) findViewById(R.id.btnImprimir);
         btnImprimir.setOnClickListener(new View.OnClickListener(){

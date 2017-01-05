@@ -15,8 +15,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"
-            android:label="Register New Account"></activity>
 
         <activity android:name=".AdministradorPipas"
             android:label="Register New Account"></activity>

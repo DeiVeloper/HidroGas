@@ -3,14 +3,9 @@ package mx.com.desoft.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.Gravity;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import mx.com.desoft.hidrogas.TabFragment;
-import mx.com.desoft.hidrogas.TopRatedFragment;
 
 /**
  * Created by Admin on 11-12-2015.
