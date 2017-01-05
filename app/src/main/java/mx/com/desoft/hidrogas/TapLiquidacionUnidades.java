@@ -120,6 +120,10 @@ public class TapLiquidacionUnidades extends Fragment{
         });
     }
 
+    private void validarLiquidacion(){
+
+    }
+
     private void setLiquidacion(){
         liquidacionesTO = new LiquidacionesTO();
         liquidacionesTO.setNoPipa(((Long)spinnerRuta.getSelectedItemId()).intValue());

@@ -38,10 +38,10 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-
         bindUI();
+        preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        setCredentialsIfExist();
+
         btnLogin.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 String usuario = editTextUsuario.getText().toString();
@@ -71,6 +71,15 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("usuario", usuario);// Usuario que se enceuntra en la base de datos y es administrador
         editor.putString("password", password); // contraseña del usuario logueado
         editor.apply();
+    }
+
+    private void setCredentialsIfExist(){
+        String usuario = preferences.getString("usuario", "");;
+        String password =preferences.getString("password", "");;
+        if (!TextUtils.isEmpty(usuario) && !TextUtils.isEmpty(password)) {
+            editTextUsuario.setText(usuario);
+            editTextPassword.setText(password);
+        }
     }
 
     private void conectarBaseDeDatos(){
@@ -107,31 +116,4 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.liquidacionUnidades:
-                setContentView(R.layout.activity_liquidacion);
-                break;
-            case R.id.llenadoPipas:
-                setContentView(R.layout.activity_llenado_pipas);
-                break;
-            case R.id.personal:
-                setContentView(R.layout.activity_personal);
-                break;
-            case R.id.administradorPipas:
-                setContentView(R.layout.activity_administrador_pipas);
-                break;
-            case R.id.reportes:
-                setContentView(R.layout.activity_reportes);
-                break;
-        }
-        return true;
-    }
 }
