@@ -398,14 +398,14 @@
         android:stretchColumns="0,1,2,3,4,"
         android:collapseColumns="50dp">
 
-    <TableRow android:background="#1667df">
+    <TableRow android:background="@color/PrimaryColor">
         <TextView
             android:layout_column="0"
             android:text="Datos Generales"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:textAlignment="center"
             android:layout_gravity="center"
-            android:layout_span="5"
+            android:layout_span="2"
             android:textColor="@android:color/white" />
     </TableRow>
         <TableRow>
@@ -480,15 +480,15 @@
         android:id="@+id/tabla_viajes"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="175dp"
         android:stretchColumns="0,1,2,3,4,"
         android:collapseColumns="50dp">
 
-        <TableRow android:background="#1667df">
+        <TableRow android:background="@color/PrimaryColor">
             <TextView
                 android:layout_column="0"
                 android:text="Viajes"
-                android:textSize="25dp"
+                android:textSize="20dp"
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 android:layout_span="5"

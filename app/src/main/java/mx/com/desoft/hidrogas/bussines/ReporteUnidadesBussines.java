@@ -1,6 +1,7 @@
 package mx.com.desoft.hidrogas.bussines;
 
 import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -21,8 +22,8 @@ public class ReporteUnidadesBussines {
     private static AdminSQLiteOpenHelper baseDatos;
     private SQLiteDatabase sqLiteDatabase;
 
-    public ReporteUnidadesBussines(){
-        baseDatos = new AdminSQLiteOpenHelper(activity.getApplicationContext());
+    public ReporteUnidadesBussines(Context context){
+        baseDatos = new AdminSQLiteOpenHelper(context);
         sqLiteDatabase = baseDatos.getWritableDatabase();
     }
 

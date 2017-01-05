@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#dfdfdf"
+    android:background="#ffffff"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
@@ -15,7 +15,7 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:background="@color/PrimaryColor"
+        android:background="#1355b1"
         android:layout_below="@+id/tool_bar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
