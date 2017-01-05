@@ -43,7 +43,7 @@ public class TapReportes extends Fragment{
                 editTextFechaBusqueda = (EditText) view.findViewById(R.id.editFechaBusqueda);
                 reporteUnidadesBussines = new ReporteUnidadesBussines(view.getContext());
                 listaLlenado = reporteUnidadesBussines.getUnidadLlenadoByFecha(Integer.valueOf(editTextFechaBusqueda.getText().toString()));
-                Toast.makeText(view.getContext(), "CFui a buscar las unidades", Toast.LENGTH_LONG).show();
+                Toast.makeText(view.getContext(), "Fui a buscar las unidades", Toast.LENGTH_LONG).show();
             }
         });
 
