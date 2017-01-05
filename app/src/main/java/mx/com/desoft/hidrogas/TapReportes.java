@@ -1,8 +1,8 @@
 package mx.com.desoft.hidrogas;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,16 +26,19 @@ import mx.com.desoft.hidrogas.to.LlenadoTO;
 public class TapReportes extends Fragment{
 
     private EditText editTextFechaBusqueda;
-    private Button btnBuscar;
+    private Button btnBuscar,btnExportarExcel;
     private ListView listView;
     private ReporteUnidadesBussines reporteUnidadesBussines;
     private List<LlenadoTO> listaLlenado = new ArrayList<>();
+    private Reportes reportes = new Reportes();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.activity_reportes, container, false);
         listView = (ListView) view.findViewById(R.id.listView);
         btnBuscar = (Button) view.findViewById(R.id.btnBuscar);
+        btnExportarExcel = (Button) view.findViewById(R.id.btnExportarExcel);
+
 
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +60,19 @@ public class TapReportes extends Fragment{
         // Enlazamos con nuestro adaptador personalizado
         ListLlenadoAdapter listAdapter = new ListLlenadoAdapter(view.getContext(),R.id.list_item, listaLlenado);
         listView.setAdapter(listAdapter);
+
+        btnExportarExcel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0)
+            {
+                try {
+                    String ruta = reportes.excel(view);
+                    Toast.makeText(view.getContext(), "El reporte se creo en la siguiente ruta: " + ruta, Toast.LENGTH_LONG).show();
+                }catch (Exception  e)   {
+                    Log.d("Error " + e.getStackTrace()," , Mensaje "+ e.getMessage());
+                    Toast.makeText(view.getContext(), "No se pudo crear al excel, favor de contactar al Administrador", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
         return view;
     }
 }
