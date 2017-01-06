@@ -3,6 +3,7 @@ package mx.com.desoft.hidrogas;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -83,8 +85,9 @@ public class TapLiquidacionUnidades extends Fragment{
                     public void onItemSelected(AdapterView<?> parent,View v, int position, long id) {
                         liquidacionesTO = new LiquidacionesTO();
                         List<PersonalTO> listaPersonal = unidadesBussines.obtenerPersonal(viewGroup, ((Long) parent.getSelectedItemId()).intValue());
+                        List<ViajesTO> listaViajes = liquidacionBussines.getPorcentajeInicialAnterior(viewGroup, ((Long) parent.getSelectedItemId()).intValue());
                         setEmpleadosPipa(listaPersonal);
-                        Log.d("Entre" ,listaPersonal.size() + "");
+                        setViajesVista(listaViajes);
                     }
 
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -107,31 +110,38 @@ public class TapLiquidacionUnidades extends Fragment{
         btnGuardarLiquidacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            if (validarLiquidacion()) {
                 setLiquidacion();
-                liquidacionBussines.guardarLiquidacion(viewGroup,liquidacionesTO, viajesTO);
-                List<LiquidacionesTO> lista = liquidacionBussines.getAllLiquidaciones(viewGroup);
-                for (LiquidacionesTO row: lista){
-
-                    Log.d("Name: ", row.toString());
-                    //Toast toast = Toast.makeText(activity,"DAtos : " + row.toString(), Toast.LENGTH_LONG);
-                    //toast.show();
-                }
+                setViajes();
+                liquidacionBussines.guardarLiquidacion(viewGroup, liquidacionesTO, viajesTO);
+            }
             }
         });
     }
 
-    private void validarLiquidacion(){
-
+    private boolean validarLiquidacion(){
+        if (spinnerRuta.getSelectedItemId() == 0 ){
+            Toast.makeText(viewGroup.getContext(),"Favor de seleccionar una Ruta.", Toast.LENGTH_LONG).show();
+            return false;
+        } else if(!TextUtils.isEmpty(editTextEconomico.getText().toString())){
+            Toast.makeText(viewGroup.getContext(),"El campo Economico no puede ir vacio, favor de validar.", Toast.LENGTH_LONG).show();
+            return false;
+        } else if(!TextUtils.isEmpty(editTextEconomico.getText().toString())){
+            Toast.makeText(viewGroup.getContext(),"El campo Economico no puede ir vacio, favor de validar.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
     private void setLiquidacion(){
+
         liquidacionesTO = new LiquidacionesTO();
         liquidacionesTO.setNoPipa(((Long)spinnerRuta.getSelectedItemId()).intValue());
         liquidacionesTO.setNominaChofer(editTextNoChofer.getText().toString());
         liquidacionesTO.setNominaAyudante(editTextNoAyudante.getText().toString());
-        liquidacionesTO.setFechaRegistro(new Date());
+        liquidacionesTO.setFechaRegistro(getFechaACtual());
         liquidacionesTO.setNominaRegistro("000001");
-        liquidacionesTO.setVariacion(100);//Integer.parseInt(textViewVariacion.getText().toString()));
+        liquidacionesTO.setVariacion(100);//Integer.parseInt(tex    tViewVariacion.getText().toString()));
 
     }
 
@@ -175,4 +185,23 @@ public class TapLiquidacionUnidades extends Fragment{
             }
         }
     }
+
+    private void setViajesVista(List<ViajesTO> listaViajes){
+        if (listaViajes.isEmpty()){
+            editTextSalida_1.setText("");
+            editTextTotInicial_1.setText("");
+        }
+        for (ViajesTO viajes: listaViajes) {
+
+        }
+    }
+
+    private Integer getFechaACtual(){
+        Calendar fecha = Calendar.getInstance();
+        int year = fecha.get(Calendar.YEAR);
+        int month = fecha.get(Calendar.MONTH) + 1;
+        int day = fecha.get(Calendar.DAY_OF_MONTH);
+        return Integer.getInteger(day+""+month+""+year);
+    }
+
 }
