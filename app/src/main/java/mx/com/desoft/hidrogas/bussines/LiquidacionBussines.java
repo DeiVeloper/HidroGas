@@ -20,15 +20,19 @@ import mx.com.desoft.hidrogas.to.ViajesTO;
 
 public class LiquidacionBussines {
     private static AdminSQLiteOpenHelper baseDatos;
-    private Liquidaciones liquidaciones;
+    private static SQLiteDatabase bd;
 
     public LiquidacionBussines() {
 
     }
 
-    public void guardarLiquidacion(ViewGroup viewGroup, LiquidacionesTO liquidacionesTO,List<ViajesTO> viajesTO) {
+    private void iniciarDataBase(ViewGroup viewGroup){
         baseDatos = new AdminSQLiteOpenHelper(viewGroup.getContext());
-        SQLiteDatabase bd = baseDatos.getWritableDatabase();
+        bd = baseDatos.getWritableDatabase();
+    }
+
+    public void guardarLiquidacion(ViewGroup viewGroup, LiquidacionesTO liquidacionesTO,List<ViajesTO> listaViajes) {
+        iniciarDataBase(viewGroup);
         ContentValues registro = new ContentValues();
         registro.put("nominaChofer", liquidacionesTO.getNominaChofer());
         registro.put("nominaAyudante", liquidacionesTO.getNominaAyudante());
@@ -36,13 +40,24 @@ public class LiquidacionBussines {
         registro.put("variacion", liquidacionesTO.getVariacion());
         registro.put("fechaRegistro", liquidacionesTO.getFechaRegistro().toString());
         registro.put("nominaRegistro", liquidacionesTO.getNominaRegistro());
-        bd.insert("liquidacion", null, registro);
+        Long idLiquidacion = bd.insert("liquidacion", null, registro);
+
+
+        ContentValues registroViajes = new ContentValues();
+        for (ViajesTO viajes : listaViajes) {
+            registroViajes.put("idLiquidacion", idLiquidacion.intValue());
+            registroViajes.put("porcentajeInicial", viajes.getPorcentajeInicial());
+            registroViajes.put("porcentajeFinal", viajes.getPorcentajeFinal());
+            registroViajes.put("totalizadorInicial", viajes.getTotalizadorInicial());
+            registroViajes.put("totalizadorFinal", viajes.getTotalizadorFinal());
+            bd.insert("viajes", null, registro);
+        }
+
         bd.close();
     }
 
     public List<LiquidacionesTO> getAllLiquidaciones(ViewGroup viewGroup){
-        baseDatos = new AdminSQLiteOpenHelper(viewGroup.getContext());
-        SQLiteDatabase bd = baseDatos.getWritableDatabase();
+        iniciarDataBase(viewGroup);
             List<LiquidacionesTO> contactList = new ArrayList<>();
             // Select All Query
             String selectQuery = "SELECT  idLiquidacion,noPipa, nominaChofer, nominaAyudante, variacion FROM Liquidacion";
@@ -65,5 +80,38 @@ public class LiquidacionBussines {
             // return contact list
             return contactList;
 
+    }
+
+    public List<ViajesTO> getPorcentajeInicialAnterior(ViewGroup viewGroup, Integer idPipa){
+        iniciarDataBase(viewGroup);
+        List<ViajesTO> lista = new ArrayList<>();
+        StringBuilder selectQuery = new StringBuilder();
+        selectQuery.append("SELECT  min(idViaje), ");
+        selectQuery.append("        viajes.idLiquidacion, ");
+        selectQuery.append("        porcentajeInicial, ");
+        selectQuery.append("        porcentajeFinal, ");
+        selectQuery.append("        totalizadorInicial, ");
+        selectQuery.append("        totalizadorFinal ");
+        selectQuery.append("FROM    Viajes viajes,  ");
+        selectQuery.append("        Liquidacion liquidacion ");
+        selectQuery.append("WHERE   viajes.idLiquidacion = liquidacion.idLiquidacion ");
+        selectQuery.append("AND     liquidacion.fechaRegistro = " );
+        selectQuery.append("        liquidacion.noPipa = " + idPipa);
+
+        Cursor cursor = bd.rawQuery(selectQuery.toString(), null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                ViajesTO viaje = new ViajesTO();
+                viaje.setIdViaje(cursor.getInt(0));
+                viaje.setIdLiquidacion(cursor.getInt(1));
+                viaje.setPorcentajeInicial(cursor.getInt(2));
+                viaje.setPorcentajeFinal(cursor.getInt(3));
+                viaje.setTotalizadorInicial(cursor.getInt(4));
+                viaje.setTotalizadorFinal(cursor.getInt(4));
+                lista.add(viaje);
+            } while (cursor.moveToNext());
+        }
+        return lista;
     }
 }
