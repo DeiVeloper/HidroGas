@@ -20,6 +20,14 @@ public class PersonalTO {
 
     }
 
+    public PersonalTO(String nomina, String nombre, String apellidoPaterno, String apellidoMaterno, Integer noPipa) {
+        this.nomina = nomina;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.noPipa = noPipa;
+    }
+
     public PersonalTO(String nomina, String nombre, String apellidoPaterno, String apellidoMaterno, String password, Integer noPipa, Integer fechaRegistro,
                       String nominaRegistro, Integer tipoEmpleado) {
         this.nombre = nombre;
