@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:padding="4dp"
+    tools:context=".MainActivity" >
+    <TextView
+        android:id="@+id/txtPipa" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" android:text="Pipa"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <TextView
+        android:id="@+id/txtFechaRegistro" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_alignParentLeft="true"
+        android:text="Fecha Registro" android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginLeft="250dp"/>
+
+</RelativeLayout>
