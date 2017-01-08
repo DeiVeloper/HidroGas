@@ -27,7 +27,7 @@ public class AgregarPipas extends Activity {
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                chargePage(AdministradorPipas.class);
+                chargePage(ListaPipas.class);
             }
         });
     }
