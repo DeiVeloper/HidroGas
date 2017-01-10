@@ -12,12 +12,10 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="26dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true">
         <TextView
             android:text="Agregar / Editar Personal" android:layout_width="wrap_content"
             android:layout_gravity="center|top" android:layout_height="wrap_content"
@@ -27,43 +25,46 @@
 
         <EditText
             android:id="@+id/txtNoNomina" android:layout_marginTop="50dp"
-            android:layout_width="400dp" android:layout_height="50dp"
+            android:layout_width="400dp" android:layout_height="wrap_content"
             android:layout_gravity="left" android:layout_weight="1"
-            android:hint="No. de Nómina" android:textSize="23sp"/>
+            android:hint="No. de Nómina" android:textSize="23sp"
+            android:value=""/>
 
         <EditText
             android:id="@+id/txtNombre" android:layout_marginTop="50dp"
-            android:layout_width="400dp" android:layout_height="50dp"
+            android:layout_width="400dp" android:layout_height="wrap_content"
             android:layout_gravity="right" android:layout_weight="1"
             android:hint="Nombre" android:textSize="23sp" />
 
         <EditText
             android:id="@+id/txtApellidoPaterno" android:layout_marginTop="120dp"
-            android:layout_width="400dp" android:layout_height="50dp"
+            android:layout_width="400dp" android:layout_height="wrap_content"
             android:layout_gravity="left" android:layout_weight="1"
             android:hint="Apellido Paterno" android:textSize="23sp"/>
 
         <EditText
             android:id="@+id/txtApellidoMaterno" android:layout_marginTop="120dp"
-            android:layout_width="400dp" android:layout_height="50dp"
+            android:layout_width="400dp" android:layout_height="wrap_content"
             android:layout_gravity="right" android:layout_weight="1"
             android:hint="Apellido Materno" android:textSize="23sp"/>
 
         <EditText
-            android:layout_height="50dp"
-            android:layout_width="400dp"
-            android:id="@+id/txtPass"
-            android:textSize="23sp"
-            android:layout_gravity="right"
-            android:hint="Contraseña"
-            android:layout_weight="1"
-            android:layout_marginTop="190dp"
+            android:id="@+id/txtPass" android:layout_marginTop="190dp"
+            android:layout_width="400dp" android:layout_height="wrap_content"
+            android:layout_gravity="right" android:layout_weight="1"
+            android:hint="Contraseña" android:textSize="23sp"
             android:inputType="textPassword"/>
 
         <Spinner
-            android:id="@+id/sprPuesto" android:layout_marginTop="190dp"
-            android:layout_width="400dp" android:layout_height="50dp"
+            android:id="@+id/sprPuesto" android:layout_marginTop="220dp"
+            android:layout_width="400dp" android:layout_height="wrap_content"
             android:layout_gravity="left" android:layout_weight="1"
+            android:textSize="23sp" android:background="#dcdcdc" />
+
+        <Spinner
+            android:id="@+id/sprPipa" android:layout_marginTop="220dp"
+            android:layout_width="400dp" android:layout_height="wrap_content"
+            android:layout_gravity="right" android:layout_weight="1"
             android:textSize="23sp" android:background="#dcdcdc" />
 
         <Button
@@ -71,7 +72,7 @@
             android:layout_height="wrap_content" android:layout_gravity="right|bottom"
             android:id="@+id/btnGuardar" android:layout_alignParentTop="true"
             android:layout_alignParentRight="true" android:layout_alignParentEnd="true"
-            android:layout_marginRight="100dp"/>
+            android:layout_marginRight="100dp" android:onClick="guardar"/>
 
         <Button
             android:text="Cancelar" android:layout_width="wrap_content"
