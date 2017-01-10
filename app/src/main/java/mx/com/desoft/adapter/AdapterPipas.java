@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import mx.com.desoft.hidrogas.R;
@@ -43,8 +44,10 @@ public class AdapterPipas extends ArrayAdapter<PipasTO> {
             pipasTOWrapper = (AdapterPipas.PipasTOWrapper) item.getTag();
         }
         pipasTO = pipasTOs.get(position);
+        SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
+        String dateText = df2.format(pipasTO.getFechaRegistro());
         pipasTOWrapper.pipa.setText(pipasTO.getNoPipa().toString());
-        pipasTOWrapper.fechaRegistro.setText(pipasTO.getFechaRegistro());
+        pipasTOWrapper.fechaRegistro.setText(dateText);
         return item;
     }
     static class PipasTOWrapper {
