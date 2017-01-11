@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +23,10 @@ public class PersonalBussines {
 
     }
 
-    public void guardar(Context context, PersonalTO personalTO, boolean flgEditar) {
+
+    public boolean guardar(Context context, PersonalTO personalTO, boolean flgEditar) {
         baseDatos = new AdminSQLiteOpenHelper(context);
+
         SQLiteDatabase bd = baseDatos.getWritableDatabase();
 
         ContentValues registro = new ContentValues();
@@ -35,15 +36,22 @@ public class PersonalBussines {
         registro.put("apellidoMaterno", personalTO.getApellidoMaterno());
         registro.put("password", personalTO.getPassword());
         registro.put("noPipa", personalTO.getNoPipa());
-        registro.put("fechaRegistro", personalTO.getFechaRegistro());
         registro.put("nominaRegistro", personalTO.getNominaRegistro());
         registro.put("tipoEmpleado", personalTO.getTipoEmpleado());
         if (flgEditar) {
             bd.update("empleados", registro, "nominaEmpleado = " + personalTO.getNomina(), null);
         } else {
-            bd.insert("empleados", null, registro);
+            Cursor registros = buscarByNomina(context, personalTO.getNomina());
+            if (registros.moveToFirst()) {
+                flgEditar = false;
+            } else {
+                registro.put("fechaRegistro", personalTO.getFechaRegistro());
+                bd.insert("empleados", null, registro);
+                flgEditar = true;
+            }
         }
         bd.close();
+        return flgEditar;
     }
 
     public Cursor buscar(Context context, PersonalTO personalTO) {
@@ -57,8 +65,17 @@ public class PersonalBussines {
             condicion += " AND nombre = '" + personalTO.getNombre() + "' ";
         }
         registros = bd.rawQuery("SELECT * FROM empleados WHERE 1=1 " + condicion, null);
-        Toast.makeText(context, condicion, Toast.LENGTH_LONG).show();
         return registros;
+    }
+
+    private Cursor buscarByNomina(Context context, String nomina) {
+        if (nomina.equals("")) {
+            return null;
+        } else {
+            baseDatos = new AdminSQLiteOpenHelper(context);
+            SQLiteDatabase bd = baseDatos.getWritableDatabase();
+            return bd.rawQuery("SELECT * FROM empleados WHERE nominaEmpleado = '" + nomina + "'", null);
+        }
     }
 
     public void eliminar(Context context, PersonalTO personalTO) {
@@ -85,7 +102,7 @@ public class PersonalBussines {
                 usuario.setApellidoMaterno(cursor.getString(3));
                 usuario.setPassword(cursor.getString(4));
                 usuario.setNoPipa(cursor.getInt(5));
-                usuario.setFechaRegistro(cursor.getInt(6));
+                //usuario.setFechaRegistro(cursor.getInt(6));
                 usuario.setNominaRegistro(cursor.getColumnName(7));
                 usuario.setTipoEmpleado(cursor.getInt(8));
             } while (cursor.moveToNext());

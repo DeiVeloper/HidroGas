@@ -1,104 +1,166 @@
 package mx.com.desoft.hidrogas;
 
-import android.app.ActionBar;
-
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import mx.com.desoft.adapter.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
+    //Declaring All The Variables Needed
+
     private Toolbar toolbar;
     private TabLayout tabLayout;
-    private ViewPager view;
+    private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
     private Button btnImprimir;
-    private SharedPreferences preferences;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+
+        /*
+        Assigning view variables to thier respective view in xml
+        by findViewByID method
+         */
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
-        view = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
 
+        /*
+        Creating Adapter and setting that adapter to the viewPager
+        setSupportActionBar method takes the toolbar and sets it as
+        the default action bar thus making the toolbar work like a normal
+        action bar.
+         */
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        setupViewPager(view);
+        setupViewPager(viewPager);
         setSupportActionBar(toolbar);
 
+        /*
+        TabLayout.newTab() method creates a tab view, Now a Tab view is not the view
+        which is below the tabs, its the tab itself.
+         */
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
-        tabs.setupWithViewPager(view);
+        tabs.setupWithViewPager(viewPager);
 
-        view.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        //final TabLayout.Tab liquidacion = tabLayout.newTab();
+        //final TabLayout.Tab unidades = tabLayout.newTab();
+        //final TabLayout.Tab personal = tabLayout.newTab();
+        //final TabLayout.Tab administradorUnidades = tabLayout.newTab();
+        //final TabLayout.Tab reportes = tabLayout.newTab();
+
+        /*
+        Setting Title text for our tabs respectively
+         */
+
+        //liquidacion.setText("Liquidación de Unidades");
+        //unidades.setText("Llenado de Unidades");
+        //personal.setText("Personal");
+        //administradorUnidades.setText("Administrador de Unidades");
+        //reportes.setText("Reportes");
+
+        /*
+        Adding the tab view to our tablayout at appropriate positions
+        As I want home at first position I am passing home and 0 as argument to
+        the tablayout and like wise for other tabs as well
+         */
+        /*tabLayout.addTab(liquidacion, 0);
+        tabLayout.addTab(unidades, 1);
+        tabLayout.addTab(personal, 2);
+        tabLayout.addTab(administradorUnidades, 3);
+        tabLayout.addTab(reportes, 4);
+
+        fragList.add(tabFragment);*/
+        /*
+        TabTextColor sets the color for the title of the tabs, passing a ColorStateList here makes
+        tab change colors in different situations such as selected, active, inactive etc
+
+        TabIndicatorColor sets the color for the indiactor below the tabs
+         */
+
+        //tabLayout.setTabTextColors(ContextCompat.getColorStateList(this, R.color.tab_selector));
+        //tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.indicator));
+
+        /*
+        Adding a onPageChangeListener to the viewPager
+        1st we add the PageChangeListener and pass a TabLayoutPageChangeListener so that Tabs Selection
+        changes when a viewpager page changes.
+         */
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new TapLiquidacionUnidades(), "Liquidacion de Unidades");
-        viewPagerAdapter.addFragment(new TapLlenadoUnidades(), "Llenado de Unidades");
-        viewPagerAdapter.addFragment(new LlenarUnidad(), "Llenar Pipa");
-        viewPagerAdapter.addFragment(new TapPersonal(), "Personal");
-        viewPagerAdapter.addFragment(new AgregarEditar(), "Agregar/Editar Personal");
-        viewPagerAdapter.addFragment(new TapAdministradorUnidades(), "Administrador de Unidades");
-        viewPagerAdapter.addFragment(new AgregarUnidad(), "Agregar Pipa");
-        viewPagerAdapter.addFragment(new TapReportes(), "Reportes");
+        viewPagerAdapter.addFragment(new TapLiquidacionUnidades(), "Liquidaciones");
+        viewPagerAdapter.addFragment(new ListaPersonal(), "Personal");
+        viewPagerAdapter.addFragment(new ListaPipas(), "Pipas");
+        viewPagerAdapter.addFragment(new TapReportes(), "Variación");
         viewPager.setAdapter(viewPagerAdapter);
     }
 
+
+    /*public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+        Fragment f = null;
+        TabFragment tf = null;
+
+        if (fragList.size() > tab.getPosition())
+            fragList.get(tab.getPosition());
+
+        if (f == null) {
+            tf = new TabFragment();
+            Bundle data = new Bundle();
+            data.putInt("idx",  tab.getPosition());
+            tf.setArguments(data);
+            fragList.add(tf);
+        }
+        else
+            tf = (TabFragment) f;
+
+        ft.replace(android.R.id.content, tf);
+
+    }
+
+
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+        if (fragList.size() > tab.getPosition()) {
+            ft.remove(fragList.get(tab.getPosition()));
+        }
+
+    }*/
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.cerrarSesion:
-                logOut();
-                removeSharedPreferences();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
 
 
-
-    private void logOut() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    private void removeSharedPreferences() {
-        preferences.edit().clear().apply();
+        return super.onOptionsItemSelected(item);
     }
 }

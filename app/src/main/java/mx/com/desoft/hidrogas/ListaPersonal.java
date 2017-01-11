@@ -67,14 +67,14 @@ public class ListaPersonal extends Fragment {
     }
 
     public void buscar() {
-        //try {
+        try {
             personalTO.setNomina(txtNoNomina.getText().toString());
             personalTO.setNombre(txtNombre.getText().toString());
             Cursor registros = personalBussines.buscar(viewGroup.getContext(), personalTO);
             personalTOArray = new ArrayList<PersonalTO>();
             if (registros.moveToFirst()) {
                 do {
-                    personalTOArray.add(new PersonalTO(registros.getString(0), registros.getString(1), registros.getString(2), registros.getString(3), registros.getInt(5)));
+                    personalTOArray.add(new PersonalTO(registros.getString(0), registros.getString(1), registros.getString(2), registros.getString(3), registros.getInt(5), registros.getInt(8)));
                 } while (registros.moveToNext());
                 this.adapterPersonal = new AdapterPersonal(viewGroup.getContext(), R.layout.list_items_personal, personalTOArray);
                 listview= (ListView)viewGroup.findViewById(R.id.lstPersonal);
@@ -83,9 +83,9 @@ public class ListaPersonal extends Fragment {
                 registerForContextMenu(listview);
             } else
                 Toast.makeText(viewGroup.getContext(), "Su búsqueda no tiene registros asociados.", Toast.LENGTH_SHORT).show();
-        //} catch (Exception e) {
-          //  Toast.makeText(viewGroup.getContext(), "Ha ocurrido un error al realizar la búsqueda, Intente nuevamente por favor.", Toast.LENGTH_SHORT).show();
-        //}
+        } catch (Exception e) {
+            Toast.makeText(viewGroup.getContext(), "Ha ocurrido un error al realizar la búsqueda, Intente nuevamente por favor.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -124,6 +124,7 @@ public class ListaPersonal extends Fragment {
                 accion.putExtra("nombre", personalTOArray.get(adapterContextMenuInfo.position).getNombre());
                 accion.putExtra("aPaterno", personalTOArray.get(adapterContextMenuInfo.position).getApellidoPaterno());
                 accion.putExtra("aMaterno", personalTOArray.get(adapterContextMenuInfo.position).getApellidoMaterno());
+                accion.putExtra("tipoEmpleado", personalTOArray.get(adapterContextMenuInfo.position).getTipoEmpleado());
                 chargePage(accion);
         }
         return super.onContextItemSelected(item);
