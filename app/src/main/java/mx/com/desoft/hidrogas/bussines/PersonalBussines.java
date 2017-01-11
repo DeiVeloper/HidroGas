@@ -30,7 +30,6 @@ public class PersonalBussines {
         registro.put("apellidoMaterno", personalTO.getApellidoMaterno());
         registro.put("password", personalTO.getPassword());
         registro.put("noPipa", personalTO.getNoPipa());
-        registro.put("fechaRegistro", personalTO.getFechaRegistro());
         registro.put("nominaRegistro", personalTO.getNominaRegistro());
         registro.put("tipoEmpleado", personalTO.getTipoEmpleado());
         if (flgEditar) {
@@ -40,6 +39,7 @@ public class PersonalBussines {
             if (registros.moveToFirst()) {
                 flgEditar = false;
             } else {
+                registro.put("fechaRegistro", personalTO.getFechaRegistro());
                 bd.insert("empleados", null, registro);
                 flgEditar = true;
             }

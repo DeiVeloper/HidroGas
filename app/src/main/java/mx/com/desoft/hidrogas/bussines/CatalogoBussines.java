@@ -23,4 +23,11 @@ public class CatalogoBussines {
         registros = bd.rawQuery("SELECT * FROM tipoEmpleados WHERE 1=1 ", null);
         return registros;
     }
+
+    public Cursor getPipas(Context context) {
+        baseDatos = new AdminSQLiteOpenHelper(context, "hidroGas", null, 1);
+        SQLiteDatabase bd = baseDatos.getWritableDatabase();
+        registros = bd.rawQuery("SELECT * FROM Pipas WHERE 1=1 ", null);
+        return registros;
+    }
 }
