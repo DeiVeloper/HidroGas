@@ -6,15 +6,17 @@ package mx.com.desoft.hidrogas.to;
 
 public class PipasTO {
     private Integer noPipa;
-    private Integer fechaRegistro;
+    private Integer porcentajeLlenado;
+    private Long fechaRegistro;
     private String nominaRegistro;
 
     public PipasTO () {
 
     }
 
-    public PipasTO (Integer noPipa, Integer fechaRegistro, String nominaRegistro) {
+    public PipasTO (Integer noPipa, Integer porcentajeLlenado, Long fechaRegistro, String nominaRegistro) {
         this.noPipa = noPipa;
+        this.porcentajeLlenado = porcentajeLlenado;
         this.fechaRegistro = fechaRegistro;
         this.nominaRegistro = nominaRegistro;
     }
@@ -27,11 +29,19 @@ public class PipasTO {
         this.noPipa = noPipa;
     }
 
-    public Integer getFechaRegistro() {
+    public Integer getPorcentajeLlenado() {
+        return porcentajeLlenado;
+    }
+
+    public void setPorcentajeLlenado(Integer porcentajeLlenado) {
+        this.porcentajeLlenado = porcentajeLlenado;
+    }
+
+    public Long getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(Integer fechaRegistro) {
+    public void setFechaRegistro(Long fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 

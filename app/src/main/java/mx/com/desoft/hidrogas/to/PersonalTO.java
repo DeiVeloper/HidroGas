@@ -12,7 +12,7 @@ public class PersonalTO {
     private String apellidoMaterno;
     private String password;
     private Integer noPipa;
-    private Integer fechaRegistro;
+    private Long fechaRegistro;
     private String nominaRegistro;
     private Integer tipoEmpleado;
 
@@ -29,7 +29,7 @@ public class PersonalTO {
         this.tipoEmpleado = tipoEmpleado;
     }
 
-    public PersonalTO(String nomina, String nombre, String apellidoPaterno, String apellidoMaterno, String password, Integer noPipa, Integer fechaRegistro,
+    public PersonalTO(String nomina, String nombre, String apellidoPaterno, String apellidoMaterno, String password, Integer noPipa, Long fechaRegistro,
                       String nominaRegistro, Integer tipoEmpleado) {
         this.nombre = nombre;
         this.nomina = nomina;
@@ -91,11 +91,11 @@ public class PersonalTO {
         this.noPipa = noPipa;
     }
 
-    public Integer getFechaRegistro(){
+    public Long getFechaRegistro(){
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(Integer fechaRegistro){
+    public void setFechaRegistro(Long fechaRegistro){
         this.fechaRegistro = fechaRegistro;
     }
 
