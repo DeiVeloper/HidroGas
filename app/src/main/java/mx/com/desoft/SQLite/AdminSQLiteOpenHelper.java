@@ -5,8 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import mx.com.desoft.hidrogas.model.Empleado;
@@ -52,17 +54,16 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     public void addContact(String usuario, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues registro = new ContentValues();
         registro.put("nominaEmpleado", usuario);
-        registro.put("nombre", "DAvid");
+        registro.put("nombre", "Carlos David");
         registro.put("apellidoPaterno", "Castro");
         registro.put("apellidoMaterno", "Aguilar");
         registro.put("password", password);
         registro.put("noPipa", 1);
-        registro.put("fechaRegistro", 1);
-        registro.put("nominaRegistro", "203040");
-        registro.put("tipoEmpleado", 2);
+        registro.put("fechaRegistro", getFechaActual());
+        registro.put("nominaRegistro", "130191");
+        registro.put("tipoEmpleado", 1);
 
         // Inserting Row
         db.insert("Empleados", null, registro);
@@ -102,6 +103,14 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    private Integer getFechaActual(){
+        Calendar fecha = Calendar.getInstance();
+        int year = fecha.get(Calendar.YEAR);
+        int month = fecha.get(Calendar.MONTH) + 1;
+        int day = fecha.get(Calendar.DAY_OF_MONTH);
+        return Integer.valueOf(day+""+month+""+year);
     }
 }
 

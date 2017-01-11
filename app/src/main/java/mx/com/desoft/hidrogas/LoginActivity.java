@@ -23,16 +23,18 @@ import android.widget.Toast;
 import java.util.List;
 
 import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
+import mx.com.desoft.hidrogas.bussines.PersonalBussines;
 import mx.com.desoft.hidrogas.model.Empleado;
 
 public class LoginActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
-    AdminSQLiteOpenHelper dataBase;
+    AdminSQLiteOpenHelper dataBase = new AdminSQLiteOpenHelper(this);
 
     private EditText editTextUsuario;
     private EditText editTextPassword;
-    private Button btnLogin;
+    private Button btnLogin, btnAgregarRegistro;
+    private PersonalBussines  personalBussines = new PersonalBussines();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,23 +49,26 @@ public class LoginActivity extends AppCompatActivity {
                 String usuario = editTextUsuario.getText().toString();
                 String password = editTextPassword.getText().toString();
                 if(isFormValid(usuario,password)){
-                    goToMain();
-                    saveOnPreferences(usuario,password);
-
+                    if(personalBussines.getUserDataBase(getApplication(), usuario, password) != null){
+                        goToMain();
+                        saveOnPreferences(usuario,password);
+                    }   else    {
+                        Toast.makeText(getApplication(), "Usaurio invalido solo se permiten administradores", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
 
-        /*btnAgregarRegistro.setOnClickListener(new View.OnClickListener() {
+        btnAgregarRegistro.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
 
-                bd.addContact(usuario.getText().toString(),password.getText().toString());
+                dataBase.addContact(editTextUsuario.getText().toString(),editTextPassword.getText().toString());
 
-                Toast toast = Toast.makeText(activity, "Usuario:" + usuario.getText() + " Password: " + password.getText(), Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(getApplication(), "Usuario:" + editTextUsuario.getText() + " Password: " + editTextPassword.getText(), Toast.LENGTH_LONG);
                 toast.show();
             }
-        });*/
+        });
     }
 
     private void saveOnPreferences(String usuario, String password){
@@ -75,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setCredentialsIfExist(){
         String usuario = preferences.getString("usuario", "");;
-        String password =preferences.getString("password", "");;
+        String password = preferences.getString("password", "");;
         if (!TextUtils.isEmpty(usuario) && !TextUtils.isEmpty(password)) {
             editTextUsuario.setText(usuario);
             editTextPassword.setText(password);
@@ -90,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btnLogin);
         editTextUsuario = (EditText) findViewById(R.id.email);
         editTextPassword = (EditText) findViewById(R.id.password);
+        btnAgregarRegistro = (Button) findViewById(R.id.btnAgregarRegistro);
     }
 
     private void goToMain(){

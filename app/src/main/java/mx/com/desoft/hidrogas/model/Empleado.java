@@ -13,7 +13,7 @@ public class Empleado {
     private String apellidoMaterno;
     private String password;
     private Integer noPipa;
-    private Date fechaRegistro;
+    private Integer fechaRegistro;
     private String nominaRegistro;
     private Integer tipoEmpleado;
 
@@ -23,7 +23,7 @@ public class Empleado {
 
     public Empleado(String nominaEmpleado, String nombre,
                     String apellidoPaterno, String apellidoMaterno, String password,
-                    Integer noPipa, Date fechaRegistro, String nominaRegistro, Integer tipoEmpleado) {
+                    Integer noPipa, Integer fechaRegistro, String nominaRegistro, Integer tipoEmpleado) {
         this.nominaEmpleado = nominaEmpleado;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -83,11 +83,11 @@ public class Empleado {
         this.noPipa = noPipa;
     }
 
-    public Date getFechaRegistro() {
+    public Integer getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(Date fechaRegistro) {
+    public void setFechaRegistro(Integer fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 

@@ -6,7 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
+import mx.com.desoft.hidrogas.model.Empleado;
 import mx.com.desoft.hidrogas.to.PersonalTO;
 
 /**
@@ -21,7 +25,7 @@ public class PersonalBussines {
     }
 
     public void guardar(Context context, PersonalTO personalTO, boolean flgEditar) {
-        baseDatos = new AdminSQLiteOpenHelper(context, "hidroGas", null, 1);
+        baseDatos = new AdminSQLiteOpenHelper(context);
         SQLiteDatabase bd = baseDatos.getWritableDatabase();
 
         ContentValues registro = new ContentValues();
@@ -44,7 +48,7 @@ public class PersonalBussines {
 
     public Cursor buscar(Context context, PersonalTO personalTO) {
         String condicion = "";
-        baseDatos = new AdminSQLiteOpenHelper(context, "hidroGas", null, 1);
+        baseDatos = new AdminSQLiteOpenHelper(context);
         SQLiteDatabase bd = baseDatos.getWritableDatabase();
         if (!personalTO.getNomina().equals("")) {
             condicion += " AND nominaEmpleado = '" + personalTO.getNomina() + "' ";
@@ -58,8 +62,34 @@ public class PersonalBussines {
     }
 
     public void eliminar(Context context, PersonalTO personalTO) {
-        baseDatos = new AdminSQLiteOpenHelper(context, "hidroGas", null, 1);
+        baseDatos = new AdminSQLiteOpenHelper(context);
         SQLiteDatabase bd = baseDatos.getWritableDatabase();
         bd.delete("Empleados", "nominaEmpleado = " + personalTO.getNomina(), null);
+    }
+
+    public PersonalTO getUserDataBase(Context context, String user, String pass){
+        baseDatos = new AdminSQLiteOpenHelper(context);
+        SQLiteDatabase bd = baseDatos.getWritableDatabase();
+
+        String selectQuery = "SELECT nominaEmpleado, nombre, apellidoPaterno, apellidoMaterno, password, noPipa, fechaRegistro, nominaRegistro, tipoEmpleado FROM Empleados" +
+                " WHERE nominaEmpleado = " + user + " AND password = " +pass;
+        PersonalTO usuario = null;
+
+        Cursor cursor = bd.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                usuario = new PersonalTO();
+                usuario.setNomina(cursor.getString(0));
+                usuario.setNombre(cursor.getString(1));
+                usuario.setApellidoPaterno(cursor.getString(2));
+                usuario.setApellidoMaterno(cursor.getString(3));
+                usuario.setPassword(cursor.getString(4));
+                usuario.setNoPipa(cursor.getInt(5));
+                usuario.setFechaRegistro(cursor.getInt(6));
+                usuario.setNominaRegistro(cursor.getColumnName(7));
+                usuario.setTipoEmpleado(cursor.getInt(8));
+            } while (cursor.moveToNext());
+        }
+        return usuario;
     }
 }

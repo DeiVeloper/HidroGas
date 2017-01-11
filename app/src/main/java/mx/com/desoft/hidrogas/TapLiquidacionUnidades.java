@@ -15,6 +15,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +35,7 @@ import mx.com.desoft.hidrogas.to.ViajesTO;
 
 public class TapLiquidacionUnidades extends Fragment{
     private static final Integer CHOFER = 2;
+    private static final Integer AYUDANTE = 3;
 
     private ViewGroup viewGroup;
     private Button btnImprimir, btnGuardarLiquidacion;
@@ -98,10 +101,20 @@ public class TapLiquidacionUnidades extends Fragment{
 
         btnImprimir.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
+                Long fecha = new Date().getTime();
 
-                Context context = viewGroup.getContext();
-                Toast toast = Toast.makeText(context, "Hola ", Toast.LENGTH_LONG);
-                toast.show();
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    Date fechaS = format.parse(fecha.toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                String fechal = format.format(fecha);
+
+                editTextEconomico.setText(fechal);
+                Toast.makeText(viewGroup.getContext(), "Hola " + fecha.intValue() + "fecha 2: "+ fechal, Toast.LENGTH_LONG).show();
+                Log.d("Error "  + fecha, "Fecha " + fechal);
+
                 //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 //startActivity(intent);
             }
@@ -123,23 +136,23 @@ public class TapLiquidacionUnidades extends Fragment{
         if (spinnerRuta.getSelectedItemId() == 0 ){
             Toast.makeText(viewGroup.getContext(),"Favor de seleccionar una Ruta.", Toast.LENGTH_LONG).show();
             return false;
-        } else if(!TextUtils.isEmpty(editTextEconomico.getText().toString())){
+        } else if(TextUtils.isEmpty(editTextEconomico.getText().toString())){
             Toast.makeText(viewGroup.getContext(),"El campo Economico no puede ir vacio, favor de validar.", Toast.LENGTH_LONG).show();
             return false;
-        } else if(!TextUtils.isEmpty(editTextEconomico.getText().toString())){
-            Toast.makeText(viewGroup.getContext(),"El campo Economico no puede ir vacio, favor de validar.", Toast.LENGTH_LONG).show();
+        } else if(TextUtils.isEmpty(editTextSalida_1.getText().toString())){
+            Toast.makeText(viewGroup.getContext(),"Debe de ingresar al menos un viaje, favor de validar.", Toast.LENGTH_LONG).show();
             return false;
         }
         return true;
     }
 
     private void setLiquidacion(){
-
+        Long fecha = new Date().getTime();
         liquidacionesTO = new LiquidacionesTO();
         liquidacionesTO.setNoPipa(((Long)spinnerRuta.getSelectedItemId()).intValue());
         liquidacionesTO.setNominaChofer(editTextNoChofer.getText().toString());
         liquidacionesTO.setNominaAyudante(editTextNoAyudante.getText().toString());
-        liquidacionesTO.setFechaRegistro(getFechaACtual());
+        liquidacionesTO.setFechaRegistro(((Long)new Date().getTime()).intValue());
         liquidacionesTO.setNominaRegistro("000001");
         liquidacionesTO.setVariacion(100);//Integer.parseInt(tex    tViewVariacion.getText().toString()));
 
@@ -179,7 +192,7 @@ public class TapLiquidacionUnidades extends Fragment{
             if (personal.getTipoEmpleado().equals(CHOFER)){
                 editTextNoChofer.setText(personal.getNomina());
                 textViewNombreChofer.setText(personal.getNombre() + " " + personal.getApellidoPaterno() + " " + personal.getApellidoMaterno());
-            }   else    {
+            }   else  /*if (personal.getTipoEmpleado().equals(AYUDANTE)) */{
                 editTextNoAyudante.setText(personal.getNomina());
                 textViewNombreAyudante.setText(personal.getNombre() + " " + personal.getApellidoPaterno() + " " + personal.getApellidoMaterno());
             }
@@ -196,12 +209,12 @@ public class TapLiquidacionUnidades extends Fragment{
         }
     }
 
-    private Integer getFechaACtual(){
+    private Integer getFechaActual(){
         Calendar fecha = Calendar.getInstance();
         int year = fecha.get(Calendar.YEAR);
         int month = fecha.get(Calendar.MONTH) + 1;
         int day = fecha.get(Calendar.DAY_OF_MONTH);
-        return Integer.getInteger(day+""+month+""+year);
+        return Integer.valueOf(day+""+month+""+year);
     }
 
 }

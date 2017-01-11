@@ -12,23 +12,23 @@ import android.widget.Button;
  */
 
 public class AdministradorPipas extends Activity {
-    Button btnEditar, btnEliminar, btnAgregar, btnRegresar, btnBuscar;
+    Button /*btnEditar,*/ btnEliminar, btnAgregar, btnRegresar, btnBuscar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_administrador_pipas);
-        btnEditar = (Button)findViewById(R.id.btnEditar);
+        //btnEditar = (Button)findViewById(R.id.btnEditar);
         btnEliminar = (Button)findViewById(R.id.btnEliminar);
         btnAgregar = (Button)findViewById(R.id.btnAgregar);
         btnRegresar = (Button)findViewById(R.id.btnRegresar);
         btnBuscar = (Button)findViewById(R.id.btnBuscar);
 
-        btnEditar.setOnClickListener(new View.OnClickListener() {
+        /*btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 chargePage(LiquidacionUnidades.class);
             }
-        });
+        });*/
         btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

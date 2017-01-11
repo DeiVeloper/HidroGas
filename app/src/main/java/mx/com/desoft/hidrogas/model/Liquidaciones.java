@@ -12,7 +12,7 @@ public class Liquidaciones {
     private String  nominaAyudante;
     private Integer noPipa;
     private Integer variacion;
-    private Date    fechaRegistro;
+    private Integer fechaRegistro;
     private String  nominaRegistro;
 
     public Integer getIdLiquidacion() {
@@ -55,11 +55,11 @@ public class Liquidaciones {
         this.variacion = variacion;
     }
 
-    public Date getFechaRegistro() {
+    public Integer getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(Date fechaRegistro) {
+    public void setFechaRegistro(Integer fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 

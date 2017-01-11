@@ -51,7 +51,7 @@ public class AgregarEditar extends Fragment {
         personalTO.setFechaRegistro(1);
         personalTO.setNominaRegistro("203040");
         personalTO.setTipoEmpleado(1);
-        personalBussines.guardar(viewGroup, personalTO);
+        personalBussines.guardar(view.getContext(), personalTO,false);
         Toast.makeText(viewGroup.getContext(), "El usuario con nómina: " + personalTO.getNomina() + " se ha registrado correctamente.", Toast.LENGTH_SHORT).show();
     }
 }
