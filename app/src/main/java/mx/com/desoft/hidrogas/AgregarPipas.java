@@ -1,6 +1,7 @@
 package mx.com.desoft.hidrogas;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -59,7 +60,10 @@ public class AgregarPipas extends Activity {
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                Intent go = new Intent(getApplicationContext(), MainActivity.class);
+                go.putExtra("viewpager_position", 2);
+                startActivity(go);
+                //onBackPressed();
             }
         });
     }

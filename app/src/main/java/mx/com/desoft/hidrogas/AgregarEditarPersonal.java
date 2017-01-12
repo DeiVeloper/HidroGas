@@ -1,6 +1,7 @@
 package mx.com.desoft.hidrogas;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import mx.com.desoft.hidrogas.bussines.CatalogoBussines;
 import mx.com.desoft.hidrogas.bussines.PersonalBussines;
+import mx.com.desoft.hidrogas.bussines.PipasBussines;
 import mx.com.desoft.hidrogas.to.PersonalTO;
 
 /**
@@ -35,9 +37,11 @@ public class AgregarEditarPersonal extends Activity {
     private boolean flgEditar;
     private Spinner sprTipoEmpleado, sprPipa;
     private CatalogoBussines catalogoBussines;
+    private PipasBussines pipasBussines;
     private Long fecha;
     private KeyListener keyListenerPass;
     private Bundle bundle;
+    private Integer tipoEmpleadoInicial;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,8 @@ public class AgregarEditarPersonal extends Activity {
         catalogoBussines = new CatalogoBussines();
         flgEditar = false;
         personalBussines = new PersonalBussines();
+        pipasBussines = new PipasBussines();
+        tipoEmpleadoInicial = 0;
         bundle = getIntent().getExtras();
         inicializarComponentes();
         cargarEventos();
@@ -102,6 +108,7 @@ public class AgregarEditarPersonal extends Activity {
             }
             if (bundle.containsKey("tipoEmpleado")) {
                 sprTipoEmpleado.setSelection(bundle.getInt("tipoEmpleado"));
+                tipoEmpleadoInicial = bundle.getInt("tipoEmpleado");
             }
         } else {
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -146,39 +153,64 @@ public class AgregarEditarPersonal extends Activity {
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                Intent go = new Intent(getApplicationContext(), MainActivity.class);
+                go.putExtra("viewpager_position", 1);
+                startActivity(go);
+                //onBackPressed();
             }
         });
     }
 
     private void guardar(View view) {
         try {
-            boolean resultadoGuardar;
+            boolean resultadoGuardar = true;
             if (TextUtils.isEmpty(txtNomina.getText().toString()) || TextUtils.isEmpty(txtNombre.getText().toString()) || TextUtils.isEmpty(txtAPaterno.getText().toString())) {
                 Toast.makeText(getApplicationContext(), "Los datos: Nómina, Nombre y Apellido paterno son obligatorios.", Toast.LENGTH_SHORT).show();
             } else if (sprTipoEmpleado.getSelectedItemId() == 0 && TextUtils.isEmpty(txtPass.getText().toString())){
                 Toast.makeText(getApplicationContext(), "La contraseña es obligatoria.", Toast.LENGTH_SHORT).show();
             } else {
-                personalTO.setNomina(txtNomina.getText().toString());
-                personalTO.setNombre(txtNombre.getText().toString());
-                personalTO.setApellidoPaterno(txtAPaterno.getText().toString());
-                personalTO.setApellidoMaterno(txtAMaterno.getText().toString());
-                personalTO.setPassword(txtPass.getText().toString());
-                personalTO.setNoPipa((int) sprPipa.getSelectedItemId());
-                personalTO.setFechaRegistro(fecha);
-                personalTO.setNominaRegistro("203040");
-                personalTO.setTipoEmpleado((int) sprTipoEmpleado.getSelectedItemId());
-                resultadoGuardar = personalBussines.guardar(getApplicationContext(), personalTO, flgEditar);
+                if (sprTipoEmpleado.getSelectedItemId() != 0) {
+                    resultadoGuardar = verificarPipa((int) sprPipa.getSelectedItem(), (int) sprTipoEmpleado.getSelectedItemId());
+                }
                 if (resultadoGuardar) {
-                    Toast.makeText(getApplicationContext(), "El usuario con nómina: " + personalTO.getNomina() + " se ha guardado correctamente.", Toast.LENGTH_SHORT).show();
-                    onCleanForm();
+                    personalTO.setNomina(txtNomina.getText().toString());
+                    personalTO.setNombre(txtNombre.getText().toString());
+                    personalTO.setApellidoPaterno(txtAPaterno.getText().toString());
+                    personalTO.setApellidoMaterno(txtAMaterno.getText().toString());
+                    personalTO.setPassword(txtPass.getText().toString());
+                    personalTO.setNoPipa((int) sprPipa.getSelectedItem());
+                    personalTO.setFechaRegistro(fecha);
+                    personalTO.setNominaRegistro("203040");
+                    personalTO.setTipoEmpleado((int) sprTipoEmpleado.getSelectedItemId());
+                    resultadoGuardar = personalBussines.guardar(getApplicationContext(), personalTO, flgEditar);
+                    if (resultadoGuardar) {
+                        Toast.makeText(getApplicationContext(), "El usuario con nómina: " + personalTO.getNomina() + " se ha guardado correctamente.", Toast.LENGTH_SHORT).show();
+                        onCleanForm();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "El usuario con nómina: " + personalTO.getNomina() + " ya existe.", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(getApplicationContext(), "El usuario con nómina: " + personalTO.getNomina() + " ya existe.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "La pipa: " + sprPipa.getSelectedItem() + " ya tiene un " + sprTipoEmpleado.getSelectedItem() + " asignado.", Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Ha ocurrido un error al guardar el trabajador: " + personalTO.getNombre() + ".", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Ha ocurrido un error al guardar el trabajador: " + txtNombre.getText() + ".", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean verificarPipa(Integer pipa, Integer tipoEmpleado){
+        Cursor resgistroChoferAyudante = pipasBussines.buscarChoferAyudanteByNoPipa(getApplicationContext(), pipa);
+        if (resgistroChoferAyudante.moveToFirst()) {
+            do {
+                if (tipoEmpleado == resgistroChoferAyudante.getInt(8)) {
+                    if (flgEditar && tipoEmpleadoInicial == resgistroChoferAyudante.getInt(8)) {
+                        return true;
+                    }
+                    return false;
+                }
+            } while (resgistroChoferAyudante.moveToNext());
+        }
+        return true;
     }
 
     public void onCleanForm() {
