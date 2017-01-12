@@ -9,16 +9,20 @@ public class PipasTO {
     private Integer porcentajeLlenado;
     private Long fechaRegistro;
     private String nominaRegistro;
+    private String nombreChofer;
+    private String nombreAyudante;
 
     public PipasTO () {
 
     }
 
-    public PipasTO (Integer noPipa, Integer porcentajeLlenado, Long fechaRegistro, String nominaRegistro) {
+    public PipasTO (Integer noPipa, Integer porcentajeLlenado, Long fechaRegistro, String nominaRegistro, String nombreChofer, String nombreAyudante) {
         this.noPipa = noPipa;
         this.porcentajeLlenado = porcentajeLlenado;
         this.fechaRegistro = fechaRegistro;
         this.nominaRegistro = nominaRegistro;
+        this.nombreChofer = nombreChofer;
+        this.nombreAyudante = nombreAyudante;
     }
 
     public Integer getNoPipa() {
@@ -53,4 +57,19 @@ public class PipasTO {
         this.nominaRegistro = nominaRegistro;
     }
 
+    public String getNombreChofer() {
+        return nombreChofer;
+    }
+
+    public void setNombreChofer(String nombreChofer) {
+        this.nombreChofer = nombreChofer;
+    }
+
+    public String getNombreAyudante() {
+        return nombreAyudante;
+    }
+
+    public void setNombreAyudante(String nombreAyudante) {
+        this.nombreAyudante = nombreAyudante;
+    }
 }

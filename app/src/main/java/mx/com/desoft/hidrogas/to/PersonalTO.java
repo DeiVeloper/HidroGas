@@ -15,9 +15,15 @@ public class PersonalTO {
     private Long fechaRegistro;
     private String nominaRegistro;
     private Integer tipoEmpleado;
+    private String nombreTipoEmpleado;
 
     public PersonalTO() {
 
+    }
+
+    public PersonalTO(Integer tipoEmpleado, String nombreTipoEmpleado){
+        this.tipoEmpleado = tipoEmpleado;
+        this.nombreTipoEmpleado = nombreTipoEmpleado;
     }
 
     public PersonalTO(String nomina, String nombre, String apellidoPaterno, String apellidoMaterno, Integer noPipa, Integer tipoEmpleado) {
