@@ -68,7 +68,8 @@ public class ListaPipas extends Fragment {
     }
 
     public void buscar() {
-        Integer pipa = 0;
+        Integer pipa = 0, porcentajeLlenado;
+        String  chofer, ayudante;
         if (!TextUtils.isEmpty(txtPipa.getText().toString())){
             pipa = Integer.parseInt (txtPipa.getText().toString());
         }
@@ -77,11 +78,23 @@ public class ListaPipas extends Fragment {
         if (registros.moveToFirst()) {
             do {
                 Cursor resgistroLlenado = pipasBussines.buscarLlenadoByNoPipa(viewGroup.getContext(), registros.getInt(0));
-                Integer porcentajeLlenado = 0;
+                porcentajeLlenado = 0;
                 if (resgistroLlenado.moveToFirst()) {
                     porcentajeLlenado = resgistroLlenado.getInt(2);
                 }
-                pipasTOArray.add(new PipasTO(registros.getInt(0), porcentajeLlenado, registros.getLong(1), registros.getString(2)));
+                Cursor resgistroChoferAyudante = pipasBussines.buscarChoferAyudanteByNoPipa(viewGroup.getContext(), registros.getInt(0));
+                chofer = "";
+                ayudante = "";
+                if (resgistroChoferAyudante.moveToFirst()) {
+                    do {
+                        if (resgistroChoferAyudante.getInt(8) == 1) {
+                            chofer = resgistroChoferAyudante.getString(1) + " " + resgistroChoferAyudante.getString(2) + " " + resgistroChoferAyudante.getString(3);
+                        } else if (resgistroChoferAyudante.getInt(8) == 2){
+                            ayudante = resgistroChoferAyudante.getString(1) + " " + resgistroChoferAyudante.getString(2) + " " + resgistroChoferAyudante.getString(3);
+                        }
+                    } while (resgistroChoferAyudante.moveToNext());
+                }
+                pipasTOArray.add(new PipasTO(registros.getInt(0), porcentajeLlenado, registros.getLong(1), registros.getString(2), chofer, ayudante));
             } while (registros.moveToNext());
             this.adapterPipas = new AdapterPipas(viewGroup.getContext(), R.layout.list_items_pipas, pipasTOArray);
             listView = (ListView)viewGroup.findViewById(R.id.lstPipas);
