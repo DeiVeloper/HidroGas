@@ -36,7 +36,7 @@ public class AdapterPersonal extends ArrayAdapter<PersonalTO> {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             item = inflater.inflate(layoutResourceId, parent, false);
             personalTOWrapper = new PersonalTOWrapper();
-            personalTOWrapper.nomina = (TextView) item.findViewById(R.id.txtNoNomina);
+            personalTOWrapper.nomina = (TextView) item.findViewById(R.id.txtNomina);
             personalTOWrapper.nombre = (TextView) item.findViewById(R.id.txtNombre);
             personalTOWrapper.pipa = (TextView) item.findViewById(R.id.txtPipa);
             item.setTag(personalTOWrapper);
@@ -45,7 +45,7 @@ public class AdapterPersonal extends ArrayAdapter<PersonalTO> {
         }
         personalTO = personalTOs.get(position);
         personalTOWrapper.nomina.setText(personalTO.getNomina());
-        personalTOWrapper.nombre.setText(personalTO.getNombre() + personalTO.getApellidoPaterno() + personalTO.getApellidoMaterno());
+        personalTOWrapper.nombre.setText(personalTO.getNombre() + " " + personalTO.getApellidoPaterno() + " " + personalTO.getApellidoMaterno());
         personalTOWrapper.pipa.setText(personalTO.getNoPipa().toString());
         return item;
     }

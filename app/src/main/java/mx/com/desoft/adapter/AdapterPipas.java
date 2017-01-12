@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import mx.com.desoft.hidrogas.R;
@@ -38,20 +37,21 @@ public class AdapterPipas extends ArrayAdapter<PipasTO> {
             item = inflater.inflate(layoutResourceId, parent, false);
             pipasTOWrapper = new AdapterPipas.PipasTOWrapper();
             pipasTOWrapper.pipa = (TextView) item.findViewById(R.id.txtPipa);
-            pipasTOWrapper.fechaRegistro = (TextView) item.findViewById(R.id.txtFechaRegistro);
+            pipasTOWrapper.porcentaje = (TextView) item.findViewById(R.id.txtPorcentaje);
+            pipasTOWrapper.chofer = (TextView) item.findViewById(R.id.txtChofer);
+            pipasTOWrapper.ayudante = (TextView) item.findViewById(R.id.txtAyudante);
             item.setTag(pipasTOWrapper);
         } else {
             pipasTOWrapper = (AdapterPipas.PipasTOWrapper) item.getTag();
         }
         pipasTO = pipasTOs.get(position);
-        SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
-        String dateText = df2.format(pipasTO.getFechaRegistro());
         pipasTOWrapper.pipa.setText(pipasTO.getNoPipa().toString());
-        pipasTOWrapper.fechaRegistro.setText(dateText);
+        pipasTOWrapper.porcentaje.setText(pipasTO.getPorcentajeLlenado().toString());
+        pipasTOWrapper.chofer.setText(pipasTO.getNombreChofer());
+        pipasTOWrapper.ayudante.setText(pipasTO.getNombreAyudante());
         return item;
     }
     static class PipasTOWrapper {
-        TextView pipa;
-        TextView fechaRegistro;
+        TextView pipa, porcentaje, chofer, ayudante;
     }
 }
