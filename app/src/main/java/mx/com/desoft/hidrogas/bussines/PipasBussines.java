@@ -56,6 +56,16 @@ public class PipasBussines {
         return registros;
     }
 
+    public Cursor buscarChoferAyudanteByNoPipa(Context context, Integer pipa) {
+        String condicion = "";
+        bd = getBase(context);
+        if (pipa != 0) {
+            condicion += " AND noPipa = " + pipa;
+        }
+        registros = bd.rawQuery("SELECT * FROM Empleados WHERE 1=1 " + condicion, null);
+        return registros;
+    }
+
     public Cursor buscarByNoPipa(Context context, Integer pipa) {
         String condicion = "";
         bd = getBase(context);
