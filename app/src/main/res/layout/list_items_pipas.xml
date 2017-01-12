@@ -9,9 +9,19 @@
         android:layout_alignParentTop="true" android:text="Pipa"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     <TextView
-        android:id="@+id/txtFechaRegistro" android:layout_width="wrap_content"
+        android:id="@+id/txtPorcentaje" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_alignParentLeft="true"
+        android:text="Porcentaje de llenado" android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginLeft="150dp"/>
+    <TextView
+        android:id="@+id/txtChofer" android:layout_width="wrap_content"
         android:layout_height="wrap_content" android:layout_alignParentLeft="true"
         android:text="Fecha Registro" android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_marginLeft="250dp"/>
+        android:layout_marginLeft="300dp"/>
+    <TextView
+        android:id="@+id/txtAyudante" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_alignParentLeft="true"
+        android:text="Fecha Registro" android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginLeft="500dp"/>
 
 </RelativeLayout>

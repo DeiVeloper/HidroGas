@@ -29,7 +29,8 @@
             android:id="@+id/txtEconomico" android:layout_marginTop="50dp"
             android:layout_width="match_parent" android:layout_height="50dp"
             android:layout_gravity="left" android:layout_weight="1"
-            android:hint="Económico" android:textSize="23sp"/>
+            android:hint="Económico" android:textSize="23sp"
+            android:inputType="number"/>
 
         <Button
             android:text="Guardar" android:layout_width="wrap_content"
