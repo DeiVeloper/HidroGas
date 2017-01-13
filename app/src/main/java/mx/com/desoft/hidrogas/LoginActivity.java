@@ -76,11 +76,12 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("usuario", usuario);// Usuario que se enceuntra en la base de datos y es administrador
         editor.putString("password", password); // contraseña del usuario logueado
         editor.apply();
+
     }
 
     private void setCredentialsIfExist(){
-        String usuario = preferences.getString("usuario", "");;
-        String password = preferences.getString("password", "");;
+        String usuario = preferences.getString("usuario", "");
+        String password = preferences.getString("password", "");
         if (!TextUtils.isEmpty(usuario) && !TextUtils.isEmpty(password)) {
             editTextUsuario.setText(usuario);
             editTextPassword.setText(password);
@@ -120,6 +121,10 @@ public class LoginActivity extends AppCompatActivity {
     private boolean getUsarioLogin(String usuario, String password){
         // consulta para traer el usuario de la base de datos
         return true;
+    }
+
+    public String  getUsuarioLogueado(){
+        return preferences.getString("usuario", "");
     }
 
 }

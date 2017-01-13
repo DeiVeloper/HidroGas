@@ -15,15 +15,20 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/titulo"
+        android:layout_above="@+id/btnExportarExcel"/>
+
     <TableLayout
         android:id="@+id/titulo"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="0,1,2,3"
         android:collapseColumns="50dp"
-        android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
         <TableRow
             android:background="@color/PrimaryColor">
@@ -52,6 +57,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_column="1"
+                android:layout_gravity="center"
+                android:textSize="25dp"
                 android:id="@+id/labelFechaBusqueda" />
 
             <Button
@@ -74,15 +81,8 @@
                 android:layout_gravity="left"
                 android:textSize="20dp"
                 android:textColor="@android:color/white" />
-        </TableRow>+
+        </TableRow>
 
     </TableLayout>
-
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/titulo"
-        android:layout_above="@+id/btnExportarExcel"/>
 
 </RelativeLayout>

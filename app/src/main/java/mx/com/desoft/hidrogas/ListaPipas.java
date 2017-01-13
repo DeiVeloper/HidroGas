@@ -110,7 +110,7 @@ public class ListaPipas extends Fragment {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater menuInflater = getActivity().getMenuInflater();
-        menuInflater.inflate(R.menu.menu_pipas, menu);
+        //menuInflater.inflate(R.menu.menu_pipas, menu);
     }
 
     @Override
@@ -139,12 +139,12 @@ public class ListaPipas extends Fragment {
                 });
                 alertDialog.show();
                 return true;
-            case R.id.llenar:
+            /*case R.id.llenar:
                 Intent accion = new Intent(viewGroup.getContext(), LlenarPipa.class);
                 accion.putExtra("noPipa", pipasTOArray.get(adapterContextMenuInfo.position).getNoPipa().toString());
                 accion.putExtra("porcentajeLlenado", pipasTOArray.get(adapterContextMenuInfo.position).getPorcentajeLlenado().toString());
                 chargePage(accion);
-                return true;
+                return true;*/
             default:
                 return super.onContextItemSelected(item);
         }

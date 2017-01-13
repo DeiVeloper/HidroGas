@@ -602,6 +602,17 @@
         android:textSize="20dp"/>
 
 
+    <TextView
+        android:id="@+id/labelAlerta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="¡ALERTA! "
+        android:textColor="#fc0202"
+        android:textColorHint="#fc0202"
+        android:layout_marginTop="10dp"
+        android:textAlignment="textStart"
+        android:layout_below="@+id/input_variacion"
+        android:textSize="20dp"/>
 
 
 

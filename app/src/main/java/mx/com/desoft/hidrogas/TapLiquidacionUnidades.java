@@ -1,6 +1,7 @@
 package mx.com.desoft.hidrogas;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -41,12 +42,13 @@ public class TapLiquidacionUnidades extends Fragment{
     private Button btnImprimir, btnGuardarLiquidacion;
     private EditText editTextEconomico, editTextNoChofer, editTextNoAyudante, editTextSalida_1, editTextLlegada_1, editTextTotInicial_1, editTextTotFinal_1,
         editTextSalida_2, editTextLlegada_2, editTextTotInicial_2, editTextTotFinal_2, editTextSalida_3, editTextLlegada_3, editTextTotInicial_3, editTextTotFinal_3;
-    private TextView textViewNombreChofer, textViewNombreAyudante, textViewVariacion;
+    private TextView textViewNombreChofer, textViewNombreAyudante, labelAlerta, textViewVariacion;
     private Spinner spinnerRuta;
     private LiquidacionBussines liquidacionBussines;
     private UnidadesBussines unidadesBussines;
     private LiquidacionesTO liquidacionesTO;
     private List<ViajesTO> viajesTO;
+    private LoginActivity login;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,6 +81,7 @@ public class TapLiquidacionUnidades extends Fragment{
         textViewNombreChofer = (TextView) viewGroup.findViewById(R.id.input_nombreChofer);
         editTextNoAyudante = (EditText) viewGroup.findViewById(R.id.input_ayudante);
         textViewNombreAyudante = (TextView) viewGroup.findViewById(R.id.input_nombreAyudante);
+        labelAlerta = (TextView) viewGroup.findViewById(R.id.labelAlerta);
         textViewVariacion = (TextView) viewGroup.findViewById(R.id.input_variacion);
     }
 
@@ -147,14 +150,21 @@ public class TapLiquidacionUnidades extends Fragment{
     }
 
     private void setLiquidacion(){
-        Long fecha = new Date().getTime();
+        login = new LoginActivity();
         liquidacionesTO = new LiquidacionesTO();
         liquidacionesTO.setNoPipa(((Long)spinnerRuta.getSelectedItemId()).intValue());
         liquidacionesTO.setNominaChofer(editTextNoChofer.getText().toString());
         liquidacionesTO.setNominaAyudante(editTextNoAyudante.getText().toString());
-        liquidacionesTO.setFechaRegistro(((Long)new Date().getTime()).intValue());
-        liquidacionesTO.setNominaRegistro("000001");
-        liquidacionesTO.setVariacion(100);//Integer.parseInt(tex    tViewVariacion.getText().toString()));
+        liquidacionesTO.setFechaRegistro(new Date().getTime());
+        liquidacionesTO.setNominaRegistro(login.getUsuarioLogueado());
+        if (!TextUtils.isEmpty(labelAlerta.getText().toString())){
+            liquidacionesTO.setVariacion(Integer.valueOf(textViewVariacion.getText().toString()));
+            liquidacionesTO.setAlerta(1);
+        } else{
+            liquidacionesTO.setVariacion(0);
+            liquidacionesTO.setAlerta(0);
+        }
+
 
     }
 

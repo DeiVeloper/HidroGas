@@ -27,19 +27,23 @@ public class ReporteUnidadesBussines {
         sqLiteDatabase = baseDatos.getWritableDatabase();
     }
 
-    public List<LlenadoTO> getUnidadLlenadoByFecha(Integer fechaBusqueda){
+    public List<LlenadoTO> getUnidadLlenadoByFecha(Long fechaBusqueda){
         List<LlenadoTO> lista = new ArrayList<>();
-        String selectQuery = "SELECT  idLlenado, noPipa, porcentajeLlenado, fechaRegistro, nominaRegistro FROM Llenado";
+        StringBuilder selectQuery = new StringBuilder();
+        selectQuery.append("    SELECT  noPipa, porcentajeLlenado, fechaRegistro " );
+        selectQuery.append("    FROM    Liquidacion liquidacion, ");
+        selectQuery.append("            Llenado llenado ");
+        selectQuery.append("    WHERE   liquidacion.noPipa = llenado.noPipa" );
+        selectQuery.append("    AND     liquidacion.variacion = 1 ");
+        selectQuery.append("    AND     liquidacion.fechaRegistro = " + fechaBusqueda);
 
-        Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
+        Cursor cursor = sqLiteDatabase.rawQuery(selectQuery.toString(), null);
         if (cursor.moveToFirst()) {
             do {
                 LlenadoTO unidad = new LlenadoTO();
-                unidad.setIdLlenado(cursor.getInt(0));
-                unidad.setNoPipa(cursor.getInt(1));
-                unidad.setPorcentajeLlenado(cursor.getInt(2));
-                //unidad.setFechaRegistro(cursor.getInt(3));
-                unidad.setNominaRegistro(cursor.getColumnName(4));
+                unidad.setNoPipa(cursor.getInt(0));
+                unidad.setPorcentajeLlenado(cursor.getInt(1));
+                unidad.setFechaRegistro(cursor.getLong(2));
                 lista.add(unidad);
             } while (cursor.moveToNext());
         }

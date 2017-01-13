@@ -48,7 +48,7 @@ public class AgregarEditar extends Fragment {
         personalTO.setApellidoMaterno(txtAMaterno.getText().toString());
         personalTO.setPassword(txtPass.getText().toString());
         personalTO.setNoPipa(1);
-        personalTO.setFechaRegistro(1);
+        personalTO.setFechaRegistro(1L);
         personalTO.setNominaRegistro("203040");
         personalTO.setTipoEmpleado(1);
         personalBussines.guardar(view.getContext(), personalTO,false);

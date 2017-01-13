@@ -14,6 +14,7 @@ public class Liquidaciones {
     private Integer variacion;
     private Integer fechaRegistro;
     private String  nominaRegistro;
+    private Integer alerta;
 
     public Integer getIdLiquidacion() {
         return idLiquidacion;
@@ -69,5 +70,13 @@ public class Liquidaciones {
 
     public void setNominaRegistro(String nominaRegistro) {
         this.nominaRegistro = nominaRegistro;
+    }
+
+    public Integer getAlerta() {
+        return alerta;
+    }
+
+    public void setAlerta(Integer alerta) {
+        this.alerta = alerta;
     }
 }

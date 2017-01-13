@@ -18,7 +18,7 @@ public class AdministradorPipas extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_administrador_pipas);
         //btnEditar = (Button)findViewById(R.id.btnEditar);
-        btnEliminar = (Button)findViewById(R.id.btnEliminar);
+        //btnEliminar = (Button)findViewById(R.id.btnEliminar);
         btnAgregar = (Button)findViewById(R.id.btnAgregar);
         btnRegresar = (Button)findViewById(R.id.btnRegresar);
         btnBuscar = (Button)findViewById(R.id.btnBuscar);

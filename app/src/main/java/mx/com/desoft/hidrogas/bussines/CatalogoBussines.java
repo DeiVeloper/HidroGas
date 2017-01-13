@@ -18,14 +18,14 @@ public class CatalogoBussines {
     }
 
     public Cursor getTipoEmpleado(Context context) {
-        baseDatos = new AdminSQLiteOpenHelper(context, "hidroGas", null, 1);
+        baseDatos = new AdminSQLiteOpenHelper(context);
         SQLiteDatabase bd = baseDatos.getWritableDatabase();
         registros = bd.rawQuery("SELECT * FROM tipoEmpleados WHERE 1=1 ", null);
         return registros;
     }
 
     public Cursor getPipas(Context context) {
-        baseDatos = new AdminSQLiteOpenHelper(context, "hidroGas", null, 1);
+        baseDatos = new AdminSQLiteOpenHelper(context);
         SQLiteDatabase bd = baseDatos.getWritableDatabase();
         registros = bd.rawQuery("SELECT * FROM Pipas WHERE 1=1 ", null);
         return registros;

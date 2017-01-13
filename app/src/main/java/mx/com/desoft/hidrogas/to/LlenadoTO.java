@@ -9,14 +9,14 @@ public class LlenadoTO {
     private Integer idLlenado;
     private Integer noPipa;
     private Integer porcentajeLlenado;
-    private Integer fechaRegistro;
+    private Long fechaRegistro;
     private String  nominaRegistro;
 
 
     public LlenadoTO() {
     }
 
-    public LlenadoTO(Integer idLlenado, Integer noPipa, Integer porcentajeLlenado, Integer fechaRegistro, String nominaRegistro) {
+    public LlenadoTO(Integer idLlenado, Integer noPipa, Integer porcentajeLlenado, Long fechaRegistro, String nominaRegistro) {
         this.idLlenado = idLlenado;
         this.noPipa = noPipa;
         this.porcentajeLlenado = porcentajeLlenado;
@@ -48,11 +48,11 @@ public class LlenadoTO {
         this.porcentajeLlenado = porcentajeLlenado;
     }
 
-    public Integer getFechaRegistro() {
+    public Long getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(Integer fechaRegistro) {
+    public void setFechaRegistro(Long fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 
