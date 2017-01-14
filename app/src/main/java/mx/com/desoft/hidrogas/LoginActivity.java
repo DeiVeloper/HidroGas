@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public String  getUsuarioLogueado(){
-        return preferences.getString("usuario", "");
+        return preferences.getString("usuario", editTextUsuario.getText().toString());
     }
 
 }

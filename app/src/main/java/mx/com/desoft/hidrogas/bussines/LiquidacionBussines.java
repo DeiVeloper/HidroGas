@@ -42,7 +42,6 @@ public class LiquidacionBussines {
         registro.put("nominaRegistro", liquidacionesTO.getNominaRegistro());
         Long idLiquidacion = bd.insert("liquidacion", null, registro);
 
-
         ContentValues registroViajes = new ContentValues();
         for (ViajesTO viajes : listaViajes) {
             registroViajes.put("idLiquidacion", idLiquidacion.intValue());
@@ -50,7 +49,7 @@ public class LiquidacionBussines {
             registroViajes.put("porcentajeFinal", viajes.getPorcentajeFinal());
             registroViajes.put("totalizadorInicial", viajes.getTotalizadorInicial());
             registroViajes.put("totalizadorFinal", viajes.getTotalizadorFinal());
-            bd.insert("viajes", null, registro);
+            bd.insert("viajes", null, registroViajes);
         }
 
         bd.close();
