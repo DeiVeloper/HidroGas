@@ -26,7 +26,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
             "nominaRegistro TEXT NOT NULL, tipoEmpleado INTEGER NOT NULL DEFAULT 1)";
 
     private static final String SQL_CREAR_LIQUIDACION = "CREATE TABLE Liquidacion(idLiquidacion INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "nominaChofer TEXT NOT NULL, nominaAyudante TEXT NOT NULL, noPipa INTEGER NOT NULL DEFAULT 0, alerta INTEGER NULL DEFAULT 0" +
+            "nominaChofer TEXT NOT NULL, nominaAyudante TEXT NOT NULL, noPipa INTEGER NOT NULL DEFAULT 0, alerta INTEGER NULL DEFAULT 0, " +
             "variacion INTEGER NULL DEFAULT 0, fechaRegistro INTEGER NOT NULL, nominaRegistro TEXT NOT NULL)";
 
     private static final String SQL_CREAR_LLENADO = "CREATE TABLE Llenado(idLlenado INTEGER PRIMARY KEY AUTOINCREMENT, noPipa INTEGER NOT NULL," +
