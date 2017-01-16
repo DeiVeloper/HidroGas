@@ -3,25 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:padding="4dp"
     tools:context=".MainActivity" >
-    <TextView
-        android:id="@+id/txtPipa" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" android:text="Pipa"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    <TextView
-        android:id="@+id/txtPorcentaje" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_alignParentLeft="true"
-        android:text="Porcentaje de llenado" android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_marginLeft="150dp"/>
-    <TextView
-        android:id="@+id/txtChofer" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_alignParentLeft="true"
-        android:text="Fecha Registro" android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_marginLeft="300dp"/>
-    <TextView
-        android:id="@+id/txtAyudante" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_alignParentLeft="true"
-        android:text="Fecha Registro" android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_marginLeft="500dp"/>
-
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tabla_Datos"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:stretchColumns="0,1,2,3,4,"
+        android:collapseColumns="50dp">
+        <TableRow >
+            <TextView
+                android:id="@+id/txtPipa" android:layout_width="100dp"
+                android:layout_height="wrap_content" android:text="Pipa"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <TextView
+                android:id="@+id/txtPorcentaje" android:layout_width="100dp"
+                android:layout_height="wrap_content" android:text="Porcentaje de llenado"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <TextView
+                android:id="@+id/txtChofer" android:layout_width="100dp"
+                android:layout_height="wrap_content" android:text="Fecha Registro"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <TextView
+                android:id="@+id/txtAyudante" android:layout_width="100dp"
+                android:layout_height="wrap_content" android:text="Fecha Registro"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </TableRow>
+    </TableLayout>
 </RelativeLayout>
