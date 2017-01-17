@@ -3,10 +3,10 @@ package mx.com.desoft.hidrogas;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,8 +33,18 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         view = (ViewPager) findViewById(R.id.viewpager);
 
+        Bundle bundle;
+        bundle = getIntent().getExtras();
+
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         setupViewPager(view);
+        int position = 0;
+        if(bundle != null) {
+            if (bundle.containsKey("viewpager_position")) {
+                position = bundle.getInt("viewpager_position");
+            }
+        }
+        view.setCurrentItem(position);
         setSupportActionBar(toolbar);
 
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
@@ -81,4 +91,6 @@ public class MainActivity extends AppCompatActivity {
     private void removeSharedPreferences() {
         preferences.edit().clear().apply();
     }
+
+
 }
