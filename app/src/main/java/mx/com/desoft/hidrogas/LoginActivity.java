@@ -4,27 +4,20 @@ package mx.com.desoft.hidrogas;
  * Created by David on 30/11/16.
  */
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
-
-import java.util.List;
 
 import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
 import mx.com.desoft.hidrogas.bussines.PersonalBussines;
-import mx.com.desoft.hidrogas.model.Empleado;
+import mx.com.desoft.hidrogas.to.PersonalTO;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -35,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextPassword;
     private Button btnLogin, btnAgregarRegistro;
     private PersonalBussines  personalBussines = new PersonalBussines();
+    private PersonalTO personalTO = new PersonalTO();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,11 +43,12 @@ public class LoginActivity extends AppCompatActivity {
                 String usuario = editTextUsuario.getText().toString();
                 String password = editTextPassword.getText().toString();
                 if(isFormValid(usuario,password)){
-                    if(personalBussines.getUserDataBase(getApplication(), usuario, password) != null){
+                    personalTO = personalBussines.getUserDataBase(getApplication(), usuario, password);
+                    if(personalTO != null){
                         goToMain();
                         saveOnPreferences(usuario,password);
                     }   else    {
-                        Toast.makeText(getApplication(), "Usaurio invalido solo se permiten administradores", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplication(), "Usaurio inválido solo se permiten administradores", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -76,12 +71,11 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("usuario", usuario);// Usuario que se enceuntra en la base de datos y es administrador
         editor.putString("password", password); // contraseña del usuario logueado
         editor.apply();
-
     }
 
     private void setCredentialsIfExist(){
-        String usuario = preferences.getString("usuario", "");
-        String password = preferences.getString("password", "");
+        String usuario = preferences.getString("usuario", "");;
+        String password = preferences.getString("password", "");;
         if (!TextUtils.isEmpty(usuario) && !TextUtils.isEmpty(password)) {
             editTextUsuario.setText(usuario);
             editTextPassword.setText(password);
@@ -123,8 +117,11 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    public String  getUsuarioLogueado(){
-        return preferences.getString("usuario", "");
+    public PersonalTO getPersonalTO() {
+        return personalTO;
     }
 
+    public void setPersonalTO(PersonalTO personalTO) {
+        this.personalTO = personalTO;
+    }
 }
