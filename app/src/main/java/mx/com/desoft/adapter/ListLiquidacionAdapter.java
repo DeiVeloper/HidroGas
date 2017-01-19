@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class ListLiquidacionAdapter extends BaseAdapter {
     private int layout;
     private List<LlenadoTO> names;
 
-    public ListLiquidacionAdapter(Context context, int layout, List<LlenadoTO> names) {
+    public ListLiquidacionAdapter(Context context, int layout) {
         this.context = context;
         this.layout = layout;
         this.names = names;
@@ -30,7 +31,7 @@ public class ListLiquidacionAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return this.names.size();
+        return 1;
     }
 
     @Override
@@ -56,25 +57,31 @@ public class ListLiquidacionAdapter extends BaseAdapter {
 
             holder = new ViewHolder();
             // Referenciamos el elemento a modificar y lo rellenamos
-            holder.nameTextView = (TextView) convertView.findViewById(R.id.textView);
+            holder.editTextSalida_1 = (EditText) convertView.findViewById(R.id.editTextSalida_1);
+            holder.editTextLlegada_1 = (EditText) convertView.findViewById(R.id.editTextLlegada_1);
+            holder.editTextTotInicial_1 = (EditText) convertView.findViewById(R.id.editTextTotInicial_1);
+            holder.getEditTextTotFinal_1 = (EditText) convertView.findViewById(R.id.editTextTotFinal_1);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         // Nos traemos el valor actual dependiente de la posición
-        String currentName = names.get(position).getNominaRegistro();
+        //String currentName = names.get(position).getNominaRegistro();
         //currentName = (String) getItem(position);
 
         // Referenciamos el elemento a modificar y lo rellenamos
-        holder.nameTextView.setText(currentName);
+        //holder.nameTextView.setText(currentName);
 
         // devolvemos la vista inflada y modificada con nuestros datos
         return convertView;
     }
 
     static class ViewHolder {
-        private TextView nameTextView;
+        private EditText editTextSalida_1;
+        private EditText editTextLlegada_1;
+        private EditText editTextTotInicial_1;
+        private EditText getEditTextTotFinal_1;
     }
 
 }

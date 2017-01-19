@@ -23,6 +23,9 @@ public class UnidadesBussines {
     }
 
     private static AdminSQLiteOpenHelper baseDatos;
+    private static final String ADMINISTRADOR = "Administrador";
+    private static final int CHOFER = 2;
+    private static final int AYUDANTE = 3;
 
     public List<PersonalTO> obtenerPersonal(ViewGroup viewGroup, Integer idUnidad) {
         List<PersonalTO> lista = new ArrayList<>();
@@ -56,6 +59,50 @@ public class UnidadesBussines {
             porcentaje = cursor.getInt(0);
         }
         return porcentaje;
+    }
+
+    public PersonalTO getChoferPipa(ViewGroup viewGroup, Integer idUnidad, Integer noNomina){
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(viewGroup.getContext());
+        SQLiteDatabase bd = admin.getWritableDatabase();
+        Cursor fila = bd.rawQuery("select noPipa, " +
+                "nominaEmpleado, nombre, apellidoPaterno, apellidoMaterno, tipoEmpleado " +
+                "from empleados e " +
+                " where nominaEmpleado = " + noNomina +
+                " and noPipa='" + idUnidad + "' and tipoEmpleado = " + CHOFER, null);
+        PersonalTO personalTO = null;
+        if (fila.moveToFirst()) {
+            personalTO = new PersonalTO();
+            personalTO.setNoPipa(Integer.parseInt(fila.getString(0)));
+            personalTO.setNomina(fila.getString(1));
+            personalTO.setNombre(fila.getString(2));
+            personalTO.setApellidoPaterno(fila.getString(3));
+            personalTO.setApellidoMaterno(fila.getString(4));
+            personalTO.setTipoEmpleado(Integer.parseInt(fila.getString(5).toString()));
+
+        }
+        return personalTO;
+    }
+
+    public PersonalTO getAyudantePipa(ViewGroup viewGroup, Integer idUnidad, Integer noNomina){
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(viewGroup.getContext());
+        SQLiteDatabase bd = admin.getWritableDatabase();
+        Cursor fila = bd.rawQuery("select noPipa, " +
+                "nominaEmpleado, nombre, apellidoPaterno, apellidoMaterno, tipoEmpleado " +
+                "from empleados e "+
+                " where nominaEmpleado = " + noNomina +
+                " and noPipa='" + idUnidad + "' and tipoEmpleado = " + AYUDANTE, null);
+        PersonalTO personalTO = null;
+        if (fila.moveToFirst()) {
+            personalTO = new PersonalTO();
+            personalTO.setNoPipa(Integer.parseInt(fila.getString(0)));
+            personalTO.setNomina(fila.getString(1));
+            personalTO.setNombre(fila.getString(2));
+            personalTO.setApellidoPaterno(fila.getString(3));
+            personalTO.setApellidoMaterno(fila.getString(4));
+            personalTO.setTipoEmpleado(Integer.parseInt(fila.getString(5).toString()));
+
+        }
+        return personalTO;
     }
 
 }

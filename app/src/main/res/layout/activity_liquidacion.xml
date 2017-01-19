@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp" >
+    android:paddingRight="16dp">
 
     <!--<TextView
         android:id="@+id/titulo"
@@ -416,7 +417,7 @@
                 android:textSize="20dp"
                 android:text="Ruta:"/>-->
             <Spinner
-                android:id="@+id/spinner_ruta" />
+                android:id="@+id/spinner_ruta"/>
 
             <EditText
                 android:id="@+id/input_economico"
@@ -433,20 +434,20 @@
                 android:id="@+id/input_chofer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:hint="No. Nomina Chofer"
+                android:textAlignment="center"
                 android:layout_alignTop="@+id/input_nombreChofer"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
 
-
             <TextView
                 android:id="@+id/input_nombreChofer"
                 android:layout_width="wrap_content"
+                android:textSize="25dp"
+                android:textColor="#66cf0512"
                 android:layout_gravity="center"
-                android:textSize="20dp"
-                android:layout_height="40dp"/>
+                android:layout_height="fill_parent"/>
 
         </TableRow>
 
@@ -457,15 +458,17 @@
                 android:id="@+id/input_ayudante"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 android:layout_below="@+id/input_chofer"
-                android:ems="10"
                 android:hint="No. Nomina Ayudante" />
 
             <TextView
                 android:id="@+id/input_nombreAyudante"
                 android:layout_width="wrap_content"
-                android:padding="10dp"
-                android:layout_height="40dp"/>
+                android:textColor="#66cf0512"
+                android:textSize="25dp"
+                android:layout_gravity="center"
+                android:layout_height="fill_parent"/>
 
         </TableRow>
 
@@ -473,14 +476,15 @@
     </TableLayout>
 
 
-    <TableLayout
+
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/tabla_viajes"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="175dp"
         android:stretchColumns="0,1,2,3,4,"
-        android:collapseColumns="50dp"
-        android:layout_below="@+id/tabla_Datos"
-        android:layout_alignParentStart="true">
+        android:collapseColumns="50dp">
 
         <TableRow android:background="@color/PrimaryColor">
             <TextView
@@ -493,56 +497,33 @@
                 android:textColor="@android:color/white" />
         </TableRow>
 
-        <TableRow android:background="@color/PrimaryColor">
-            <TextView
-                android:layout_column="0"
-                android:text="Salida"
-                android:textSize="20dp"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_column="1"
-                android:text="Llegada"
-                android:textSize="20dp"
-                android:textColor="@android:color/white" />
-            <TextView
-                android:layout_column="3"
-                android:text="Totalizador Inicial "
-                android:textSize="20dp"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_column="4"
-                android:text="Totalizador Final "
-                android:textSize="20dp"
-                android:textColor="@android:color/white" />
-        </TableRow>
-
-        <!--<TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TableRow>
             <EditText
                 android:id="@+id/input_Salida_1"
                 android:layout_column="0"
                 android:textAlignment="gravity"
+                android:singleLine="true"
                 android:hint="Salida"/>
 
             <EditText
                 android:id="@+id/input_Llegada_1"
                 android:layout_column="1"
                 android:textAlignment="gravity"
+                android:singleLine="true"
                 android:hint="Llegada" />
 
             <EditText
                 android:id="@+id/input_totInicial_1"
                 android:layout_column="3"
                 android:textAlignment="gravity"
+                android:singleLine="true"
                 android:hint="Totalizador Inicial" />
 
             <EditText
                 android:id="@+id/input_totFinal_1"
                 android:layout_column="4"
                 android:textAlignment="gravity"
+                android:singleLine="true"
                 android:hint="Totalizador Final" />
         </TableRow>
 
@@ -551,24 +532,28 @@
                 android:id="@+id/input_Salida_2"
                 android:layout_column="0"
                 android:textAlignment="gravity"
+                android:singleLine="true"
                 android:hint="Salida"/>
 
             <EditText
                 android:id="@+id/input_Llegada_2"
                 android:layout_column="1"
                 android:textAlignment="gravity"
+                android:singleLine="true"
                 android:hint="Llegada" />
 
             <EditText
                 android:id="@+id/input_totInicial_2"
                 android:layout_column="3"
                 android:textAlignment="gravity"
+                android:singleLine="true"
                 android:hint="Totalizador Inicial" />
 
             <EditText
                 android:id="@+id/input_totFinal_2"
                 android:layout_column="4"
                 android:textAlignment="gravity"
+                android:singleLine="true"
                 android:hint="Totalizador Final" />
         </TableRow>
 
@@ -577,60 +562,66 @@
                 android:id="@+id/input_Salida_3"
                 android:layout_column="0"
                 android:textAlignment="gravity"
+                android:singleLine="true"
                 android:hint="Salida"/>
 
             <EditText
                 android:id="@+id/input_Llegada_3"
                 android:layout_column="1"
                 android:textAlignment="gravity"
+                android:singleLine="true"
                 android:hint="Llegada" />
 
             <EditText
                 android:id="@+id/input_totInicial_3"
                 android:layout_column="3"
                 android:textAlignment="gravity"
+                android:singleLine="true"
                 android:hint="Totalizador Inicial" />
 
             <EditText
                 android:id="@+id/input_totFinal_3"
                 android:layout_column="4"
                 android:textAlignment="gravity"
+                android:singleLine="true"
                 android:hint="Totalizador Final" />
-        </TableRow>-->
-        <ListView
-            android:id="@+id/listView"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_below="@+id/tabla_viajes"
-            android:layout_above="@+id/btnImprimir"
-            />
+        </TableRow>
+
         <View
-            android:id="@+id/separador"
             android:layout_height="5dip"
             android:background="#FF909090" />
+
     </TableLayout>
 
-
-    <TextView
+    <!--<TextView
         android:id="@+id/input_venta"
-        android:layout_width="500dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Venta "
         android:textAlignment="textStart"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/input_variacion"
+        android:layout_marginTop="3dp"
         android:layout_below="@+id/tabla_viajes"
-        android:textSize="20dp"/>
+        android:textSize="20dp"/>-->
 
     <TextView
+        android:id="@+id/textViewVariacion"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Variación"
+        android:textSize="30dp"
+        android:layout_below="@+id/tabla_viajes"/>
+    <TextView
         android:id="@+id/input_variacion"
-        android:layout_width="500dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:hint="Variación "
         android:layout_marginTop="10dp"
-        android:textAlignment="textStart"
+        android:textAlignment="center"
+        android:layout_toRightOf="@+id/textViewVariacion"
         android:layout_below="@+id/tabla_viajes"
-        android:textSize="20dp"/>
+        android:textSize="30dp"/>
+
 
     <TextView
         android:id="@+id/labelAlerta"
@@ -639,8 +630,13 @@
         android:textColor="#fc0202"
         android:textColorHint="#fc0202"
         android:layout_marginTop="10dp"
-        android:textAlignment="textStart"
-        android:layout_below="@+id/input_variacion"
-        android:textSize="20dp"/>
-    
+        android:textAlignment="center"
+        android:layout_toRightOf="@+id/input_variacion"
+        android:layout_below="@+id/tabla_viajes"
+        android:textSize="30dp"/>
+
+
+
+
+
 </RelativeLayout>

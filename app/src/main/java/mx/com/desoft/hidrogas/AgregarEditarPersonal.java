@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.inject.Inject;
+
 
 import mx.com.desoft.hidrogas.bussines.CatalogoBussines;
 import mx.com.desoft.hidrogas.bussines.PersonalBussines;
@@ -44,7 +44,6 @@ public class AgregarEditarPersonal extends Activity {
     private KeyListener keyListenerPass;
     private Bundle bundle;
     private Integer tipoEmpleadoInicial;
-    @Inject
     LoginActivity loginActivity;
 
     protected void onCreate(Bundle savedInstanceState) {

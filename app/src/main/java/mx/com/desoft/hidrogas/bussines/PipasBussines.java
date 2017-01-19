@@ -85,18 +85,18 @@ public class PipasBussines {
         bd.close();
     }
 
-    public List<PipasTO> getAllPipas(Context context){
+    public List<String> getAllPipas(Context context){
         bd = getBase(context);
-        List<PipasTO> lista = new ArrayList<>();
+        List<String> lista = new ArrayList<>();
         StringBuilder consulta =  new StringBuilder();
         consulta.append("   SELECT  idPipa AS _id, ");
         consulta.append("           noPipa ");
-        consulta.append("   FROM    pipas ");
+        consulta.append("   FROM    Pipas ");
+        lista.add("Seleccione");
         Cursor cursor = bd.rawQuery(consulta.toString(), null);
         if (cursor.moveToFirst()){
-            PipasTO pipa =  new PipasTO();
-            pipa.setIdPipa(cursor.getInt(0));
-            pipa.setNoPipa(cursor.getInt(1));
+            String pipa =  new String();
+            pipa = "No. Pipa - " + cursor.getInt(1);
             lista.add(pipa);
         }
         return lista;
