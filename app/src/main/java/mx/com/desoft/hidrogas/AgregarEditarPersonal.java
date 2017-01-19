@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import mx.com.desoft.hidrogas.bussines.CatalogoBussines;
 import mx.com.desoft.hidrogas.bussines.PersonalBussines;
 import mx.com.desoft.hidrogas.bussines.PipasBussines;
@@ -42,6 +44,8 @@ public class AgregarEditarPersonal extends Activity {
     private KeyListener keyListenerPass;
     private Bundle bundle;
     private Integer tipoEmpleadoInicial;
+    @Inject
+    LoginActivity loginActivity;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +123,8 @@ public class AgregarEditarPersonal extends Activity {
                 e.printStackTrace();
             }
         }
+        txtNomina.setText(loginActivity.getPersonalTO().getNomina());
+        txtNomina.setKeyListener(null);
 
     }
 
