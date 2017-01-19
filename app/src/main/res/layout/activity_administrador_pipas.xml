@@ -4,68 +4,70 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp">
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tablaPersonal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:stretchColumns="0,1,2,3,4,"
+        android:collapseColumns="50dp">
 
-        <EditText
-            android:id="@+id/txtPipa" android:layout_marginTop="20dp"
-            android:layout_width="450dp" android:layout_height="50dp"
-            android:layout_gravity="left" android:layout_weight="1"
-            android:hint="Económico" android:textSize="23sp"
-            android:inputType="number"/>
+        <TableRow android:background="@color/PrimaryColor">
+            <TextView
+                android:layout_column="0"
+                android:text="Filtros de Búsqueda"
+                android:textSize="20dp"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:layout_span="4"
+                android:textColor="@android:color/white" />
+        </TableRow>
+        <TableRow>
+            <EditText
+                android:id="@+id/txtPipa"
+                android:layout_width="100dp" android:layout_height="50dp"
+                android:hint="Económico" android:textSize="23sp"
+                android:inputType="number" android:layout_span="2"/>
 
-        <Button
-            android:text="Buscar" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_gravity="right"
-            android:id="@+id/btnBuscar" android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true" android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"/>
-
-        <TextView
-            android:id="@+id/lblPipa" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_marginTop="70dp"
-            android:text="Pipa" android:textSize="20sp"/>
-        <TextView
-            android:id="@+id/lblPorcentaje" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_marginTop="70dp"
-            android:text="% Llenado" android:textSize="20sp"
-            android:layout_marginLeft="150dp"/>
-        <TextView
-            android:id="@+id/lblChofer" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_marginTop="70dp"
-            android:text="Chofer" android:layout_marginLeft="300dp"
-            android:textSize="20sp"/>
-        <TextView
-            android:id="@+id/lblAyudante" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_marginTop="70dp"
-            android:text="Ayudante" android:layout_marginLeft="500dp"
-            android:textSize="20sp"/>
-
-        <ListView
-            android:id="@+id/lstPipas"
-            android:layout_width="fill_parent"
-            android:layout_height="450dp" android:layout_marginTop="90dp">
-        </ListView>
-
-        <Button
-            android:text="Agregar" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_gravity="right|bottom"
-            android:id="@+id/btnAgregar" android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true" android:layout_alignParentEnd="true"
-            android:layout_marginRight="100dp"/>
-
-    </FrameLayout>
+            <Button
+                android:text="Buscar" android:layout_width="96dp"
+                android:layout_height="wrap_content" android:layout_gravity="right"
+                android:id="@+id/btnBuscar"
+                android:layout_marginTop="20dp" android:layout_span="2"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/lblPipa" android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Pipa" android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/lblPorcentaje" android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="% Llenado" android:textSize="20sp" />
+            <TextView
+                android:id="@+id/lblChofer" android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Chofer" android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/lblAyudante" android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Ayudante" android:textSize="20sp"/>
+        </TableRow>
+        <TableRow>
+            <ListView
+                android:id="@+id/lstPipas" android:layout_span="4"
+                android:layout_width="fill_parent"
+                android:layout_height="450dp">
+            </ListView>
+        </TableRow>
+    </TableLayout>
+    <Button
+        android:text="Agregar" android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAgregar" android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

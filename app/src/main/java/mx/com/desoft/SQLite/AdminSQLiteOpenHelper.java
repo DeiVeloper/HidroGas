@@ -26,7 +26,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
             "nominaRegistro TEXT NOT NULL, tipoEmpleado INTEGER NOT NULL DEFAULT 1)";
 
     private static final String SQL_CREAR_LIQUIDACION = "CREATE TABLE Liquidacion(idLiquidacion INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "nominaChofer TEXT NOT NULL, nominaAyudante TEXT NOT NULL, noPipa INTEGER NOT NULL DEFAULT 0, alerta INTEGER NULL DEFAULT 0, " +
+            "nominaChofer TEXT NOT NULL, nominaAyudante TEXT NOT NULL, noPipa INTEGER NOT NULL DEFAULT 0, alerta INTEGER NULL DEFAULT 0" +
             "variacion INTEGER NULL DEFAULT 0, fechaRegistro INTEGER NOT NULL, nominaRegistro TEXT NOT NULL)";
 
     private static final String SQL_CREAR_LLENADO = "CREATE TABLE Llenado(idLlenado INTEGER PRIMARY KEY AUTOINCREMENT, noPipa INTEGER NOT NULL," +
@@ -34,6 +34,8 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREAR_PIPAS = "CREATE TABLE Pipas (noPipa INTEGER PRIMARY KEY AUTOINCREMENT, fechaRegistro INTEGER NOT NULL," +
             "nominaRegistro TEXT NOT NULL)";
+
+    private static final String SQL_CREAR_TIPOEMPLEADOS = "CREATE TABLE TipoEmpleados (idEmpleado INTEGER PRIMARY KEY, descripcion TEXT)";
 
     private static final String SQL_CREAR_VIAJES = "CREATE TABLE Viajes (idViaje INTEGER PRIMARY KEY AUTOINCREMENT, idLiquidacion INTEGER NOT NULL," +
             "porcentajeInicial INTEGER NOT NULL DEFAULT 0, totalizadorInicial INTEGER NOT NULL DEFAULT 0, porcentajeFinal INTEGER NOT NULL DEFAULT 0," +
@@ -50,6 +52,20 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREAR_LLENADO);
         db.execSQL(SQL_CREAR_PIPAS);
         db.execSQL(SQL_CREAR_VIAJES);
+        db.execSQL(SQL_CREAR_TIPOEMPLEADOS);
+
+        ContentValues registro = new ContentValues();
+        registro.put("idEmpleado", 0);
+        registro.put("descripcion", "Administrador");
+        db.insert("tipoEmpleados", null, registro);
+        registro = new ContentValues();
+        registro.put("idEmpleado", 1);
+        registro.put("descripcion", "Chofer");
+        db.insert("tipoEmpleados", null, registro);
+        registro = new ContentValues();
+        registro.put("idEmpleado", 2);
+        registro.put("descripcion", "Ayudante");
+        db.insert("tipoEmpleados", null, registro);
     }
 
     public void addContact(String usuario, String password) {

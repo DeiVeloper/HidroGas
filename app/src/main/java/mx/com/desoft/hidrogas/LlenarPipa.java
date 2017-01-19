@@ -72,7 +72,10 @@ public class LlenarPipa extends Activity {
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                Intent go = new Intent(getApplicationContext(), MainActivity.class);
+                go.putExtra("viewpager_position", 2);
+                startActivity(go);
+                //onBackPressed();
             }
         });
         btnGuardar.setOnClickListener(new View.OnClickListener() {

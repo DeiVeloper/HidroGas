@@ -83,7 +83,7 @@ public class PipasBussines {
     }
 
     private SQLiteDatabase getBase(Context context) {
-        baseDatos = new AdminSQLiteOpenHelper(context);
+        baseDatos = new AdminSQLiteOpenHelper(context/*, "hidroGas", null, 1*/);
         bd = baseDatos.getWritableDatabase();
         return bd;
     }
