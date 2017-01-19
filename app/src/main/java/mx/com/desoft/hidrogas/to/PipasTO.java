@@ -5,6 +5,7 @@ package mx.com.desoft.hidrogas.to;
  */
 
 public class PipasTO {
+    private Integer idPipa;
     private Integer noPipa;
     private Integer porcentajeLlenado;
     private Long fechaRegistro;
@@ -71,5 +72,13 @@ public class PipasTO {
 
     public void setNombreAyudante(String nombreAyudante) {
         this.nombreAyudante = nombreAyudante;
+    }
+
+    public Integer getIdPipa() {
+        return idPipa;
+    }
+
+    public void setIdPipa(Integer idPipa) {
+        this.idPipa = idPipa;
     }
 }

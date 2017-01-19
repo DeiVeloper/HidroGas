@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
 import mx.com.desoft.hidrogas.to.PipasTO;
 
@@ -80,6 +83,23 @@ public class PipasBussines {
         bd = getBase(context);
         bd.delete("Pipas", "noPipa = " + pipa, null);
         bd.close();
+    }
+
+    public List<PipasTO> getAllPipas(Context context){
+        bd = getBase(context);
+        List<PipasTO> lista = new ArrayList<>();
+        StringBuilder consulta =  new StringBuilder();
+        consulta.append("   SELECT  idPipa AS _id, ");
+        consulta.append("           noPipa ");
+        consulta.append("   FROM    pipas ");
+        Cursor cursor = bd.rawQuery(consulta.toString(), null);
+        if (cursor.moveToFirst()){
+            PipasTO pipa =  new PipasTO();
+            pipa.setIdPipa(cursor.getInt(0));
+            pipa.setNoPipa(cursor.getInt(1));
+            lista.add(pipa);
+        }
+        return lista;
     }
 
     private SQLiteDatabase getBase(Context context) {

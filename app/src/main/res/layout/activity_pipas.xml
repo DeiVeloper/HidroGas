@@ -34,10 +34,14 @@
                 android:textSize="23sp"/>
         </TableRow>
     </TableLayout>
+
     <Button
-        android:text="Guardar" android:layout_width="100dp"
+        android:text="Guardar"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:id="@+id/btnGuardar" android:layout_alignParentBottom="true" />
+        android:id="@+id/btnGuardar"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnExportarPipas"/>
     <Button
         android:text="Cancelar" android:layout_width="100dp"
         android:layout_height="wrap_content"

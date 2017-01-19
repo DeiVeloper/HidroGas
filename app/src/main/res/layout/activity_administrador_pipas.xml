@@ -60,10 +60,19 @@
             <ListView
                 android:id="@+id/lstPipas" android:layout_span="4"
                 android:layout_width="fill_parent"
-                android:layout_height="450dp">
+                android:layout_height="450dp"
+                >
             </ListView>
         </TableRow>
     </TableLayout>
+    <Button
+        android:id="@+id/btnExportarPipas"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:text="Exportar"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/btnAgregar"
+        />
     <Button
         android:text="Agregar" android:layout_width="96dp"
         android:layout_height="wrap_content"

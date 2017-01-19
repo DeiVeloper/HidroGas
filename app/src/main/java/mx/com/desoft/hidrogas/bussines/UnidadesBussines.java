@@ -43,4 +43,19 @@ public class UnidadesBussines {
         return lista;
     }
 
+    public Integer getPorcentajePipa (ViewGroup viewGroup, Integer noPipa){
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(viewGroup.getContext());
+        SQLiteDatabase bd = admin.getWritableDatabase();
+        Integer porcentaje = 0;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("   SELECT  porcentajeLlenado ");
+        consulta.append("   FROM    Llenado ");
+        consulta.append("   WHERE   noPipa = " + noPipa);
+        Cursor cursor = bd.rawQuery(consulta.toString(), null);
+        if (cursor.moveToFirst()){
+            porcentaje = cursor.getInt(0);
+        }
+        return porcentaje;
+    }
+
 }

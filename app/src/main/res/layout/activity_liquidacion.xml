@@ -416,8 +416,7 @@
                 android:textSize="20dp"
                 android:text="Ruta:"/>-->
             <Spinner
-                android:id="@+id/spinner_ruta"
-                android:entries="@array/unidades" />
+                android:id="@+id/spinner_ruta" />
 
             <EditText
                 android:id="@+id/input_economico"
@@ -637,7 +636,6 @@
         android:id="@+id/labelAlerta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="¡ALERTA! "
         android:textColor="#fc0202"
         android:textColorHint="#fc0202"
         android:layout_marginTop="10dp"
