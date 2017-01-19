@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +25,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import mx.com.desoft.adapter.AdapterPersonal;
+import mx.com.desoft.adapter.ListLiquidacionAdapter;
 import mx.com.desoft.hidrogas.bussines.LiquidacionBussines;
 import mx.com.desoft.hidrogas.bussines.UnidadesBussines;
 import mx.com.desoft.hidrogas.model.Empleado;
@@ -49,6 +54,8 @@ public class TapLiquidacionUnidades extends Fragment{
     private LiquidacionesTO liquidacionesTO;
     private List<ViajesTO> viajesTO;
     private LoginActivity login;
+    private ListLiquidacionAdapter liquidacionAdapter ;
+    private ListView listview;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +64,12 @@ public class TapLiquidacionUnidades extends Fragment{
         unidadesBussines = new UnidadesBussines();
         inicializarComponentes();
         inicializarEventos();
+
+        this.liquidacionAdapter = new ListLiquidacionAdapter(viewGroup.getContext(), R.layout.list_item_viajes);
+        listview = (ListView)viewGroup.findViewById(R.id.listView);
+        listview.setItemsCanFocus(false);
+        listview.setAdapter(liquidacionAdapter);
+        registerForContextMenu(listview);
         return viewGroup;
     }
 
@@ -65,7 +78,7 @@ public class TapLiquidacionUnidades extends Fragment{
         btnGuardarLiquidacion = (Button) viewGroup.findViewById(R.id.btnGuardarLiquidacion);
         spinnerRuta = (Spinner) viewGroup.findViewById(R.id.spinner_ruta);
         editTextEconomico = (EditText) viewGroup.findViewById(R.id.input_economico);
-        editTextSalida_1 = (EditText) viewGroup.findViewById(R.id.input_Salida_1);
+        /*editTextSalida_1 = (EditText) viewGroup.findViewById(R.id.input_Salida_1);
         editTextLlegada_1 = (EditText) viewGroup.findViewById(R.id.input_Llegada_1);
         editTextTotInicial_1 = (EditText) viewGroup.findViewById(R.id.input_totInicial_1);
         editTextTotFinal_1 = (EditText) viewGroup.findViewById(R.id.input_totFinal_1);
@@ -76,7 +89,7 @@ public class TapLiquidacionUnidades extends Fragment{
         editTextSalida_3 = (EditText) viewGroup.findViewById(R.id.input_Salida_3);
         editTextLlegada_3 = (EditText) viewGroup.findViewById(R.id.input_Llegada_3);
         editTextTotInicial_3 = (EditText) viewGroup.findViewById(R.id.input_totInicial_3);
-        editTextTotFinal_3 = (EditText) viewGroup.findViewById(R.id.input_totFinal_3);
+        editTextTotFinal_3 = (EditText) viewGroup.findViewById(R.id.input_totFinal_3);*/
         editTextNoChofer = (EditText) viewGroup.findViewById(R.id.input_chofer);
         textViewNombreChofer = (TextView) viewGroup.findViewById(R.id.input_nombreChofer);
         editTextNoAyudante = (EditText) viewGroup.findViewById(R.id.input_ayudante);
@@ -93,7 +106,7 @@ public class TapLiquidacionUnidades extends Fragment{
                         List<PersonalTO> listaPersonal = unidadesBussines.obtenerPersonal(viewGroup, ((Long) parent.getSelectedItemId()).intValue());
                         List<ViajesTO> listaViajes = liquidacionBussines.getPorcentajeInicialAnterior(viewGroup, ((Long) parent.getSelectedItemId()).intValue());
                         setEmpleadosPipa(listaPersonal);
-                        setViajesVista(listaViajes);
+                        //setViajesVista(listaViajes);
                     }
 
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -126,16 +139,16 @@ public class TapLiquidacionUnidades extends Fragment{
         btnGuardarLiquidacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            if (validarLiquidacion()) {
+            //if (validarLiquidacion()) {
                 setLiquidacion();
-                setViajes();
+               // setViajes();
                 liquidacionBussines.guardarLiquidacion(viewGroup, liquidacionesTO, viajesTO);
-            }
+            //}
             }
         });
     }
 
-    private boolean validarLiquidacion(){
+   /* private boolean validarLiquidacion(){
         if (spinnerRuta.getSelectedItemId() == 0 ){
             Toast.makeText(viewGroup.getContext(),"Favor de seleccionar una Ruta.", Toast.LENGTH_LONG).show();
             return false;
@@ -147,6 +160,13 @@ public class TapLiquidacionUnidades extends Fragment{
             return false;
         }
         return true;
+    }*/
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater menuInflater = getActivity().getMenuInflater();
+        menuInflater.inflate(R.menu.menu_viajes, menu);
     }
 
     private void setLiquidacion(){
@@ -168,7 +188,7 @@ public class TapLiquidacionUnidades extends Fragment{
 
     }
 
-    private void setViajes(){
+   /* private void setViajes(){
         ViajesTO viaje_1 = new ViajesTO();
         viaje_1.setPorcentajeInicial(Integer.parseInt(editTextSalida_1.getText().toString()));
         viaje_1.setPorcentajeFinal(Integer.parseInt(editTextLlegada_1.getText().toString()));
@@ -189,7 +209,7 @@ public class TapLiquidacionUnidades extends Fragment{
         viaje_3.setTotalizadorInicial(Integer.parseInt(editTextTotInicial_3.getText().toString()));
         viaje_3.setTotalizadorFinal(Integer.parseInt(editTextTotFinal_3.getText().toString()));
         viajesTO.add(viaje_3);
-    }
+    }*/
 
     private void setEmpleadosPipa(List<PersonalTO> listaPersonal) {
         if (listaPersonal.isEmpty()){
@@ -209,7 +229,7 @@ public class TapLiquidacionUnidades extends Fragment{
         }
     }
 
-    private void setViajesVista(List<ViajesTO> listaViajes){
+   /* private void setViajesVista(List<ViajesTO> listaViajes){
         if (listaViajes.isEmpty()){
             editTextSalida_1.setText("");
             editTextTotInicial_1.setText("");
@@ -217,7 +237,7 @@ public class TapLiquidacionUnidades extends Fragment{
         for (ViajesTO viajes: listaViajes) {
 
         }
-    }
+    }*/
 
     private Integer getFechaActual(){
         Calendar fecha = Calendar.getInstance();
