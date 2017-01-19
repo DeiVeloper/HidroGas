@@ -13,354 +13,354 @@
         android:textAlignment="center"
         android:textSize="30dp"/>-->
 
-<!--
-    <TableLayout
-        android:id="@+id/tabla"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="64dp"
-        android:layout_below="@+id/titulo">
-
-        <TableRow
+    <!--
+        <TableLayout
+            android:id="@+id/tabla"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="64dp"
+            android:layout_below="@+id/titulo">
 
-            <TextView
-                android:id="@+id/ruta"
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ruta: "
-                android:textAlignment="textStart"
-                android:textSize="20dp"/>
+                android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/editRuta"
+                <TextView
+                    android:id="@+id/ruta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ruta: "
+                    android:textAlignment="textStart"
+                    android:textSize="20dp"/>
+
+                <EditText
+                    android:id="@+id/editRuta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 01"
+                    android:textSize="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/economico"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Economico: "
+                    android:textAlignment="textStart"
+                    android:textSize="20dp"/>
+
+                <EditText
+                    android:id="@+id/editEconomico"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="701"
+                    android:textSize="20dp"
+                    />
+            </TableRow>
+
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 01"
-                android:textSize="20dp"
-                />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/economico"
+                <TextView
+                    android:id="@+id/viajes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Viajes:"
+                    android:textAlignment="textStart"
+                    android:textSize="20dp"/>
+
+
+            </TableRow>
+
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Economico: "
-                android:textAlignment="textStart"
-                android:textSize="20dp"/>
+                android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/editEconomico"
+                <TextView
+                    android:id="@+id/salida"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Salida %: "
+                    android:textAlignment="center"
+                    android:textSize="20dp"/>
+
+                <EditText
+                    android:id="@+id/editSalida"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 50"
+                    android:textSize="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/llegada"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Llegada %: "
+                    android:textAlignment="center"
+                    android:textSize="20dp"/>
+
+                <EditText
+                    android:id="@+id/editLlegada"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 5"
+                    android:textSize="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/totIni"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Totalizador Inicial %: "
+                    android:textAlignment="center"
+                    android:textSize="20dp"/>
+
+                <EditText
+                    android:id="@+id/editTotIni"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 90"
+                    android:textSize="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/TotFin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Totalizador Final %: "
+                    android:textAlignment="center"
+                    android:textSize="20dp"/>
+
+                <EditText
+                    android:id="@+id/editTotFin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 35"
+                    android:textSize="20dp"
+                    />
+            </TableRow>
+
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="701"
-                android:textSize="20dp"
-                />
-        </TableRow>
+                android:layout_height="match_parent">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/salida2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Salida %: "
+                    android:textAlignment="center"
+                    android:textSize="20dp"/>
 
-            <TextView
-                android:id="@+id/viajes"
+                <EditText
+                    android:id="@+id/editSalida2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 50"
+                    android:textSize="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/llegada2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Llegada %: "
+                    android:textAlignment="center"
+                    android:textSize="20dp"/>
+
+                <EditText
+                    android:id="@+id/editLlegada2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 5"
+                    android:textSize="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/totIni2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Totalizador Inicial %: "
+                    android:textAlignment="center"
+                    android:textSize="20dp"/>
+
+                <EditText
+                    android:id="@+id/editTotIni2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 90"
+                    android:textSize="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/TotFin2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Totalizador Final %: "
+                    android:textAlignment="center"
+                    android:textSize="20dp"/>
+
+                <EditText
+                    android:id="@+id/editTotFin2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 35"
+                    android:textSize="20dp"
+                    />
+            </TableRow>
+
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Viajes:"
-                android:textAlignment="textStart"
-                android:textSize="20dp"/>
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/salida3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Salida %: "
+                    android:textAlignment="center"
+                    android:textSize="20dp"/>
+
+                <EditText
+                    android:id="@+id/editSalida3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 50"
+                    android:textSize="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/llegada3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Llegada %: "
+                    android:textAlignment="center"
+                    android:textSize="20dp"/>
+
+                <EditText
+                    android:id="@+id/editLlegada3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 5"
+                    android:textSize="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/totIni3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Totalizador Inicial %: "
+                    android:textAlignment="center"
+                    android:textSize="20dp"/>
+
+                <EditText
+                    android:id="@+id/editTotIni3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 90"
+                    android:textSize="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/TotFin3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Totalizador Final %: "
+                    android:textAlignment="center"
+                    android:textSize="20dp"/>
+
+                <EditText
+                    android:id="@+id/editTotFin3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 35"
+                    android:textSize="20dp"
+                    />
+            </TableRow>
 
 
-        </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/salida"
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Salida %: "
-                android:textAlignment="center"
-                android:textSize="20dp"/>
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/noNomindaChofer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No. Nomina Chofer: "
+                    android:textAlignment="textStart"
+                    android:textSize="20dp"/>
 
-            <EditText
-                android:id="@+id/editSalida"
+                <EditText
+                    android:id="@+id/editNoNominaChofer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 35"
+                    android:textSize="20dp"
+                    />
+            </TableRow>
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 50"
-                android:textSize="20dp"
-                />
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/noNomindaAyudante"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No. Nomina Ayudante: "
+                    android:textAlignment="textStart"
+                    android:textSize="20dp"/>
 
-            <TextView
-                android:id="@+id/llegada"
+                <EditText
+                    android:id="@+id/editNoNominaAyudante"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 35"
+                    android:textSize="20dp"
+                    />
+            </TableRow>
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Llegada %: "
-                android:textAlignment="center"
-                android:textSize="20dp"/>
+                android:layout_height="match_parent" >
 
-            <EditText
-                android:id="@+id/editLlegada"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 5"
-                android:textSize="20dp"
-                />
+                <TextView
+                    android:id="@+id/venta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Venta: "
+                    android:textAlignment="textStart"
+                    android:textSize="20dp"/>
 
-            <TextView
-                android:id="@+id/totIni"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Totalizador Inicial %: "
-                android:textAlignment="center"
-                android:textSize="20dp"/>
+                <EditText
+                    android:id="@+id/editVenta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 35"
+                    android:textSize="20dp"
+                    />
 
-            <EditText
-                android:id="@+id/editTotIni"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 90"
-                android:textSize="20dp"
-                />
+                <TextView
+                    android:id="@+id/variacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Variacion: "
+                    android:textAlignment="textStart"
+                    android:textSize="20dp"/>
 
-            <TextView
-                android:id="@+id/TotFin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Totalizador Final %: "
-                android:textAlignment="center"
-                android:textSize="20dp"/>
+                <EditText
+                    android:id="@+id/editVariacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 35"
+                    android:textSize="20dp"
+                    />
 
-            <EditText
-                android:id="@+id/editTotFin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 35"
-                android:textSize="20dp"
-                />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/salida2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Salida %: "
-                android:textAlignment="center"
-                android:textSize="20dp"/>
-
-            <EditText
-                android:id="@+id/editSalida2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 50"
-                android:textSize="20dp"
-                />
-
-            <TextView
-                android:id="@+id/llegada2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Llegada %: "
-                android:textAlignment="center"
-                android:textSize="20dp"/>
-
-            <EditText
-                android:id="@+id/editLlegada2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 5"
-                android:textSize="20dp"
-                />
-
-            <TextView
-                android:id="@+id/totIni2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Totalizador Inicial %: "
-                android:textAlignment="center"
-                android:textSize="20dp"/>
-
-            <EditText
-                android:id="@+id/editTotIni2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 90"
-                android:textSize="20dp"
-                />
-
-            <TextView
-                android:id="@+id/TotFin2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Totalizador Final %: "
-                android:textAlignment="center"
-                android:textSize="20dp"/>
-
-            <EditText
-                android:id="@+id/editTotFin2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 35"
-                android:textSize="20dp"
-                />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/salida3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Salida %: "
-                android:textAlignment="center"
-                android:textSize="20dp"/>
-
-            <EditText
-                android:id="@+id/editSalida3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 50"
-                android:textSize="20dp"
-                />
-
-            <TextView
-                android:id="@+id/llegada3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Llegada %: "
-                android:textAlignment="center"
-                android:textSize="20dp"/>
-
-            <EditText
-                android:id="@+id/editLlegada3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 5"
-                android:textSize="20dp"
-                />
-
-            <TextView
-                android:id="@+id/totIni3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Totalizador Inicial %: "
-                android:textAlignment="center"
-                android:textSize="20dp"/>
-
-            <EditText
-                android:id="@+id/editTotIni3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 90"
-                android:textSize="20dp"
-                />
-
-            <TextView
-                android:id="@+id/TotFin3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Totalizador Final %: "
-                android:textAlignment="center"
-                android:textSize="20dp"/>
-
-            <EditText
-                android:id="@+id/editTotFin3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 35"
-                android:textSize="20dp"
-                />
-        </TableRow>
-
-
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/noNomindaChofer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="No. Nomina Chofer: "
-                android:textAlignment="textStart"
-                android:textSize="20dp"/>
-
-            <EditText
-                android:id="@+id/editNoNominaChofer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 35"
-                android:textSize="20dp"
-                />
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/noNomindaAyudante"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="No. Nomina Ayudante: "
-                android:textAlignment="textStart"
-                android:textSize="20dp"/>
-
-            <EditText
-                android:id="@+id/editNoNominaAyudante"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 35"
-                android:textSize="20dp"
-                />
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <TextView
-                android:id="@+id/venta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Venta: "
-                android:textAlignment="textStart"
-                android:textSize="20dp"/>
-
-            <EditText
-                android:id="@+id/editVenta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 35"
-                android:textSize="20dp"
-                />
-
-            <TextView
-                android:id="@+id/variacion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Variacion: "
-                android:textAlignment="textStart"
-                android:textSize="20dp"/>
-
-            <EditText
-                android:id="@+id/editVariacion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" 35"
-                android:textSize="20dp"
-                />
-
-        </TableRow>
-    </TableLayout>-->
+            </TableRow>
+        </TableLayout>-->
 
 
 
@@ -398,16 +398,16 @@
         android:stretchColumns="0,1,2,3,4,"
         android:collapseColumns="50dp">
 
-    <TableRow android:background="@color/PrimaryColor">
-        <TextView
-            android:layout_column="0"
-            android:text="Datos Generales"
-            android:textSize="20dp"
-            android:textAlignment="center"
-            android:layout_gravity="center"
-            android:layout_span="2"
-            android:textColor="@android:color/white" />
-    </TableRow>
+        <TableRow android:background="@color/PrimaryColor">
+            <TextView
+                android:layout_column="0"
+                android:text="Datos Generales"
+                android:textSize="20dp"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:layout_span="2"
+                android:textColor="@android:color/white" />
+        </TableRow>
         <TableRow>
             <!--<TextView
                 android:id="@+id/label_ruta"
@@ -426,7 +426,7 @@
                 android:layout_toRightOf="@+id/spinner_ruta"
                 android:hint="Economico"
                 android:inputType="textPersonName" />
-            </TableRow>
+        </TableRow>
         <TableRow>
 
 
@@ -434,20 +434,20 @@
                 android:id="@+id/input_chofer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ems="10"
                 android:hint="No. Nomina Chofer"
-                android:textAlignment="center"
                 android:layout_alignTop="@+id/input_nombreChofer"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
 
+
             <TextView
                 android:id="@+id/input_nombreChofer"
                 android:layout_width="wrap_content"
-                android:textSize="25dp"
-                android:textColor="#66cf0512"
                 android:layout_gravity="center"
-                android:layout_height="fill_parent"/>
+                android:textSize="20dp"
+                android:layout_height="40dp"/>
 
         </TableRow>
 
@@ -458,17 +458,15 @@
                 android:id="@+id/input_ayudante"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
                 android:layout_below="@+id/input_chofer"
+                android:ems="10"
                 android:hint="No. Nomina Ayudante" />
 
             <TextView
                 android:id="@+id/input_nombreAyudante"
                 android:layout_width="wrap_content"
-                android:textColor="#66cf0512"
-                android:textSize="25dp"
-                android:layout_gravity="center"
-                android:layout_height="fill_parent"/>
+                android:padding="10dp"
+                android:layout_height="40dp"/>
 
         </TableRow>
 
@@ -476,15 +474,14 @@
     </TableLayout>
 
 
-
-
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <TableLayout
         android:id="@+id/tabla_viajes"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="175dp"
         android:stretchColumns="0,1,2,3,4,"
-        android:collapseColumns="50dp">
+        android:collapseColumns="50dp"
+        android:layout_below="@+id/tabla_Datos"
+        android:layout_alignParentStart="true">
 
         <TableRow android:background="@color/PrimaryColor">
             <TextView
@@ -497,7 +494,34 @@
                 android:textColor="@android:color/white" />
         </TableRow>
 
-        <TableRow>
+        <TableRow android:background="@color/PrimaryColor">
+            <TextView
+                android:layout_column="0"
+                android:text="Salida"
+                android:textSize="20dp"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_column="1"
+                android:text="Llegada"
+                android:textSize="20dp"
+                android:textColor="@android:color/white" />
+            <TextView
+                android:layout_column="3"
+                android:text="Totalizador Inicial "
+                android:textSize="20dp"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_column="4"
+                android:text="Totalizador Final "
+                android:textSize="20dp"
+                android:textColor="@android:color/white" />
+        </TableRow>
+
+        <!--<TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
             <EditText
                 android:id="@+id/input_Salida_1"
                 android:layout_column="0"
@@ -573,34 +597,41 @@
                 android:layout_column="4"
                 android:textAlignment="gravity"
                 android:hint="Totalizador Final" />
-        </TableRow>
-
+        </TableRow>-->
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_below="@+id/tabla_viajes"
+            android:layout_above="@+id/btnImprimir"
+            />
         <View
+            android:id="@+id/separador"
             android:layout_height="5dip"
             android:background="#FF909090" />
-
     </TableLayout>
 
-    <!--<TextView
+
+    <TextView
         android:id="@+id/input_venta"
-        android:layout_width="match_parent"
+        android:layout_width="500dp"
         android:layout_height="wrap_content"
         android:hint="Venta "
         android:textAlignment="textStart"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/input_variacion"
         android:layout_below="@+id/tabla_viajes"
-        android:textSize="20dp"/>-->
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/input_variacion"
-        android:layout_width="match_parent"
+        android:layout_width="500dp"
         android:layout_height="wrap_content"
         android:hint="Variación "
         android:layout_marginTop="10dp"
         android:textAlignment="textStart"
         android:layout_below="@+id/tabla_viajes"
         android:textSize="20dp"/>
-
 
     <TextView
         android:id="@+id/labelAlerta"
@@ -613,9 +644,5 @@
         android:textAlignment="textStart"
         android:layout_below="@+id/input_variacion"
         android:textSize="20dp"/>
-
-
-
-
-
+    
 </RelativeLayout>
