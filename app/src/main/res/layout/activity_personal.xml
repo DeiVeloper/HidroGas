@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:stretchColumns="0,1,2,3,4,"
+        android:stretchColumns="0,1"
         android:collapseColumns="50dp">
 
         <TableRow android:background="@color/PrimaryColor">

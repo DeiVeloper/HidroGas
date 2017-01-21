@@ -95,10 +95,14 @@ public class PipasBussines {
         lista.add("Seleccione");
         Cursor cursor = bd.rawQuery(consulta.toString(), null);
         if (cursor.moveToFirst()){
-            String pipa =  new String();
-            pipa = "No. Pipa - " + cursor.getInt(1);
-            lista.add(pipa);
+            do {
+                String pipa =  new String();
+                pipa = "No. Pipa - " + cursor.getInt(1);
+                lista.add(pipa);
+            }while (cursor.moveToNext());
+
         }
+
         return lista;
     }
 

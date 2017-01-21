@@ -122,8 +122,8 @@ public class AgregarEditarPersonal extends Activity {
                 e.printStackTrace();
             }
         }
-        txtNomina.setText(loginActivity.getPersonalTO().getNomina());
-        txtNomina.setKeyListener(null);
+        //txtNomina.setText(loginActivity.getPersonalTO().getNomina());
+        //txtNomina.setKeyListener(null);
 
     }
 

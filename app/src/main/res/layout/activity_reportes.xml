@@ -66,6 +66,39 @@
                 android:textSize="20dp"
                 android:textColor="@android:color/white" />
         </TableRow>
+        <TableRow android:background="@color/PrimaryColor">
+            <TextView
+                android:layout_column="0"
+                android:text="No. Pipa"
+                android:textSize="20dp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_column="1"
+                android:text="Porcentaje"
+                android:textSize="20dp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_column="2"
+                android:text="Fecha Registro"
+                android:textSize="20dp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_column="3"
+                android:text="Variación"
+                android:textSize="20dp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="@android:color/white" />
+        </TableRow>
 
     </TableLayout>
 
@@ -79,7 +112,7 @@
         android:layout_alignParentEnd="true" />
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/listViewBusquedaVariacion"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"

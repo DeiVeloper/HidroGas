@@ -10,6 +10,8 @@
         android:layout_marginTop="10dp"
         android:stretchColumns="0,1,2,3,4,"
         android:collapseColumns="50dp">
+
+
         <TableRow >
             <TextView
                 android:id="@+id/txtReportePipa"
@@ -37,7 +39,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_column="4"
-                android:text="Fecha Registro"
+                android:text="Variación"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </TableRow>
     </TableLayout>

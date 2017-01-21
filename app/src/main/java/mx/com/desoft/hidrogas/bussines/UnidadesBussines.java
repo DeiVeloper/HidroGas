@@ -34,14 +34,17 @@ public class UnidadesBussines {
         Cursor fila = bd.rawQuery("select noPipa, nominaEmpleado, nombre, apellidoPaterno, apellidoMaterno, tipoEmpleado from empleados where noPipa='" + idUnidad + "'", null);
 
         if (fila.moveToFirst()) {
-            PersonalTO personalTO = new PersonalTO();
-            personalTO.setNoPipa(Integer.parseInt(fila.getString(0)));
-            personalTO.setNomina(fila.getString(1));
-            personalTO.setNombre(fila.getString(2));
-            personalTO.setApellidoPaterno(fila.getString(3));
-            personalTO.setApellidoMaterno(fila.getString(4));
-            personalTO.setTipoEmpleado(Integer.parseInt(fila.getString(5).toString()));
-            lista.add(personalTO);
+            do {
+                PersonalTO personalTO = new PersonalTO();
+                personalTO.setNoPipa(Integer.parseInt(fila.getString(0)));
+                personalTO.setNomina(fila.getString(1));
+                personalTO.setNombre(fila.getString(2));
+                personalTO.setApellidoPaterno(fila.getString(3));
+                personalTO.setApellidoMaterno(fila.getString(4));
+                personalTO.setTipoEmpleado(Integer.parseInt(fila.getString(5).toString()));
+                lista.add(personalTO);
+            }while (fila.moveToNext());
+
         }
         return lista;
     }

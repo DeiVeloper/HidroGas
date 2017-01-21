@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +54,7 @@ public class TapReportes extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = (ViewGroup) inflater.inflate(R.layout.activity_reportes, container, false);
-        listView = (ListView) view.findViewById(R.id.listView);
+
         btnBuscar = (Button) view.findViewById(R.id.btnBuscar);
         btnExportarExcel = (Button) view.findViewById(R.id.btnExportarExcel);
         labelFechaBusqueda = (TextView) view.findViewById(R.id.labelFechaBusqueda);
@@ -63,12 +64,17 @@ public class TapReportes extends Fragment{
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+            if (!TextUtils.isEmpty(labelFechaBusqueda.getText().toString())){
                 reporteUnidadesBussines = new ReporteUnidadesBussines(view.getContext());
                 listaLlenado = reporteUnidadesBussines.getUnidadLlenadoByFecha(fechaBusqueda);
-                listAdapter = new ListLlenadoAdapter(view.getContext(),R.id.list_item, listaLlenado);
+                listAdapter = new ListLlenadoAdapter(view.getContext(),R.layout.list_item_variacion, listaLlenado);
+                listView = (ListView) view.findViewById(R.id.listViewBusquedaVariacion);
                 listView.setItemsCanFocus(false);
                 listView.setAdapter(listAdapter);
+            }   else    {
+                Toast.makeText(view.getContext(), "El campo de fecha es requerido , favor de seleccionar una fecha.", Toast.LENGTH_LONG).show();
+            }
+
                 //List<LiquidacionesTO> lista = liquidacionBussines.getAllLiquidaciones(view);
                 //Date fechahoy= null;
 
@@ -90,12 +96,12 @@ public class TapReportes extends Fragment{
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 //Toast.makeText(view.getContext(), "Clicked: "+names.get(position), Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
 
         // Enlazamos con nuestro adaptador personalizado
 
@@ -104,8 +110,13 @@ public class TapReportes extends Fragment{
             public void onClick(View arg0)
             {
                 try {
-                    String ruta = reportes.excel(view);
-                    Toast.makeText(view.getContext(), "El reporte se creo en la siguiente ruta: " + ruta, Toast.LENGTH_LONG).show();
+                    if (listaLlenado.size() > 0){
+                        String ruta = reportes.excel(view,listaLlenado);
+                        Toast.makeText(view.getContext(), "El reporte se creo en la siguiente ruta: " + ruta, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(view.getContext(), "No existe información para exportar, favor de validar", Toast.LENGTH_LONG).show();
+                    }
+
                 }catch (Exception  e)   {
                     Log.d("Error " + e.getStackTrace()," , Mensaje "+ e.getMessage());
                     Toast.makeText(view.getContext(), "No se pudo crear al excel, favor de contactar al Administrador", Toast.LENGTH_LONG).show();

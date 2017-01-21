@@ -45,8 +45,8 @@ import static mx.com.desoft.hidrogas.R.id.fecha;
  */
 
 public class TapLiquidacionUnidades extends Fragment{
-    private static final Integer CHOFER = 2;
-    private static final Integer AYUDANTE = 3;
+    private static final Integer CHOFER = 1;
+    private static final Integer AYUDANTE = 2;
 
     private ViewGroup viewGroup;
     private Button btnImprimir, btnGuardarLiquidacion;
@@ -109,6 +109,8 @@ public class TapLiquidacionUnidades extends Fragment{
     private void inicializarEventos()   {
         pipasBussines = new PipasBussines();
         List<String> listSpinner = pipasBussines.getAllPipas(viewGroup.getContext());
+
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(viewGroup.getContext(),
                 android.R.layout.simple_spinner_item,listSpinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -117,6 +119,9 @@ public class TapLiquidacionUnidades extends Fragment{
         spinnerRuta.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> parent,View v, int position, long id) {
+                        int idPipa = ((Long) parent.getSelectedItemId()).intValue();
+                        String pipaxsczx = parent.getSelectedItem().toString();
+                        Toast.makeText(viewGroup.getContext(), "idPipa" + idPipa+ " noPipa" +  pipaxsczx , Toast.LENGTH_LONG).show();
                         noPipa = ((Long) parent.getSelectedItemId()).intValue();
                         liquidacionesTO = new LiquidacionesTO();
                         List<PersonalTO> listaPersonal = unidadesBussines.obtenerPersonal(viewGroup, ((Long) parent.getSelectedItemId()).intValue());
@@ -199,7 +204,7 @@ public class TapLiquidacionUnidades extends Fragment{
                     textViewNombreChofer.setText(chofer.getNombre() + " " + chofer.getApellidoPaterno() + " " + chofer.getApellidoMaterno());
                 }
 
-                Toast.makeText(viewGroup.getContext(),"Buscando Chofer", Toast.LENGTH_LONG).show();
+                //Toast.makeText(viewGroup.getContext(),"Buscando Chofer", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -222,7 +227,7 @@ public class TapLiquidacionUnidades extends Fragment{
                     if (ayudante != null)
                     textViewNombreAyudante.setText(ayudante.getNombre() + " " + ayudante.getApellidoPaterno() + " " + ayudante.getApellidoMaterno());
                 }
-                Toast.makeText(viewGroup.getContext(),"Buscando Ayudante", Toast.LENGTH_LONG).show();
+                //Toast.makeText(viewGroup.getContext(),"Buscando Ayudante", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -295,10 +300,12 @@ public class TapLiquidacionUnidades extends Fragment{
             textViewNombreAyudante.setText("");
         }
         for (PersonalTO personal: listaPersonal) {
+            Toast.makeText(viewGroup.getContext(),"nombre " + personal.getNombre() + " " + personal.getTipoEmpleado() + "" +listaPersonal.size(), Toast.LENGTH_LONG).show();
+            Log.d("" + personal.getNombre(),"" + personal.getTipoEmpleado());
             if (personal.getTipoEmpleado().equals(CHOFER)){
                 editTextNoChofer.setText(personal.getNomina());
                 textViewNombreChofer.setText(personal.getNombre() + " " + personal.getApellidoPaterno() + " " + personal.getApellidoMaterno());
-            }   else  /*if (personal.getTipoEmpleado().equals(AYUDANTE)) */{
+            }   else  if (personal.getTipoEmpleado().equals(AYUDANTE)) {
                 editTextNoAyudante.setText(personal.getNomina());
                 textViewNombreAyudante.setText(personal.getNombre() + " " + personal.getApellidoPaterno() + " " + personal.getApellidoMaterno());
             }

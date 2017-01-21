@@ -74,8 +74,7 @@ public class ListaPipas extends Fragment {
             {
                 try {
                     reportes = new Reportes();
-                    String ruta = reportes.excel(viewGroup);
-                    Toast.makeText(viewGroup.getContext(), "El reporte se creo en la siguiente ruta: " + ruta, Toast.LENGTH_LONG).show();
+                    reportes.reporteExcelPipas(viewGroup, pipasTOArray);
                 }catch (Exception  e)   {
                     Log.d("Error " + e.getStackTrace()," , Mensaje "+ e.getMessage());
                     Toast.makeText(viewGroup.getContext(), "No se pudo crear al excel, favor de contactar al Administrador", Toast.LENGTH_LONG).show();
@@ -127,7 +126,7 @@ public class ListaPipas extends Fragment {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater menuInflater = getActivity().getMenuInflater();
-        //menuInflater.inflate(R.menu.menu_pipas, menu);
+        menuInflater.inflate(R.menu.menu_pipas, menu);
     }
 
     @Override
@@ -156,12 +155,12 @@ public class ListaPipas extends Fragment {
                 });
                 alertDialog.show();
                 return true;
-            /*case R.id.llenar:
+            case R.id.llenar:
                 Intent accion = new Intent(viewGroup.getContext(), LlenarPipa.class);
                 accion.putExtra("noPipa", pipasTOArray.get(adapterContextMenuInfo.position).getNoPipa().toString());
                 accion.putExtra("porcentajeLlenado", pipasTOArray.get(adapterContextMenuInfo.position).getPorcentajeLlenado().toString());
                 chargePage(accion);
-                return true;*/
+                return true;
             default:
                 return super.onContextItemSelected(item);
         }
