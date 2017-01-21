@@ -1,38 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:orientation="horizontal"
-    android:weightSum="1">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:padding="4dp"
+    tools:context=".MainActivity" >
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tabla_Datos"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="#333"
-        android:layout_gravity="center_vertical"
-        android:text="HOLA" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#333"
-        android:layout_gravity="center_vertical"
-        android:text="HOLA"
-        android:layout_weight="0.13" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView3"
-        android:layout_weight="0.14" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView4"
-        android:layout_weight="1" />
-</LinearLayout>
+        android:layout_marginTop="10dp"
+        android:stretchColumns="0,1,2,3,4,"
+        android:collapseColumns="50dp">
+        <TableRow >
+            <TextView
+                android:id="@+id/txtReportePipa"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Pipa"
+                android:layout_column="0"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <TextView
+                android:id="@+id/txtReportePorcentaje"
+                android:layout_width="100dp"
+                android:layout_column="1"
+                android:layout_height="wrap_content"
+                android:text="Porcentaje de llenado"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <TextView
+                android:id="@+id/txtReporteFechaRegistro"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:text="Fecha Registro"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <TextView
+                android:id="@+id/txtReporteVariacion"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_column="4"
+                android:text="Fecha Registro"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

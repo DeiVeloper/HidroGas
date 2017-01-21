@@ -9,6 +9,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import mx.com.desoft.hidrogas.model.Empleado;
@@ -83,6 +84,14 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
         // Inserting Row
         db.insert("Empleados", null, registro);
+
+        ContentValues llenado = new ContentValues();
+        llenado.put("noPipa", 1);
+        llenado.put("porcentajeLlenado",75);
+        llenado.put("fechaRegistro", new Date().getTime());
+        llenado.put("nominaRegistro", usuario);
+        db.insert("Llenado", null, llenado);
+
         db.close(); // Closing database connection
     }
 

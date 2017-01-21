@@ -11,7 +11,7 @@ public class LlenadoTO {
     private Integer porcentajeLlenado;
     private Long fechaRegistro;
     private String  nominaRegistro;
-
+    private Integer variacion;
 
     public LlenadoTO() {
     }
@@ -62,5 +62,13 @@ public class LlenadoTO {
 
     public void setNominaRegistro(String nominaRegistro) {
         this.nominaRegistro = nominaRegistro;
+    }
+
+    public Integer getVariacion() {
+        return variacion;
+    }
+
+    public void setVariacion(Integer variacion) {
+        this.variacion = variacion;
     }
 }

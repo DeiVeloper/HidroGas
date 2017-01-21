@@ -68,6 +68,7 @@ public class LiquidacionBussines {
         selectQuery.append("            liquidacion.nominaAyudante, ");
         selectQuery.append("            liquidacion.variacion,  ");
         selectQuery.append("            liquidacion.alerta, ");
+        selectQuery.append("            liquidacion.fechaRegistro, ");
         selectQuery.append("            v.porcentajeInicial, ");
         selectQuery.append("            v.porcentajeFinal, ");
         selectQuery.append("            v.totalizadorInicial, ");
@@ -85,14 +86,15 @@ public class LiquidacionBussines {
                     LiquidacionesTO contact = new LiquidacionesTO();
                     contact.setIdLiquidacion(Integer.parseInt(cursor.getString(0)));
                     contact.setNoPipa(Integer.parseInt(cursor.getString(1)));
-                    contact.setNominaChofer(cursor.getColumnName(2));
-                    contact.setNominaAyudante(cursor.getColumnName(3));
+                    contact.setNominaChofer(cursor.getString(2));
+                    contact.setNominaAyudante(cursor.getString(3));
                     contact.setVariacion(cursor.getInt(4));
                     contact.setAlerta(cursor.getInt(5));
-                    contact.setPorcentajeInicial(cursor.getInt(6));
-                    contact.setPorcentajeFinal(cursor.getInt(7));
-                    contact.setTotalizadorInicial(cursor.getInt(8));
-                    contact.setTotalizadorFinal(cursor.getInt(9));
+                    contact.setFechaRegistro(cursor.getLong(6));
+                    contact.setPorcentajeInicial(cursor.getInt(7));
+                    contact.setPorcentajeFinal(cursor.getInt(8));
+                    contact.setTotalizadorInicial(cursor.getInt(9));
+                    contact.setTotalizadorFinal(cursor.getInt(10));
                     contactList.add(contact);
                 } while (cursor.moveToNext());
             }

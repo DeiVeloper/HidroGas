@@ -5,7 +5,7 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <!--<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/tablaAgregarPipa"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -13,14 +13,8 @@
         android:stretchColumns="0,1,2,3,4,"
         android:collapseColumns="50dp">
 
-        <TableRow android:background="@color/PrimaryColor">
-            <TextView
-                android:text="Agregar Pipa"
-                android:textSize="20dp"
-                android:textAlignment="center"
-                android:layout_gravity="center"
-                android:layout_span="2"
-                android:textColor="@android:color/white" />
+        <TableRow >
+
         </TableRow>
         <TableRow>
             <EditText
@@ -28,12 +22,28 @@
                 android:layout_width="100dp" android:layout_height="50dp"
                 android:hint="Económico" android:textSize="23sp"
                 android:inputType="number"/>
+
             <TextView
                 android:id="@+id/lblNone" android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:textSize="23sp"/>
         </TableRow>
     </TableLayout>
+    <TextView
+        android:text="Agregar Pipa"
+        android:textSize="20dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:layout_span="2"
+        android:textColor="@android:color/white" />-->
+
+    <EditText
+        android:id="@+id/txtEconomico"
+        android:layout_width="100dp" android:layout_height="50dp"
+        android:hint="Económico" android:textSize="23sp"
+        android:inputType="number"/>
 
     <Button
         android:text="Guardar"

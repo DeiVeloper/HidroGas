@@ -30,11 +30,11 @@ public class ReporteUnidadesBussines {
     public List<LlenadoTO> getUnidadLlenadoByFecha(Long fechaBusqueda){
         List<LlenadoTO> lista = new ArrayList<>();
         StringBuilder selectQuery = new StringBuilder();
-        selectQuery.append("    SELECT  noPipa, porcentajeLlenado, fechaRegistro " );
+        selectQuery.append("    SELECT  liquidacion.noPipa, llenado.porcentajeLlenado, liquidacion.fechaRegistro, liquidacion.variacion " );
         selectQuery.append("    FROM    Liquidacion liquidacion, ");
         selectQuery.append("            Llenado llenado ");
         selectQuery.append("    WHERE   liquidacion.noPipa = llenado.noPipa" );
-        selectQuery.append("    AND     liquidacion.variacion = 1 ");
+        selectQuery.append("    AND     liquidacion.alerta = 1 ");
         selectQuery.append("    AND     liquidacion.fechaRegistro = " + fechaBusqueda);
 
         Cursor cursor = sqLiteDatabase.rawQuery(selectQuery.toString(), null);
@@ -44,6 +44,7 @@ public class ReporteUnidadesBussines {
                 unidad.setNoPipa(cursor.getInt(0));
                 unidad.setPorcentajeLlenado(cursor.getInt(1));
                 unidad.setFechaRegistro(cursor.getLong(2));
+                unidad.setVariacion(cursor.getInt(3));
                 lista.add(unidad);
             } while (cursor.moveToNext());
         }

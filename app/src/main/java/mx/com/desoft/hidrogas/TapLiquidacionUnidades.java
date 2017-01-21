@@ -37,6 +37,8 @@ import mx.com.desoft.hidrogas.to.PersonalTO;
 import mx.com.desoft.hidrogas.to.PipasTO;
 import mx.com.desoft.hidrogas.to.ViajesTO;
 
+import static mx.com.desoft.hidrogas.R.id.fecha;
+
 
 /**
  * Created by David on 03/12/16.
@@ -61,6 +63,7 @@ public class TapLiquidacionUnidades extends Fragment{
     private Integer variacion = 0;
     private Integer porcentajePipa = 0;
     private Integer noPipa = 0;
+    private Long fecha = 0L;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -121,6 +124,9 @@ public class TapLiquidacionUnidades extends Fragment{
                         List<ViajesTO> listaViajes = liquidacionBussines.getPorcentajeInicialAnterior(viewGroup, ((Long) parent.getSelectedItemId()).intValue());
                         setEmpleadosPipa(listaPersonal);
                         setViajesVista(listaViajes);
+
+
+
                     }
 
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -154,11 +160,12 @@ public class TapLiquidacionUnidades extends Fragment{
             @Override
             public void onClick(View view) {
                 if (validarLiquidacion()) {
-                    setLiquidacion();
-                    setViajes();
                     try {
                         calcularVariacion();
-                        //liquidacionBussines.guardarLiquidacion(viewGroup, liquidacionesTO, viajesTO);
+                        getFechaActual();
+                        setLiquidacion();
+                        setViajes();
+                        liquidacionBussines.guardarLiquidacion(viewGroup, liquidacionesTO, viajesTO);
                         Toast.makeText(viewGroup.getContext(), "Se guardaron los datos con éxito.", Toast.LENGTH_LONG).show();
                         //List<LiquidacionesTO> lista = liquidacionBussines.getAllLiquidaciones(viewGroup);
                         //for (LiquidacionesTO l: lista) {
@@ -240,9 +247,9 @@ public class TapLiquidacionUnidades extends Fragment{
         liquidacionesTO.setNoPipa(((Long)spinnerRuta.getSelectedItemId()).intValue());
         liquidacionesTO.setNominaChofer(editTextNoChofer.getText().toString());
         liquidacionesTO.setNominaAyudante(editTextNoAyudante.getText().toString());
-        liquidacionesTO.setFechaRegistro(new Date().getTime());
+        liquidacionesTO.setFechaRegistro(fecha);
         liquidacionesTO.setNominaRegistro("00001");
-        if (!TextUtils.isEmpty(labelAlerta.getText().toString())){
+        if (variacion < 0 || variacion >2){
             liquidacionesTO.setVariacion(variacion);
             liquidacionesTO.setAlerta(1);
         } else{
@@ -330,6 +337,16 @@ public class TapLiquidacionUnidades extends Fragment{
             labelAlerta.setText("");
         }
 
+    }
+
+    private void getFechaActual(){
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date soloFecha = formato.parse(formato.format(new Date()));
+            fecha = soloFecha.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package mx.com.desoft.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.view.LayoutInflater;
@@ -46,36 +47,48 @@ public class ListLlenadoAdapter extends BaseAdapter{
 
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
-
+            View v = convertView;
             // View Holder Pattern
-            ViewHolder holder;
+            ViewHolder holder = null;
 
-            if (convertView == null) {
+            if (v == null) {
                 // Inflamos la vista que nos ha llegado con nuestro layout personalizado
-                LayoutInflater layoutInflater = LayoutInflater.from(this.context);
-                convertView = layoutInflater.inflate(this.layout, null);
+                LayoutInflater layoutInflater = LayoutInflater.from(context);
+                v = layoutInflater.inflate(layout, null);
 
                 holder = new ViewHolder();
                 // Referenciamos el elemento a modificar y lo rellenamos
-                holder.nameTextView = (TextView) convertView.findViewById(R.id.textView);
-                convertView.setTag(holder);
+                holder.textViewPipar = (TextView) v.findViewById(R.id.txtReportePipa);
+                holder.textViewPorcentaje = (TextView) v.findViewById(R.id.txtReportePorcentaje);
+                holder.textViewFechaRegistro = (TextView) v.findViewById(R.id.txtReportePorcentaje);
+                holder.textViewVariacion = (TextView) v.findViewById(R.id.txtReporteVariacion);
+                v.setTag(holder);
             } else {
-                holder = (ViewHolder) convertView.getTag();
+                holder = (ViewHolder) v.getTag();
             }
 
             // Nos traemos el valor actual dependiente de la posición
-            String currentName = names.get(position).getNominaRegistro();
-            //currentName = (String) getItem(position);
+            String noPipa = names.get(position).getNoPipa().toString();
+            String porcentaje = names.get(position).getPorcentajeLlenado().toString();
+            String fechaRegistro = names.get(position).getFechaRegistro().toString();
+            String variacion = names.get(position).getVariacion().toString();
 
             // Referenciamos el elemento a modificar y lo rellenamos
-            holder.nameTextView.setText(currentName);
+            holder.textViewPipar.setText(noPipa);
+            holder.textViewPorcentaje.setText(porcentaje);
+            holder.textViewFechaRegistro.setText(fechaRegistro);
+            holder.textViewVariacion.setText(variacion);
+
 
             // devolvemos la vista inflada y modificada con nuestros datos
-            return convertView;
+            return v;
         }
 
         static class ViewHolder {
-            private TextView nameTextView;
+            private TextView textViewPipar;
+            private TextView textViewPorcentaje;
+            private TextView textViewFechaRegistro;
+            private TextView textViewVariacion;
         }
 
 }

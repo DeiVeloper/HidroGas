@@ -24,8 +24,12 @@ import java.util.Date;
 import java.util.List;
 
 import mx.com.desoft.adapter.ListLlenadoAdapter;
+import mx.com.desoft.hidrogas.bussines.LiquidacionBussines;
 import mx.com.desoft.hidrogas.bussines.ReporteUnidadesBussines;
+import mx.com.desoft.hidrogas.to.LiquidacionesTO;
 import mx.com.desoft.hidrogas.to.LlenadoTO;
+
+import static mx.com.desoft.hidrogas.R.id.fecha;
 
 /**
  * Created by David on 03/12/16.
@@ -36,16 +40,19 @@ public class TapReportes extends Fragment{
     private TextView labelFechaBusqueda;
     private Button btnBuscar,btnExportarExcel, btnFechaBusqueda;
     private ListView listView;
-    private View view;
+    private ViewGroup view;
     private ReporteUnidadesBussines reporteUnidadesBussines;
     private List<LlenadoTO> listaLlenado = new ArrayList<>();
     private Reportes reportes = new Reportes();
     private int year, month, day;
     private Long fechaBusqueda;
+    private LiquidacionBussines liquidacionBussines = new LiquidacionBussines();
+    private final Calendar calendar = Calendar.getInstance();
+    private ListLlenadoAdapter listAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_reportes, container, false);
+        view = (ViewGroup) inflater.inflate(R.layout.activity_reportes, container, false);
         listView = (ListView) view.findViewById(R.id.listView);
         btnBuscar = (Button) view.findViewById(R.id.btnBuscar);
         btnExportarExcel = (Button) view.findViewById(R.id.btnExportarExcel);
@@ -59,7 +66,27 @@ public class TapReportes extends Fragment{
 
                 reporteUnidadesBussines = new ReporteUnidadesBussines(view.getContext());
                 listaLlenado = reporteUnidadesBussines.getUnidadLlenadoByFecha(fechaBusqueda);
-                Toast.makeText(view.getContext(), "Fui a buscar las unidades", Toast.LENGTH_LONG).show();
+                listAdapter = new ListLlenadoAdapter(view.getContext(),R.id.list_item, listaLlenado);
+                listView.setItemsCanFocus(false);
+                listView.setAdapter(listAdapter);
+                //List<LiquidacionesTO> lista = liquidacionBussines.getAllLiquidaciones(view);
+                //Date fechahoy= null;
+
+                /*
+                for (LlenadoTO l: listaLlenado) {
+                    Log.d("Error " +l.toString(), "LLENADO  " +l.getIdLlenado() + " " + l.getNoPipa() + " " +l.getPorcentajeLlenado()+" " + l.getVariacion()
+                            +" " + l.getNominaRegistro()+ " " + l.getFechaRegistro());
+                    Date date=new Date(l.getFechaRegistro());
+                    SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
+                    String dateText = df2.format(date);
+                    try {
+                        fechahoy = df2.parse(dateText);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    Log.d("FEcha"," fecha completada" + dateText);
+                }*/
+                //Toast.makeText(view.getContext(), "Fui a buscar las unidades "+fechahoy, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -71,8 +98,7 @@ public class TapReportes extends Fragment{
         });
 
         // Enlazamos con nuestro adaptador personalizado
-        ListLlenadoAdapter listAdapter = new ListLlenadoAdapter(view.getContext(),R.id.list_item, listaLlenado);
-        listView.setAdapter(listAdapter);
+
 
         btnExportarExcel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0)
@@ -105,15 +131,16 @@ public class TapReportes extends Fragment{
                 @Override
                 public void onDateSet(DatePicker arg0,
                                       int arg1, int arg2, int arg3) {
-                    showDate(arg1, arg2+1, arg3);
+                    showDate(arg1, arg2, arg3);
                 }
             };
 
     private void showDate(int year, int month, int day) {
+        calendar.set(year, month, day);
         Date fecha = null;
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         try {
-             fecha = formato.parse(day+"/"+month+"/"+year);
+            fecha = formato.parse(formato.format(calendar.getTime()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -122,9 +149,9 @@ public class TapReportes extends Fragment{
     }
 
     private void getFechaActual(){
-        final Calendar c = Calendar.getInstance();
-        this.year = c.get(Calendar.YEAR);
-        this.month = c.get(Calendar.MONTH);
-        this.day = c.get(Calendar.DAY_OF_MONTH);
+        this.year = calendar.get(Calendar.YEAR);
+        this.month = calendar.get(Calendar.MONTH);
+        this.day = calendar.get(Calendar.DAY_OF_MONTH);
+
     }
 }
