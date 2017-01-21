@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
+import javax.inject.Inject;
 
 import mx.com.desoft.hidrogas.bussines.CatalogoBussines;
 import mx.com.desoft.hidrogas.bussines.PersonalBussines;
@@ -44,6 +44,7 @@ public class AgregarEditarPersonal extends Activity {
     private KeyListener keyListenerPass;
     private Bundle bundle;
     private Integer tipoEmpleadoInicial;
+    @Inject
     LoginActivity loginActivity;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,22 +152,24 @@ public class AgregarEditarPersonal extends Activity {
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                guardar(view);
+                boolean guardado = guardar(view);
+                if (guardado){
+                    returnTab(1);
+                }
+
             }
         });
         btnCancelar = (Button)findViewById(R.id.btnCancelar);
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent go = new Intent(getApplicationContext(), MainActivity.class);
-                go.putExtra("viewpager_position", 1);
-                startActivity(go);
+                returnTab(1);
                 //onBackPressed();
             }
         });
     }
 
-    private void guardar(View view) {
+    private boolean guardar(View view) {
         try {
             boolean resultadoGuardar = true;
             if (TextUtils.isEmpty(txtNomina.getText().toString()) || TextUtils.isEmpty(txtNombre.getText().toString()) || TextUtils.isEmpty(txtAPaterno.getText().toString())) {
@@ -191,6 +194,7 @@ public class AgregarEditarPersonal extends Activity {
                     if (resultadoGuardar) {
                         Toast.makeText(getApplicationContext(), "El usuario con nómina: " + personalTO.getNomina() + " se ha guardado correctamente.", Toast.LENGTH_SHORT).show();
                         onCleanForm();
+                        return true;
                     } else {
                         Toast.makeText(getApplicationContext(), "El usuario con nómina: " + personalTO.getNomina() + " ya existe.", Toast.LENGTH_SHORT).show();
                     }
@@ -201,6 +205,7 @@ public class AgregarEditarPersonal extends Activity {
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Ha ocurrido un error al guardar el trabajador: " + txtNombre.getText() + ".", Toast.LENGTH_SHORT).show();
         }
+        return false;
     }
 
     private boolean verificarPipa(Integer pipa, Integer tipoEmpleado){
@@ -224,5 +229,11 @@ public class AgregarEditarPersonal extends Activity {
         txtAPaterno.setText("");
         txtAMaterno.setText("");
         txtPass.setText("");
+    }
+
+    private void returnTab(int posicion){
+        Intent go = new Intent(getApplicationContext(), MainActivity.class);
+        go.putExtra("viewpager_position", posicion);
+        startActivity(go);
     }
 }

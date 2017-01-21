@@ -54,15 +54,16 @@ public class AgregarPipas extends Activity {
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                guardar();
+                boolean guardado = guardar();
+                if (guardado){
+                    returnTab(2);
+                }
             }
         });
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent go = new Intent(getApplicationContext(), MainActivity.class);
-                go.putExtra("viewpager_position", 2);
-                startActivity(go);
+                returnTab(2);
                 //onBackPressed();
             }
         });
@@ -71,7 +72,7 @@ public class AgregarPipas extends Activity {
     /**
      * Método para guarda la pipa
      */
-    private void guardar(){
+    private boolean guardar(){
         try{
             boolean resultadoGuardar;
             if (TextUtils.isEmpty(txtNoPipa.getText().toString())) {
@@ -83,6 +84,7 @@ public class AgregarPipas extends Activity {
                 resultadoGuardar = pipasBussines.guardar(getApplicationContext(), pipasTO);
                 if (resultadoGuardar) {
                     Toast.makeText(getApplicationContext(), "La pipa número: " + pipasTO.getNoPipa() + " se ha registrdo correctamente.", Toast.LENGTH_SHORT).show();
+                    return true;
                 } else {
                     Toast.makeText(getApplicationContext(), "La pipa número: " + pipasTO.getNoPipa() + " ya existe.", Toast.LENGTH_SHORT).show();
                 }
@@ -90,6 +92,12 @@ public class AgregarPipas extends Activity {
         }catch (Exception e){
             Toast.makeText(getApplicationContext(), "Ha ocurrido un error al guardar la pipa.", Toast.LENGTH_SHORT).show();
         }
+        return false;
     }
 
+    private void returnTab(int posicion){
+        Intent go = new Intent(getApplicationContext(), MainActivity.class);
+        go.putExtra("viewpager_position", posicion);
+        startActivity(go);
+    }
 }

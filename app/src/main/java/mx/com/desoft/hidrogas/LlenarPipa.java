@@ -72,40 +72,48 @@ public class LlenarPipa extends Activity {
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent go = new Intent(getApplicationContext(), MainActivity.class);
-                go.putExtra("viewpager_position", 2);
-                startActivity(go);
+                returnTab(2);
                 //onBackPressed();
             }
         });
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                guardar();
+                boolean guardado = guardar();
+                if (guardado){
+                    returnTab(2);
+                }
             }
         });
     }
 
-    private void guardar() {
+    private boolean guardar() {
         try {
             if (TextUtils.isEmpty(txtPorcentaje.getText().toString())) {
                 Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios.", Toast.LENGTH_SHORT).show();
             } else {
-                pipasTO.setNoPipa(Integer.parseInt(txtNoPipa.getText().toString()));
-                pipasTO.setPorcentajeLlenado(Integer.parseInt(txtPorcentaje.getText().toString()));
-                pipasTO.setFechaRegistro(fecha);
-                pipasTO.setNominaRegistro("20");
-                pipasBussines.llenar(getApplicationContext(), pipasTO);
-                Toast.makeText(getApplicationContext(), "La pipa número: " + pipasTO.getNoPipa() + " se ha llenado correctamente.", Toast.LENGTH_SHORT).show();
+                if (Integer.parseInt(txtPorcentaje.getText().toString()) > 100) {
+                    Toast.makeText(getApplicationContext(), "El porcentaje no puede ser mayor a 100.", Toast.LENGTH_SHORT).show();
+                } else {
+                    pipasTO.setNoPipa(Integer.parseInt(txtNoPipa.getText().toString()));
+                    pipasTO.setPorcentajeLlenado(Integer.parseInt(txtPorcentaje.getText().toString()));
+                    pipasTO.setFechaRegistro(fecha);
+                    pipasTO.setNominaRegistro("20");
+                    pipasBussines.llenar(getApplicationContext(), pipasTO);
+                    Toast.makeText(getApplicationContext(), "La pipa número: " + pipasTO.getNoPipa() + " se ha llenado correctamente.", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
             }
 
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Ha ocurrido un error al llenar la pipa.", Toast.LENGTH_SHORT).show();
         }
+        return false;
     }
 
-    public void chargePage(Class clase){
-        Intent btnAccion = new Intent (this, clase);
-        startActivity(btnAccion);
+    private void returnTab(int posicion){
+        Intent go = new Intent(getApplicationContext(), MainActivity.class);
+        go.putExtra("viewpager_position", posicion);
+        startActivity(go);
     }
 }
