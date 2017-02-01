@@ -35,7 +35,7 @@ public class PersonalBussines {
         registro.put("apellidoPaterno", personalTO.getApellidoPaterno());
         registro.put("apellidoMaterno", personalTO.getApellidoMaterno());
         registro.put("password", personalTO.getPassword());
-        registro.put("noPipa", personalTO.getNoPipa());
+        registro.put("idPipa", personalTO.getNoPipa());
         registro.put("nominaRegistro", personalTO.getNominaRegistro());
         registro.put("tipoEmpleado", personalTO.getTipoEmpleado());
         if (flgEditar) {
@@ -88,7 +88,7 @@ public class PersonalBussines {
         baseDatos = new AdminSQLiteOpenHelper(context);
         SQLiteDatabase bd = baseDatos.getWritableDatabase();
 
-        String selectQuery = "SELECT nominaEmpleado, nombre, apellidoPaterno, apellidoMaterno, password, noPipa, fechaRegistro, nominaRegistro, tipoEmpleado FROM Empleados" +
+        String selectQuery = "SELECT nominaEmpleado, nombre, apellidoPaterno, apellidoMaterno, password, idPipa, fechaRegistro, nominaRegistro, tipoEmpleado FROM Empleados" +
                 " WHERE nominaEmpleado = " + user + " AND password = " +pass;
         PersonalTO usuario = null;
 

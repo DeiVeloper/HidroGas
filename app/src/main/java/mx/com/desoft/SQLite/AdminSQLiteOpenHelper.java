@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,19 +24,21 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "hidrogas.db";
 
-    private static final String SQL_CREAR_EMPLEADOS = "CREATE TABLE Empleados(nominaEmpleado TEXT PRIMARY KEY, nombre TEXT NOT NULL," +
-            "apellidoPaterno TEXT NOT NULL, apellidoMaterno TEXT, password TEXT, noPipa INTEGER NOT NULL DEFAULT 0, fechaRegistro INTEGER NOT NULL," +
+    private Calendar calendar = Calendar.getInstance();
+
+    private static final String SQL_CREAR_EMPLEADOS = "CREATE TABLE Empleados(nominaEmpleado INTEGER PRIMARY KEY, nombre TEXT NOT NULL," +
+            "apellidoPaterno TEXT NOT NULL, apellidoMaterno TEXT, password TEXT, idPipa INTEGER NOT NULL DEFAULT 0, fechaRegistro INTEGER NOT NULL," +
             "nominaRegistro TEXT NOT NULL, tipoEmpleado INTEGER NOT NULL DEFAULT 1)";
 
     private static final String SQL_CREAR_LIQUIDACION = "CREATE TABLE Liquidacion(idLiquidacion INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "nominaChofer TEXT NOT NULL, nominaAyudante TEXT NOT NULL, noPipa INTEGER NOT NULL DEFAULT 0, alerta INTEGER NULL DEFAULT 0, " +
+            "nominaChofer TEXT NOT NULL, nominaAyudante TEXT NOT NULL, idPipa INTEGER NOT NULL DEFAULT 0, alerta INTEGER NULL DEFAULT 0, " +
             "variacion INTEGER NULL DEFAULT 0, fechaRegistro INTEGER NOT NULL, nominaRegistro TEXT NOT NULL)";
 
-    private static final String SQL_CREAR_LLENADO = "CREATE TABLE Llenado(idLlenado INTEGER PRIMARY KEY AUTOINCREMENT, noPipa INTEGER NOT NULL," +
+    private static final String SQL_CREAR_LLENADO = "CREATE TABLE Llenado(idLlenado INTEGER PRIMARY KEY AUTOINCREMENT, idPipa INTEGER NOT NULL," +
             "porcentajeLlenado INTEGER NOT NULL, fechaRegistro INTEGER NOT NULL, nominaRegistro TEXT NOT NULL)";
 
     private static final String SQL_CREAR_PIPAS = "CREATE TABLE Pipas (idPipa INTEGER PRIMARY KEY AUTOINCREMENT, noPipa INTEGER NOT NULL, fechaRegistro INTEGER NOT NULL," +
-            "nominaRegistro TEXT NOT NULL)";
+            "nominaRegistro TEXT NOT NULL, capacidad INTEGER NULL DEFAULT 0)";
 
     private static final String SQL_CREAR_TIPOEMPLEADOS = "CREATE TABLE TipoEmpleados (idEmpleado INTEGER PRIMARY KEY, descripcion TEXT)";
 
@@ -77,8 +81,8 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         registro.put("apellidoPaterno", "Castro");
         registro.put("apellidoMaterno", "Aguilar");
         registro.put("password", password);
-        registro.put("noPipa", 1);
-        registro.put("fechaRegistro", getFechaActual());
+        registro.put("idPipa", 1);
+        registro.put("fechaRegistro", this.getFechaActual());
         registro.put("nominaRegistro", "130191");
         registro.put("tipoEmpleado", 1);
 
@@ -86,56 +90,33 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         db.insert("Empleados", null, registro);
 
         ContentValues llenado = new ContentValues();
-        llenado.put("noPipa", 1);
-        llenado.put("porcentajeLlenado",75);
-        llenado.put("fechaRegistro", new Date().getTime());
+        llenado.put("noPipa", 701);
+        llenado.put("fechaRegistro", this.getFechaActual());
         llenado.put("nominaRegistro", usuario);
-        db.insert("Llenado", null, llenado);
+        llenado.put("capacidad", 5800);
+        db.insert("Pipas", null, llenado);
 
         db.close(); // Closing database connection
     }
-
-    public List<Empleado> getContact() {
-        List<Empleado> contactList = new ArrayList<Empleado>();
-        // Select All Query
-        String selectQuery = "SELECT nominaEmpleado, nombre, apellidoPaterno, apellidoMaterno, password, noPipa, fechaRegistro, nominaRegistro, tipoEmpleado FROM Empleados";
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                Empleado contact = new Empleado();
-                contact.setNominaEmpleado(cursor.getString(0));
-                contact.setNombre(cursor.getString(1));
-                contact.setApellidoPaterno(cursor.getString(2));
-                contact.setApellidoMaterno(cursor.getString(3));
-                contact.setPassword(cursor.getString(4));
-                //contact.setNoPipa(Integer.valueOf(cursor.getColumnName(5).toString()).intValue());
-                //contact.setFechaRegistro();
-                contact.setNominaRegistro(cursor.getColumnName(7));
-                //contact.setTipoEmpleado(Integer.parseInt(cursor.getColumnName(8)));
-                contactList.add(contact);
-            } while (cursor.moveToNext());
-        }
-
-        // return contact list
-        return contactList;
-    }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
 
-    private Integer getFechaActual(){
-        Calendar fecha = Calendar.getInstance();
-        int year = fecha.get(Calendar.YEAR);
-        int month = fecha.get(Calendar.MONTH) + 1;
-        int day = fecha.get(Calendar.DAY_OF_MONTH);
-        return Integer.valueOf(day+""+month+""+year);
+    private Long getFechaActual(){
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        calendar.set(year, month, day-1);
+        Date fecha = null;
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            fecha = formato.parse(formato.format(calendar.getTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return fecha.getTime();
     }
 }
 

@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -31,9 +32,10 @@ public class ListaPipas extends Fragment {
     private PipasBussines pipasBussines;
     private AdapterPipas adapterPipas;
     EditText txtPipa;
-    Button btnAgregar, btnBuscar;
+    Button btnAgregar, btnBuscar, btnExportarPipas;
     ArrayList<PipasTO> pipasTOArray;
     ListView listView;
+    private Reportes reportes;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         pipasTO = new PipasTO();
@@ -49,6 +51,7 @@ public class ListaPipas extends Fragment {
         txtPipa = (EditText) viewGroup.findViewById(R.id.txtPipa);
         btnBuscar = (Button)viewGroup.findViewById(R.id.btnBuscar);
         btnAgregar = (Button)viewGroup.findViewById(R.id.btnAgregar);
+        btnExportarPipas = (Button) viewGroup.findViewById(R.id.btnExportarPipas);
     }
 
     private void cargarEventos() {
@@ -63,6 +66,19 @@ public class ListaPipas extends Fragment {
             @Override
             public void onClick(View view) {
                 buscar();
+            }
+        });
+
+        btnExportarPipas.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0)
+            {
+                try {
+                    reportes = new Reportes();
+                    reportes.reporteExcelPipas(viewGroup, pipasTOArray);
+                }catch (Exception  e)   {
+                    Log.d("Error " + e.getStackTrace()," , Mensaje "+ e.getMessage());
+                    Toast.makeText(viewGroup.getContext(), "No se pudo crear al excel, favor de contactar al Administrador", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -96,14 +112,14 @@ public class ListaPipas extends Fragment {
                 }
                 pipasTOArray.add(new PipasTO(registros.getInt(0), porcentajeLlenado, registros.getLong(1), registros.getString(2), chofer, ayudante));
             } while (registros.moveToNext());
+            this.adapterPipas = new AdapterPipas(viewGroup.getContext(), R.layout.list_items_pipas, pipasTOArray);
+            listView = (ListView)viewGroup.findViewById(R.id.lstPipas);
+            listView.setItemsCanFocus(false);
+            listView.setAdapter(adapterPipas);
+            registerForContextMenu(listView);
         } else {
             Toast.makeText(viewGroup.getContext(), "Su búsqueda no tiene registros asociados.", Toast.LENGTH_SHORT).show();
         }
-        this.adapterPipas = new AdapterPipas(viewGroup.getContext(), R.layout.list_items_pipas, pipasTOArray);
-        listView = (ListView)viewGroup.findViewById(R.id.lstPipas);
-        listView.setItemsCanFocus(false);
-        listView.setAdapter(adapterPipas);
-        registerForContextMenu(listView);
     }
 
     @Override

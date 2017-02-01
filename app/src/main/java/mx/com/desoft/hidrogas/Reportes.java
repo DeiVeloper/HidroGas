@@ -80,6 +80,8 @@ public class Reportes  {
 
     public  void reporteExcelPipas(View view, List<PipasTO> lista) throws Exception{
         {
+            PipasTO[] miarray = new PipasTO[lista.size()];
+            miarray = lista.toArray(miarray);
             HSSFWorkbook workbook = new HSSFWorkbook();
             HSSFSheet sheet = workbook.createSheet();
             workbook.setSheetName(0, "Hoja excel");

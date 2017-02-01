@@ -1,6 +1,8 @@
 package mx.com.desoft.hidrogas;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -10,9 +12,12 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -37,6 +42,7 @@ import mx.com.desoft.hidrogas.to.PersonalTO;
 import mx.com.desoft.hidrogas.to.PipasTO;
 import mx.com.desoft.hidrogas.to.ViajesTO;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
 import static mx.com.desoft.hidrogas.R.id.fecha;
 
 
@@ -49,7 +55,7 @@ public class TapLiquidacionUnidades extends Fragment{
     private static final Integer AYUDANTE = 2;
 
     private ViewGroup viewGroup;
-    private Button btnImprimir, btnGuardarLiquidacion;
+    private Button btnImprimir, btnGuardarLiquidacion, btnMostrarMovExtra;
     private EditText editTextEconomico, editTextNoChofer, editTextNoAyudante, editTextSalida_1, editTextLlegada_1, editTextTotInicial_1, editTextTotFinal_1,
             editTextSalida_2, editTextLlegada_2, editTextTotInicial_2, editTextTotFinal_2, editTextSalida_3, editTextLlegada_3, editTextTotInicial_3, editTextTotFinal_3;
     private TextView textViewNombreChofer, textViewNombreAyudante, labelAlerta, textViewVariacion;
@@ -59,10 +65,9 @@ public class TapLiquidacionUnidades extends Fragment{
     private LiquidacionesTO liquidacionesTO;
     private PipasBussines pipasBussines;
     private List<ViajesTO> viajesTO = new ArrayList<>();
-    private LoginActivity login;
-    private Integer variacion = 0;
-    private Integer porcentajePipa = 0;
-    private Integer noPipa = 0;
+    private Float variacion = 0F;
+    private Integer capacidadPipa = 0;
+    private Integer idPipa = 0;
     private Long fecha = 0L;
 
     @Override
@@ -72,7 +77,6 @@ public class TapLiquidacionUnidades extends Fragment{
         unidadesBussines = new UnidadesBussines();
         inicializarComponentes();
         inicializarEventos();
-        //inicializarViajes();
         return viewGroup;
     }
 
@@ -104,60 +108,35 @@ public class TapLiquidacionUnidades extends Fragment{
         textViewNombreAyudante = (TextView) viewGroup.findViewById(R.id.input_nombreAyudante);
         labelAlerta = (TextView) viewGroup.findViewById(R.id.labelAlerta);
         textViewVariacion = (TextView) viewGroup.findViewById(R.id.input_variacion);
+
+        btnMostrarMovExtra = (Button) viewGroup.findViewById(R.id.btnMostrarMovExtra);
     }
 
     private void inicializarEventos()   {
         pipasBussines = new PipasBussines();
         List<String> listSpinner = pipasBussines.getAllPipas(viewGroup.getContext());
-
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(viewGroup.getContext(),
-                android.R.layout.simple_spinner_item,listSpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(viewGroup.getContext(), android.R.layout.simple_spinner_item,listSpinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerRuta.setAdapter(adapter);
 
         spinnerRuta.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> parent,View v, int position, long id) {
-                        int idPipa = ((Long) parent.getSelectedItemId()).intValue();
-                        String pipaxsczx = parent.getSelectedItem().toString();
-                        Toast.makeText(viewGroup.getContext(), "idPipa" + idPipa+ " noPipa" +  pipaxsczx , Toast.LENGTH_LONG).show();
-                        noPipa = ((Long) parent.getSelectedItemId()).intValue();
+                        idPipa = ((Long) parent.getSelectedItemId()).intValue();
                         liquidacionesTO = new LiquidacionesTO();
                         List<PersonalTO> listaPersonal = unidadesBussines.obtenerPersonal(viewGroup, ((Long) parent.getSelectedItemId()).intValue());
-                        porcentajePipa = unidadesBussines.getPorcentajePipa(viewGroup, ((Long) parent.getSelectedItemId()).intValue());
+                        capacidadPipa = unidadesBussines.getCapacidadPipa(viewGroup, ((Long) parent.getSelectedItemId()).intValue());
                         List<ViajesTO> listaViajes = liquidacionBussines.getPorcentajeInicialAnterior(viewGroup, ((Long) parent.getSelectedItemId()).intValue());
                         setEmpleadosPipa(listaPersonal);
                         setViajesVista(listaViajes);
-
-
-
                     }
 
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
+                    public void onNothingSelected(AdapterView<?> parent) {}
                 }
         );
 
         btnImprimir.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                Long fecha = new Date().getTime();
-
-                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                try {
-                    Date fechaS = format.parse(fecha.toString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                String fechal = format.format(fecha);
-
-                editTextEconomico.setText(fechal);
-                Toast.makeText(viewGroup.getContext(), "Hola " + fecha.intValue() + "fecha 2: "+ fechal, Toast.LENGTH_LONG).show();
-                Log.d("Error "  + fecha, "Fecha " + fechal);
-
-                //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                //startActivity(intent);
             }
         });
 
@@ -172,11 +151,6 @@ public class TapLiquidacionUnidades extends Fragment{
                         setViajes();
                         liquidacionBussines.guardarLiquidacion(viewGroup, liquidacionesTO, viajesTO);
                         Toast.makeText(viewGroup.getContext(), "Se guardaron los datos con éxito.", Toast.LENGTH_LONG).show();
-                        //List<LiquidacionesTO> lista = liquidacionBussines.getAllLiquidaciones(viewGroup);
-                        //for (LiquidacionesTO l: lista) {
-                          //  Log.d("Error " +l.toString(), "Liquidacion " +l.getIdLiquidacion() + " " + l.getNominaChofer() + " " +l.getNominaAyudante()+" " + l.getPorcentajeInicial()
-                           //         +" " + l.getPorcentajeFinal()+ " " +l.getTotalizadorInicial() + " " +l.getTotalizadorFinal());
-                       // }
                     } catch (Exception e){
                         Toast.makeText(viewGroup.getContext(), "Error al guardar la liquidación.", Toast.LENGTH_LONG).show();
                         Log.d("Error" + e.getStackTrace(),"" + e.getMessage());
@@ -185,51 +159,76 @@ public class TapLiquidacionUnidades extends Fragment{
             }
         });
 
-        editTextNoChofer.addTextChangedListener(new TextWatcher() {
+        editTextNoChofer.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean procesado = false;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                    PersonalTO ayudante = unidadesBussines.getChoferPipa(viewGroup, idPipa, Integer.valueOf(v.getText().toString()));
+                    if (ayudante != null){
+                        textViewNombreChofer.setText(ayudante.getNombre() + " " + ayudante.getApellidoPaterno() + " " + ayudante.getApellidoMaterno());
+                    }else{
+                        textViewNombreChofer.setText("");
+                    }
 
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(s.toString())) {
-                    PersonalTO chofer = unidadesBussines.getChoferPipa(viewGroup, noPipa, Integer.valueOf(s.toString()));
-                    if (chofer != null)
-                    textViewNombreChofer.setText(chofer.getNombre() + " " + chofer.getApellidoPaterno() + " " + chofer.getApellidoMaterno());
+                    //InputMethodManager imm =
+                      //      (InputMethodManager) viewGroup.getSystemService(INPUT_METHOD_SERVICE);
+                    //imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    procesado = true;
                 }
-
-                //Toast.makeText(viewGroup.getContext(),"Buscando Chofer", Toast.LENGTH_LONG).show();
-
+                return procesado;
             }
         });
 
-        editTextNoAyudante.addTextChangedListener(new TextWatcher() {
+        editTextNoAyudante.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean procesado = false;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                    PersonalTO ayudante = unidadesBussines.getAyudantePipa(viewGroup, idPipa, v.getText().toString());
+                    if (ayudante != null){
+                        textViewNombreAyudante.setText(ayudante.getNombre() + " " + ayudante.getApellidoPaterno() + " " + ayudante.getApellidoMaterno());
+                    }else{
+                        textViewNombreAyudante.setText("");
+                    }
 
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(s.toString())) {
-                    PersonalTO ayudante = unidadesBussines.getAyudantePipa(viewGroup, noPipa, Integer.valueOf(s.toString()));
-                    if (ayudante != null)
-                    textViewNombreAyudante.setText(ayudante.getNombre() + " " + ayudante.getApellidoPaterno() + " " + ayudante.getApellidoMaterno());
+                    //InputMethodManager imm =
+                    //      (InputMethodManager) viewGroup.getSystemService(INPUT_METHOD_SERVICE);
+                    //imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    procesado = true;
                 }
-                //Toast.makeText(viewGroup.getContext(),"Buscando Ayudante", Toast.LENGTH_LONG).show();
+                return procesado;
             }
         });
+
+        btnMostrarMovExtra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(viewGroup.getContext());
+                // Get the layout inflater
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+
+                // Inflate and set the layout for the dialog
+                // Pass null as the parent view because its going in the dialog layout
+                builder.setView(inflater.inflate(R.layout.dialog_signin, null))
+                        // Add action buttons
+                        .setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                // sign in the user ...
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                            }
+                        });
+                builder.show();
+            }
+        });
+
+
     }
 
     private boolean validarLiquidacion(){
@@ -255,7 +254,7 @@ public class TapLiquidacionUnidades extends Fragment{
         liquidacionesTO.setFechaRegistro(fecha);
         liquidacionesTO.setNominaRegistro("00001");
         if (variacion < 0 || variacion >2){
-            liquidacionesTO.setVariacion(variacion);
+            liquidacionesTO.setVariacion(variacion.intValue());
             liquidacionesTO.setAlerta(1);
         } else{
             liquidacionesTO.setVariacion(0);
@@ -300,8 +299,6 @@ public class TapLiquidacionUnidades extends Fragment{
             textViewNombreAyudante.setText("");
         }
         for (PersonalTO personal: listaPersonal) {
-            Toast.makeText(viewGroup.getContext(),"nombre " + personal.getNombre() + " " + personal.getTipoEmpleado() + "" +listaPersonal.size(), Toast.LENGTH_LONG).show();
-            Log.d("" + personal.getNombre(),"" + personal.getTipoEmpleado());
             if (personal.getTipoEmpleado().equals(CHOFER)){
                 editTextNoChofer.setText(personal.getNomina());
                 textViewNombreChofer.setText(personal.getNombre() + " " + personal.getApellidoPaterno() + " " + personal.getApellidoMaterno());
@@ -323,6 +320,8 @@ public class TapLiquidacionUnidades extends Fragment{
     }
 
     private void calcularVariacion(){
+        Integer venta = 0;
+
         Integer salida_1 = !TextUtils.isEmpty(editTextSalida_1.getText().toString()) ? Integer.valueOf(editTextSalida_1.getText().toString()) : 0;
         Integer llegada_1 = !TextUtils.isEmpty(editTextLlegada_1.getText().toString()) ? Integer.valueOf(editTextLlegada_1.getText().toString()) : 0;
         Integer totIni_1 = !TextUtils.isEmpty(editTextTotInicial_1.getText().toString()) ? Integer.valueOf(editTextTotInicial_1.getText().toString()) : 0;
@@ -334,8 +333,12 @@ public class TapLiquidacionUnidades extends Fragment{
         Integer totFinal_2 = !TextUtils.isEmpty(editTextTotFinal_2.getText().toString()) ? Integer.valueOf(editTextTotFinal_2.getText().toString()) : 0;
         Integer totFinal_3 = !TextUtils.isEmpty(editTextTotFinal_3.getText().toString()) ? Integer.valueOf(editTextTotFinal_3.getText().toString()) : 0;
 
-        variacion = ((salida_1 + salida_2 + salida_3) - (llegada_1 - llegada_2 - llegada_3)) * porcentajePipa  -
-                (totIni_1 - (totFinal_1 != 0 ? totFinal_1 : totFinal_2 != 0 ? totFinal_2 : totFinal_3 != 0 ? totFinal_3 :0));
+
+
+        venta = totIni_1 - (totFinal_1 != 0 ? totFinal_1 : totFinal_2 != 0 ? totFinal_2 : totFinal_3 != 0 ? totFinal_3 :0);
+        variacion = ((getPorcentaje((float)salida_1)  + getPorcentaje((float)salida_2) + getPorcentaje((float)salida_3))
+                - (getPorcentaje((float)llegada_1) + getPorcentaje((float)llegada_2) + getPorcentaje((float)llegada_3))) * capacidadPipa;
+        variacion = ((-1) * venta) - variacion;
 
         textViewVariacion.setText(variacion.toString());
         if (variacion < 0 || variacion >2){
@@ -354,6 +357,10 @@ public class TapLiquidacionUnidades extends Fragment{
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    private Float getPorcentaje(Float numero){
+        return (float)(numero / 100F);
     }
 
 }

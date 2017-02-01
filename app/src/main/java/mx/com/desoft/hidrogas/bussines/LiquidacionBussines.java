@@ -5,7 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.ViewGroup;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
@@ -14,6 +18,8 @@ import mx.com.desoft.hidrogas.model.Liquidaciones;
 import mx.com.desoft.hidrogas.to.LiquidacionesTO;
 import mx.com.desoft.hidrogas.to.ViajesTO;
 
+import static mx.com.desoft.hidrogas.R.id.fecha;
+
 /**
  * Created by carlosdavid.castro on 29/12/2016.
  */
@@ -21,6 +27,7 @@ import mx.com.desoft.hidrogas.to.ViajesTO;
 public class LiquidacionBussines {
     private static AdminSQLiteOpenHelper baseDatos;
     private static SQLiteDatabase bd;
+    private Calendar calendar = Calendar.getInstance();
 
     public LiquidacionBussines() {
 
@@ -36,7 +43,7 @@ public class LiquidacionBussines {
         ContentValues registro = new ContentValues();
         registro.put("nominaChofer", liquidacionesTO.getNominaChofer());
         registro.put("nominaAyudante", liquidacionesTO.getNominaAyudante());
-        registro.put("noPipa", liquidacionesTO.getNoPipa());
+        registro.put("idPipa", liquidacionesTO.getNoPipa());
         registro.put("variacion", liquidacionesTO.getVariacion());
         registro.put("alerta", liquidacionesTO.getAlerta());
         registro.put("fechaRegistro", liquidacionesTO.getFechaRegistro().toString());
@@ -115,8 +122,8 @@ public class LiquidacionBussines {
         selectQuery.append("FROM    Viajes viajes,  ");
         selectQuery.append("        Liquidacion liquidacion ");
         selectQuery.append("WHERE   viajes.idLiquidacion = liquidacion.idLiquidacion ");
-        selectQuery.append("AND     liquidacion.fechaRegistro = " );
-        selectQuery.append("        liquidacion.noPipa = " + idPipa);
+        selectQuery.append("AND     liquidacion.fechaRegistro = " + this.getFechaAnterior());
+        selectQuery.append(" AND     liquidacion.idPipa = " + idPipa);
 
         Cursor cursor = bd.rawQuery(selectQuery.toString(), null);
 
@@ -133,5 +140,21 @@ public class LiquidacionBussines {
             } while (cursor.moveToNext());
         }
         return lista;
+    }
+
+    private Long getFechaAnterior(){
+
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        calendar.set(year, month, day-1);
+        Date fecha = null;
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            fecha = formato.parse(formato.format(calendar.getTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return fecha.getTime();
     }
 }

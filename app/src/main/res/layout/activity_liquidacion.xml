@@ -438,7 +438,9 @@
                 android:textAlignment="center"
                 android:layout_alignTop="@+id/input_nombreChofer"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"/>
 
 
             <TextView
@@ -460,7 +462,9 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:layout_below="@+id/input_chofer"
-                android:hint="No. Nomina Ayudante" />
+                android:hint="No. Nomina Ayudante"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"/>
 
             <TextView
                 android:id="@+id/input_nombreAyudante"
@@ -602,15 +606,14 @@
         android:layout_marginTop="3dp"
         android:layout_below="@+id/tabla_viajes"
         android:textSize="20dp"/>-->
-
-    <TextView
-        android:id="@+id/textViewVariacion"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Variación"
-        android:textSize="30dp"
-        android:layout_below="@+id/tabla_viajes"/>
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="30dp"
+    android:layout_below="@+id/tabla_viajes"
+    android:layout_marginTop="10dp"
+    android:layout_toLeftOf="@+id/input_variacion"
+    android:id="@+id/btnMostrarMovExtra"
+    android:text="Movimientos Extraordinarios"/>
     <TextView
         android:id="@+id/input_variacion"
         android:layout_width="250dp"
@@ -635,8 +638,16 @@
         android:layout_below="@+id/tabla_viajes"
         android:textSize="30dp"/>
 
-
-
+    <TextView
+        android:id="@+id/textViewVariacion"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Variación"
+        android:textSize="30dp"
+        android:layout_alignBaseline="@+id/input_variacion"
+        android:layout_alignBottom="@+id/input_variacion"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>
