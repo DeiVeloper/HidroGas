@@ -112,7 +112,7 @@ public class Reportes  {
                 HSSFRow dataRow = sheet.createRow(i + 1);
                 PipasTO registros = miarray[i];
                 dataRow.createCell(0).setCellValue(registros.getNoPipa());
-                dataRow.createCell(1).setCellFormula(String.format("%",registros.getPorcentajeLlenado()));
+                dataRow.createCell(1).setCellValue(registros.getPorcentajeLlenado());
             }
 
 

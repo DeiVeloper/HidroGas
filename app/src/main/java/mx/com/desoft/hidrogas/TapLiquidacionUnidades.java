@@ -26,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -69,6 +70,7 @@ public class TapLiquidacionUnidades extends Fragment{
     private Integer capacidadPipa = 0;
     private Integer idPipa;
     private Long fecha = 0L;
+    private ImportarDatos datos;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -138,6 +140,12 @@ public class TapLiquidacionUnidades extends Fragment{
 
         btnImprimir.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
+                datos = new ImportarDatos();
+                try {
+                    datos.guardardatos(viewGroup);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

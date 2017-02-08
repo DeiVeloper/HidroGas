@@ -42,6 +42,20 @@ public class PipasBussines {
         }
     }
 
+    public Long guardar2(Context context, PipasTO pipasTO) {
+        bd = getBase(context);
+        registro = new ContentValues();
+        registro.put("noPipa", pipasTO.getNoPipa());
+        registro.put("fechaRegistro", pipasTO.getFechaRegistro());
+        registro.put("nominaRegistro", pipasTO.getNominaRegistro());
+        registros = buscarByNoPipa(context, pipasTO.getNoPipa());
+        if (registros.moveToFirst()) {
+            return 0L;
+        } else {
+            return bd.insert("Pipas", null, registro);
+        }
+    }
+
     public void llenar(Context context, PipasTO pipasTO) {
         bd = getBase(context);
         registro = new ContentValues();
