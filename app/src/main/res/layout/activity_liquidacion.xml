@@ -1,370 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
-
-    <!--<TextView
-        android:id="@+id/titulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Liquidación de Pipas"
-        android:textAlignment="center"
-        android:textSize="30dp"/>-->
-
-    <!--
-        <TableLayout
-            android:id="@+id/tabla"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="64dp"
-            android:layout_below="@+id/titulo">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/ruta"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ruta: "
-                    android:textAlignment="textStart"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editRuta"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 01"
-                    android:textSize="20dp"
-                    />
-
-                <TextView
-                    android:id="@+id/economico"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Economico: "
-                    android:textAlignment="textStart"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editEconomico"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="701"
-                    android:textSize="20dp"
-                    />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/viajes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Viajes:"
-                    android:textAlignment="textStart"
-                    android:textSize="20dp"/>
-
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/salida"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Salida %: "
-                    android:textAlignment="center"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editSalida"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 50"
-                    android:textSize="20dp"
-                    />
-
-                <TextView
-                    android:id="@+id/llegada"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Llegada %: "
-                    android:textAlignment="center"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editLlegada"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 5"
-                    android:textSize="20dp"
-                    />
-
-                <TextView
-                    android:id="@+id/totIni"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Totalizador Inicial %: "
-                    android:textAlignment="center"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editTotIni"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 90"
-                    android:textSize="20dp"
-                    />
-
-                <TextView
-                    android:id="@+id/TotFin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Totalizador Final %: "
-                    android:textAlignment="center"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editTotFin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 35"
-                    android:textSize="20dp"
-                    />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/salida2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Salida %: "
-                    android:textAlignment="center"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editSalida2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 50"
-                    android:textSize="20dp"
-                    />
-
-                <TextView
-                    android:id="@+id/llegada2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Llegada %: "
-                    android:textAlignment="center"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editLlegada2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 5"
-                    android:textSize="20dp"
-                    />
-
-                <TextView
-                    android:id="@+id/totIni2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Totalizador Inicial %: "
-                    android:textAlignment="center"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editTotIni2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 90"
-                    android:textSize="20dp"
-                    />
-
-                <TextView
-                    android:id="@+id/TotFin2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Totalizador Final %: "
-                    android:textAlignment="center"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editTotFin2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 35"
-                    android:textSize="20dp"
-                    />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/salida3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Salida %: "
-                    android:textAlignment="center"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editSalida3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 50"
-                    android:textSize="20dp"
-                    />
-
-                <TextView
-                    android:id="@+id/llegada3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Llegada %: "
-                    android:textAlignment="center"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editLlegada3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 5"
-                    android:textSize="20dp"
-                    />
-
-                <TextView
-                    android:id="@+id/totIni3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Totalizador Inicial %: "
-                    android:textAlignment="center"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editTotIni3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 90"
-                    android:textSize="20dp"
-                    />
-
-                <TextView
-                    android:id="@+id/TotFin3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Totalizador Final %: "
-                    android:textAlignment="center"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editTotFin3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 35"
-                    android:textSize="20dp"
-                    />
-            </TableRow>
-
-
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/noNomindaChofer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="No. Nomina Chofer: "
-                    android:textAlignment="textStart"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editNoNominaChofer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 35"
-                    android:textSize="20dp"
-                    />
-            </TableRow>
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/noNomindaAyudante"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="No. Nomina Ayudante: "
-                    android:textAlignment="textStart"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editNoNominaAyudante"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 35"
-                    android:textSize="20dp"
-                    />
-            </TableRow>
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <TextView
-                    android:id="@+id/venta"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Venta: "
-                    android:textAlignment="textStart"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editVenta"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 35"
-                    android:textSize="20dp"
-                    />
-
-                <TextView
-                    android:id="@+id/variacion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Variacion: "
-                    android:textAlignment="textStart"
-                    android:textSize="20dp"/>
-
-                <EditText
-                    android:id="@+id/editVariacion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint=" 35"
-                    android:textSize="20dp"
-                    />
-
-            </TableRow>
-        </TableLayout>-->
-
-
-
 
     <Button
         android:id="@+id/btnImprimir"
@@ -383,19 +28,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <!--<EditText
-        android:id="@+id/input_ruta"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:hint="Ruta"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />-->
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/tabla_Datos"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:stretchColumns="0,1,2,3,4,"
         android:collapseColumns="50dp">
 
@@ -409,13 +45,8 @@
                 android:layout_span="2"
                 android:textColor="@android:color/white" />
         </TableRow>
+
         <TableRow>
-            <!--<TextView
-                android:id="@+id/label_ruta"
-                android:layout_column="0"
-                android:textAlignment="gravity"
-                android:textSize="20dp"
-                android:text="Ruta:"/>-->
             <Spinner
                 android:id="@+id/spinner_ruta"/>
 
@@ -427,9 +58,8 @@
                 android:hint="Economico"
                 android:inputType="textPersonName" />
         </TableRow>
+
         <TableRow>
-
-
             <EditText
                 android:id="@+id/input_chofer"
                 android:layout_width="wrap_content"
@@ -442,7 +72,6 @@
                 android:imeOptions="actionSearch"
                 android:singleLine="true"/>
 
-
             <TextView
                 android:id="@+id/input_nombreChofer"
                 android:layout_width="wrap_content"
@@ -453,9 +82,9 @@
 
         </TableRow>
 
-        <TableRow>
-
-
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
             <EditText
                 android:id="@+id/input_ayudante"
                 android:layout_width="wrap_content"
@@ -473,20 +102,14 @@
                 android:textSize="25dp"
                 android:layout_gravity="center"
                 android:layout_height="fill_parent"/>
-
         </TableRow>
-
-
     </TableLayout>
-
-
-
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/tabla_viajes"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="175dp"
+        android:layout_marginTop="165dp"
         android:stretchColumns="0,1,2,3,4,"
         android:collapseColumns="50dp">
 
@@ -594,60 +217,91 @@
         <View
             android:layout_height="5dip"
             android:background="#FF909090" />
+        <TableRow>
+            <TextView
+                android:id="@+id/textViewVariacion"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="Variación"
+                android:textSize="30dp"/>
+
+            <TextView
+                android:id="@+id/input_variacion"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:hint="Variación "
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:textSize="30dp"/>
+
+            <TextView
+                android:id="@+id/labelAlerta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fc0202"
+                android:textColorHint="#fc0202"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:textSize="30dp"/>
+        </TableRow>
 
     </TableLayout>
 
-    <!--<TextView
-        android:id="@+id/input_venta"
-        android:layout_width="match_parent"
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tabla_Mov_Extr"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Venta "
-        android:textAlignment="textStart"
-        android:layout_marginTop="3dp"
-        android:layout_below="@+id/tabla_viajes"
-        android:textSize="20dp"/>-->
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="30dp"
-    android:layout_below="@+id/tabla_viajes"
-    android:layout_marginTop="10dp"
-    android:layout_toLeftOf="@+id/input_variacion"
-    android:id="@+id/btnMostrarMovExtra"
-    android:text="Movimientos Extraordinarios"/>
-    <TextView
-        android:id="@+id/input_variacion"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:hint="Variación "
-        android:layout_marginTop="10dp"
-        android:textAlignment="center"
-        android:layout_toRightOf="@+id/textViewVariacion"
-        android:layout_below="@+id/tabla_viajes"
-        android:textSize="30dp"/>
+        android:layout_marginTop="380dp"
+        android:stretchColumns="0,1,2,3"
+        android:collapseColumns="10dp">
 
+        <TableRow android:background="#fca002">
+            <TextView
+                android:layout_column="0"
+                android:text="Movimientos Extraordinarios"
+                android:textSize="20dp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:layout_span="5"
+                android:textColor="@android:color/white" />
+        </TableRow>
 
-    <TextView
-        android:id="@+id/labelAlerta"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#fc0202"
-        android:textColorHint="#fc0202"
-        android:layout_marginTop="10dp"
-        android:textAlignment="center"
-        android:layout_toRightOf="@+id/input_variacion"
-        android:layout_below="@+id/tabla_viajes"
-        android:textSize="30dp"/>
+        <TableRow>
+            <EditText
+                android:id="@+id/autoconsumo"
+                android:layout_column="0"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:hint="Autoconsumo"
+                android:layout_below="@+id/textViewVariacion"/>
 
-    <TextView
-        android:id="@+id/textViewVariacion"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Variación"
-        android:textSize="30dp"
-        android:layout_alignBaseline="@+id/input_variacion"
-        android:layout_alignBottom="@+id/input_variacion"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+            <EditText
+                android:id="@+id/medidores"
+                android:layout_width="250dp"
+                android:layout_column="1"
+                android:layout_height="wrap_content"
+                android:hint="Medidores"
+                android:layout_toRightOf="@+id/autoconsumo"
+                android:layout_below="@+id/textViewVariacion"/>
 
+            <EditText
+                android:id="@+id/traspasosRecibidos"
+                android:layout_width="250dp"
+                android:layout_column="2"
+                android:layout_height="wrap_content"
+                android:hint="Traspasos Recibidos"
+                android:layout_toRightOf="@+id/medidores"
+                android:layout_below="@+id/textViewVariacion"/>
 
+            <EditText
+                android:id="@+id/traspasosRealizados"
+                android:layout_width="250dp"
+                android:layout_column="3"
+                android:layout_height="wrap_content"
+                android:hint="Traspasos Realizados"
+                android:layout_toRightOf="@+id/traspasosRecibidos"
+                android:layout_below="@+id/textViewVariacion"/>
+        </TableRow>
+    </TableLayout>
 </RelativeLayout>
+</ScrollView>
