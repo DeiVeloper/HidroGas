@@ -18,20 +18,13 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="Pipa"
-                android:layout_column="0"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-            <TextView
-                android:id="@+id/txtReportePorcentaje"
-                android:layout_width="100dp"
                 android:layout_column="1"
-                android:layout_height="wrap_content"
-                android:text="Porcentaje de llenado"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
             <TextView
                 android:id="@+id/txtReporteFechaRegistro"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_column="3"
+                android:layout_column="2"
                 android:text="Fecha Registro"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
             <TextView

@@ -75,6 +75,7 @@ public class ListaPipas extends Fragment {
                 try {
                     reportes = new Reportes();
                     reportes.reporteExcelPipas(viewGroup, pipasTOArray);
+                    Toast.makeText(viewGroup.getContext(), "Se reporte se creo con éxito"+ pipasTOArray.size()  , Toast.LENGTH_LONG).show();
                 }catch (Exception  e)   {
                     Log.d("Error " + e.getStackTrace()," , Mensaje "+ e.getMessage());
                     Toast.makeText(viewGroup.getContext(), "No se pudo crear al excel, favor de contactar al Administrador", Toast.LENGTH_LONG).show();
@@ -110,7 +111,7 @@ public class ListaPipas extends Fragment {
                         }
                     } while (resgistroChoferAyudante.moveToNext());
                 }
-                pipasTOArray.add(new PipasTO(registros.getInt(0), porcentajeLlenado, registros.getLong(1), registros.getString(2), chofer, ayudante));
+                pipasTOArray.add(new PipasTO(registros.getInt(0),registros.getInt(1), porcentajeLlenado, registros.getLong(2), registros.getString(3), chofer, ayudante));
             } while (registros.moveToNext());
             this.adapterPipas = new AdapterPipas(viewGroup.getContext(), R.layout.list_items_pipas, pipasTOArray);
             listView = (ListView)viewGroup.findViewById(R.id.lstPipas);
@@ -157,7 +158,8 @@ public class ListaPipas extends Fragment {
                 return true;
             case R.id.llenar:
                 Intent accion = new Intent(viewGroup.getContext(), LlenarPipa.class);
-                accion.putExtra("noPipa", pipasTOArray.get(adapterContextMenuInfo.position).getNoPipa().toString());
+                accion.putExtra("idPipa", pipasTOArray.get(adapterContextMenuInfo.position).getIdPipa().toString());
+                accion.putExtra("noPipa",pipasTOArray.get(adapterContextMenuInfo.position).getNoPipa().toString());
                 accion.putExtra("porcentajeLlenado", pipasTOArray.get(adapterContextMenuInfo.position).getPorcentajeLlenado().toString());
                 chargePage(accion);
                 return true;

@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
 import mx.com.desoft.hidrogas.to.PipasTO;
@@ -20,6 +22,7 @@ public class PipasBussines {
     private Cursor registros;
     private ContentValues registro;
     private SQLiteDatabase bd;
+    public static HashMap<Integer,Integer> spinnerMap;
     public PipasBussines() {
 
     }
@@ -42,7 +45,7 @@ public class PipasBussines {
     public void llenar(Context context, PipasTO pipasTO) {
         bd = getBase(context);
         registro = new ContentValues();
-        registro.put("noPipa", pipasTO.getNoPipa());
+        registro.put("idPipa", pipasTO.getIdPipa());
         registro.put("porcentajeLlenado", pipasTO.getPorcentajeLlenado());
         registro.put("fechaRegistro", pipasTO.getFechaRegistro());
         registro.put("nominaRegistro", pipasTO.getNominaRegistro());
@@ -53,9 +56,9 @@ public class PipasBussines {
         String condicion = "";
         bd = getBase(context);
         if (pipa != 0) {
-            condicion += " AND noPipa = " + pipa;
+            condicion += " AND p.idPipa = " + pipa;
         }
-        registros = bd.rawQuery("SELECT * FROM Llenado WHERE 1=1 " + condicion + " ORDER BY idLlenado DESC", null);
+        registros = bd.rawQuery("SELECT l.* FROM Llenado l, pipas p WHERE 1=1 AND p.idPipa = l.idPipa " + condicion + " ORDER BY idLlenado DESC", null);
         return registros;
     }
 
@@ -63,9 +66,9 @@ public class PipasBussines {
         String condicion = "";
         bd = getBase(context);
         if (pipa != 0) {
-            condicion += " AND noPipa = " + pipa;
+            condicion += " AND p.idPipa = " + pipa;
         }
-        registros = bd.rawQuery("SELECT * FROM Empleados WHERE 1=1 " + condicion, null);
+        registros = bd.rawQuery("SELECT e.* FROM Empleados e, pipas p WHERE 1=1 AND e.idPipa = p.idPipa" + condicion, null);
         return registros;
     }
 
@@ -92,13 +95,17 @@ public class PipasBussines {
         consulta.append("   SELECT  idPipa AS _id, ");
         consulta.append("           noPipa ");
         consulta.append("   FROM    Pipas ");
-        lista.add("Seleccione");
+        lista.add(0,"Seleccione");
         Cursor cursor = bd.rawQuery(consulta.toString(), null);
+        spinnerMap = new HashMap<Integer, Integer>();
+        int contador=1;
         if (cursor.moveToFirst()){
             do {
                 String pipa =  new String();
-                pipa = "No. Pipa - " + cursor.getInt(1);
+                pipa = "Pipa - " + cursor.getInt(1);
+                spinnerMap.put(contador,cursor.getInt(0));
                 lista.add(pipa);
+                contador++;
             }while (cursor.moveToNext());
 
         }

@@ -67,7 +67,7 @@ public class TapLiquidacionUnidades extends Fragment{
     private List<ViajesTO> viajesTO = new ArrayList<>();
     private Float variacion = 0F;
     private Integer capacidadPipa = 0;
-    private Integer idPipa = 0;
+    private Integer idPipa;
     private Long fecha = 0L;
 
     @Override
@@ -115,6 +115,7 @@ public class TapLiquidacionUnidades extends Fragment{
     private void inicializarEventos()   {
         pipasBussines = new PipasBussines();
         List<String> listSpinner = pipasBussines.getAllPipas(viewGroup.getContext());
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(viewGroup.getContext(), android.R.layout.simple_spinner_item,listSpinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerRuta.setAdapter(adapter);
@@ -122,11 +123,11 @@ public class TapLiquidacionUnidades extends Fragment{
         spinnerRuta.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> parent,View v, int position, long id) {
-                        idPipa = ((Long) parent.getSelectedItemId()).intValue();
+                        idPipa = pipasBussines.spinnerMap.get(parent.getSelectedItemPosition());
                         liquidacionesTO = new LiquidacionesTO();
-                        List<PersonalTO> listaPersonal = unidadesBussines.obtenerPersonal(viewGroup, ((Long) parent.getSelectedItemId()).intValue());
-                        capacidadPipa = unidadesBussines.getCapacidadPipa(viewGroup, ((Long) parent.getSelectedItemId()).intValue());
-                        List<ViajesTO> listaViajes = liquidacionBussines.getPorcentajeInicialAnterior(viewGroup, ((Long) parent.getSelectedItemId()).intValue());
+                        List<PersonalTO> listaPersonal = unidadesBussines.obtenerPersonal(viewGroup, idPipa);
+                        capacidadPipa = unidadesBussines.getCapacidadPipa(viewGroup, idPipa);
+                        List<ViajesTO> listaViajes = liquidacionBussines.getPorcentajeInicialAnterior(viewGroup, idPipa);
                         setEmpleadosPipa(listaPersonal);
                         setViajesVista(listaViajes);
                     }
@@ -164,7 +165,7 @@ public class TapLiquidacionUnidades extends Fragment{
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean procesado = false;
                 if (actionId == EditorInfo.IME_ACTION_SEARCH){
-                    PersonalTO ayudante = unidadesBussines.getChoferPipa(viewGroup, idPipa, Integer.valueOf(v.getText().toString()));
+                    PersonalTO ayudante = unidadesBussines.getChoferPipa(viewGroup,Integer.valueOf(v.getText().toString()));
                     if (ayudante != null){
                         textViewNombreChofer.setText(ayudante.getNombre() + " " + ayudante.getApellidoPaterno() + " " + ayudante.getApellidoMaterno());
                     }else{
@@ -186,7 +187,7 @@ public class TapLiquidacionUnidades extends Fragment{
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean procesado = false;
                 if (actionId == EditorInfo.IME_ACTION_SEARCH){
-                    PersonalTO ayudante = unidadesBussines.getAyudantePipa(viewGroup, idPipa, v.getText().toString());
+                    PersonalTO ayudante = unidadesBussines.getAyudantePipa(viewGroup,v.getText().toString());
                     if (ayudante != null){
                         textViewNombreAyudante.setText(ayudante.getNombre() + " " + ayudante.getApellidoPaterno() + " " + ayudante.getApellidoMaterno());
                     }else{

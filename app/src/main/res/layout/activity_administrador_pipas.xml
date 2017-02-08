@@ -7,13 +7,29 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <Button
+        android:id="@+id/btnExportarPipas"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:text="Exportar"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/btnAgregar"
+        />
+    <Button
+        android:text="Agregar" android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAgregar" android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" android:layout_alignParentEnd="true" />
+
+    <TableLayout
         android:id="@+id/tablaPersonal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:stretchColumns="0,1,2,3,4,"
-        android:collapseColumns="50dp">
+        android:collapseColumns="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <TableRow android:background="@color/PrimaryColor">
             <TextView
@@ -65,18 +81,5 @@
             </ListView>
         </TableRow>
     </TableLayout>
-    <Button
-        android:id="@+id/btnExportarPipas"
-        android:layout_width="96dp"
-        android:layout_height="wrap_content"
-        android:text="Exportar"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/btnAgregar"
-        />
-    <Button
-        android:text="Agregar" android:layout_width="96dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnAgregar" android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true" android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

@@ -61,7 +61,6 @@ public class ListLlenadoAdapter extends BaseAdapter{
                 holder = new ViewHolder();
                 // Referenciamos el elemento a modificar y lo rellenamos
                 holder.textViewPipar = (TextView) v.findViewById(R.id.txtReportePipa);
-                holder.textViewPorcentaje = (TextView) v.findViewById(R.id.txtReportePorcentaje);
                 holder.textViewFechaRegistro = (TextView) v.findViewById(R.id.txtReporteFechaRegistro);
                 holder.textViewVariacion = (TextView) v.findViewById(R.id.txtReporteVariacion);
                 v.setTag(holder);
@@ -71,13 +70,11 @@ public class ListLlenadoAdapter extends BaseAdapter{
 
             // Nos traemos el valor actual dependiente de la posición
             String noPipa = names.get(position).getNoPipa().toString();
-            String porcentaje = names.get(position).getPorcentajeLlenado().toString();
             String fechaRegistro = convertirFecha(names.get(position).getFechaRegistro());
             String variacion = names.get(position).getVariacion().toString();
 
             // Referenciamos el elemento a modificar y lo rellenamos
             holder.textViewPipar.setText(noPipa);
-            holder.textViewPorcentaje.setText(porcentaje);
             holder.textViewFechaRegistro.setText(fechaRegistro);
             holder.textViewVariacion.setText(variacion);
 
@@ -94,7 +91,6 @@ public class ListLlenadoAdapter extends BaseAdapter{
 
         static class ViewHolder {
             private TextView textViewPipar;
-            private TextView textViewPorcentaje;
             private TextView textViewFechaRegistro;
             private TextView textViewVariacion;
         }

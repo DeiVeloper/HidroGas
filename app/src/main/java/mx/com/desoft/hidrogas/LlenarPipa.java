@@ -29,6 +29,7 @@ public class LlenarPipa extends Activity {
     private Bundle bundle;
     private PipasTO pipasTO;
     private PipasBussines pipasBussines;
+    private Integer idPipa;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +57,9 @@ public class LlenarPipa extends Activity {
 
         //obtener datos que se pasaron en el Intent para llenar
         if(bundle != null) {
+            if (bundle.containsKey("idPipa")){
+                idPipa = Integer.parseInt(bundle.getString("idPipa").toString());
+            }
             if (bundle.containsKey("noPipa")) {
                 txtNoPipa.setText(bundle.getString("noPipa"));
             }
@@ -95,6 +99,7 @@ public class LlenarPipa extends Activity {
                 if (Integer.parseInt(txtPorcentaje.getText().toString()) > 100) {
                     Toast.makeText(getApplicationContext(), "El porcentaje no puede ser mayor a 100.", Toast.LENGTH_SHORT).show();
                 } else {
+                    pipasTO.setIdPipa(idPipa);
                     pipasTO.setNoPipa(Integer.parseInt(txtNoPipa.getText().toString()));
                     pipasTO.setPorcentajeLlenado(Integer.parseInt(txtPorcentaje.getText().toString()));
                     pipasTO.setFechaRegistro(fecha);

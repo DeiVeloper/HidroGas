@@ -50,13 +50,13 @@ public class LoginActivity extends AppCompatActivity {
                 String usuario = editTextUsuario.getText().toString();
                 String password = editTextPassword.getText().toString();
                 if(isFormValid(usuario,password)){
-                    personalTO = personalBussines.getUserDataBase(getApplication(), usuario, password);
-                    if(personalTO != null){
+                    //personalTO = personalBussines.getUserDataBase(getApplication(), usuario, password);
+                    //if(personalTO != null){
                         goToMain();
-                        saveOnPreferences(usuario,password);
-                    }   else    {
-                        Toast.makeText(getApplication(), "Usaurio inválido solo se permiten administradores", Toast.LENGTH_LONG).show();
-                    }
+                      //  saveOnPreferences(usuario,password);
+                    //}   else    {
+                      //  Toast.makeText(getApplication(), "Usaurio inválido solo se permiten administradores", Toast.LENGTH_LONG).show();
+                    //}
                 }
             }
         });

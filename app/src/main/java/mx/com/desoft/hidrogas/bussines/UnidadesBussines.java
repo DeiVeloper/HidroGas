@@ -64,15 +64,14 @@ public class UnidadesBussines {
         return porcentaje;
     }
 
-    public PersonalTO getChoferPipa(ViewGroup viewGroup, Integer idUnidad, Integer noNomina){
-        Log.d("idUnidad" + idUnidad," nomina" + noNomina);
+    public PersonalTO getChoferPipa(ViewGroup viewGroup, Integer noNomina){
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(viewGroup.getContext());
         SQLiteDatabase bd = admin.getWritableDatabase();
         Cursor fila = bd.rawQuery("select idPipa, " +
                 "nominaEmpleado, nombre, apellidoPaterno, apellidoMaterno, tipoEmpleado " +
                 "from empleados e " +
                 " where nominaEmpleado = " + noNomina +
-                " and idPipa=" + idUnidad,null );//+ " and tipoEmpleado = " + CHOFER, null);
+                " and tipoEmpleado = " + CHOFER, null);
         PersonalTO personalTO = null;
         if (fila.moveToFirst()) {
             personalTO = new PersonalTO();
@@ -87,14 +86,14 @@ public class UnidadesBussines {
         return personalTO;
     }
 
-    public PersonalTO getAyudantePipa(ViewGroup viewGroup, Integer idUnidad, String noNomina){
+    public PersonalTO getAyudantePipa(ViewGroup viewGroup, String noNomina){
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(viewGroup.getContext());
         SQLiteDatabase bd = admin.getWritableDatabase();
         Cursor fila = bd.rawQuery("select idPipa, " +
                 "nominaEmpleado, nombre, apellidoPaterno, apellidoMaterno, tipoEmpleado " +
                 "from empleados e "+
-                " where nominaEmpleado = " + noNomina +
-                " and idPipa=" + idUnidad ,null);//+ " and tipoEmpleado = " + AYUDANTE, null);
+                " where nominaEmpleado = " + noNomina+
+                " and tipoEmpleado = " + AYUDANTE, null);
         PersonalTO personalTO = null;
         if (fila.moveToFirst()) {
             personalTO = new PersonalTO();

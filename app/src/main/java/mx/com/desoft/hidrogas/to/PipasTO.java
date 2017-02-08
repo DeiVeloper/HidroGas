@@ -17,7 +17,8 @@ public class PipasTO {
 
     }
 
-    public PipasTO (Integer noPipa, Integer porcentajeLlenado, Long fechaRegistro, String nominaRegistro, String nombreChofer, String nombreAyudante) {
+    public PipasTO (Integer idPipa, Integer noPipa, Integer porcentajeLlenado, Long fechaRegistro, String nominaRegistro, String nombreChofer, String nombreAyudante) {
+        this.idPipa = idPipa;
         this.noPipa = noPipa;
         this.porcentajeLlenado = porcentajeLlenado;
         this.fechaRegistro = fechaRegistro;
