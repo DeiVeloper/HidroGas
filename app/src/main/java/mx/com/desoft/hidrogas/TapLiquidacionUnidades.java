@@ -56,9 +56,10 @@ public class TapLiquidacionUnidades extends Fragment{
     private static final Integer AYUDANTE = 2;
 
     private ViewGroup viewGroup;
-    private Button btnImprimir, btnGuardarLiquidacion, btnMostrarMovExtra;
+    private Button btnImprimir, btnGuardarLiquidacion;
     private EditText editTextEconomico, editTextNoChofer, editTextNoAyudante, editTextSalida_1, editTextLlegada_1, editTextTotInicial_1, editTextTotFinal_1,
-            editTextSalida_2, editTextLlegada_2, editTextTotInicial_2, editTextTotFinal_2, editTextSalida_3, editTextLlegada_3, editTextTotInicial_3, editTextTotFinal_3;
+            editTextSalida_2, editTextLlegada_2, editTextTotInicial_2, editTextTotFinal_2, editTextSalida_3, editTextLlegada_3, editTextTotInicial_3, editTextTotFinal_3,
+            editTextAutoconsumo, editTextMedidores, editTextTraspasosRecibidos, editTextTraspasosRealizados;
     private TextView textViewNombreChofer, textViewNombreAyudante, labelAlerta, textViewVariacion;
     private Spinner spinnerRuta;
     private LiquidacionBussines liquidacionBussines;
@@ -111,7 +112,10 @@ public class TapLiquidacionUnidades extends Fragment{
         labelAlerta = (TextView) viewGroup.findViewById(R.id.labelAlerta);
         textViewVariacion = (TextView) viewGroup.findViewById(R.id.input_variacion);
 
-        btnMostrarMovExtra = (Button) viewGroup.findViewById(R.id.btnMostrarMovExtra);
+        editTextAutoconsumo = (EditText) viewGroup.findViewById(R.id.autoconsumo);
+        editTextMedidores= (EditText) viewGroup.findViewById(R.id.medidores);
+        editTextTraspasosRecibidos = (EditText) viewGroup.findViewById(R.id.traspasosRecibidos);
+        editTextTraspasosRealizados = (EditText) viewGroup.findViewById(R.id.traspasosRealizados);
     }
 
     private void inicializarEventos()   {
@@ -142,7 +146,7 @@ public class TapLiquidacionUnidades extends Fragment{
             public void onClick(View view) {
                 datos = new ImportarDatos();
                 try {
-                    datos.guardardatos(viewGroup);
+                    datos.importarDatosPipas(viewGroup);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -212,7 +216,7 @@ public class TapLiquidacionUnidades extends Fragment{
             }
         });
 
-        btnMostrarMovExtra.setOnClickListener(new View.OnClickListener() {
+       /* btnMostrarMovExtra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(viewGroup.getContext());
@@ -235,7 +239,7 @@ public class TapLiquidacionUnidades extends Fragment{
                         });
                 builder.show();
             }
-        });
+        });*/
 
 
     }
