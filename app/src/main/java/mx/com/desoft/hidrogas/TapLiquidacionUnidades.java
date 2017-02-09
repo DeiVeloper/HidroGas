@@ -146,7 +146,8 @@ public class TapLiquidacionUnidades extends Fragment{
             public void onClick(View view) {
                 datos = new ImportarDatos();
                 try {
-                    datos.importarDatosPipas(viewGroup);
+                    datos.importarPipas(viewGroup);
+                    datos.importarEmpleados(viewGroup);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -313,10 +314,10 @@ public class TapLiquidacionUnidades extends Fragment{
         }
         for (PersonalTO personal: listaPersonal) {
             if (personal.getTipoEmpleado().equals(CHOFER)){
-                editTextNoChofer.setText(personal.getNomina());
+                editTextNoChofer.setText(personal.getNomina().toString());
                 textViewNombreChofer.setText(personal.getNombre() + " " + personal.getApellidoPaterno() + " " + personal.getApellidoMaterno());
             }   else  if (personal.getTipoEmpleado().equals(AYUDANTE)) {
-                editTextNoAyudante.setText(personal.getNomina());
+                editTextNoAyudante.setText(personal.getNomina().toString());
                 textViewNombreAyudante.setText(personal.getNombre() + " " + personal.getApellidoPaterno() + " " + personal.getApellidoMaterno());
             }
         }

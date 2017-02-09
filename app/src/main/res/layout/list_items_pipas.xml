@@ -20,6 +20,10 @@
                 android:layout_height="wrap_content" android:text="Porcentaje de llenado"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
             <TextView
+                android:id="@+id/txtCapacidad" android:layout_width="100dp"
+                android:layout_height="wrap_content" android:text="Capacidad"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <TextView
                 android:id="@+id/txtChofer" android:layout_width="100dp"
                 android:layout_height="wrap_content" android:text="Fecha Registro"
                 android:textAppearance="?android:attr/textAppearanceLarge" />

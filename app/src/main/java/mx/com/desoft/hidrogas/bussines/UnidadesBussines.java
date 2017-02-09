@@ -37,7 +37,7 @@ public class UnidadesBussines {
             do {
                 PersonalTO personalTO = new PersonalTO();
                 personalTO.setNoPipa(Integer.parseInt(fila.getString(0)));
-                personalTO.setNomina(fila.getString(1));
+                personalTO.setNomina(fila.getInt(1));
                 personalTO.setNombre(fila.getString(2));
                 personalTO.setApellidoPaterno(fila.getString(3));
                 personalTO.setApellidoMaterno(fila.getString(4));
@@ -76,7 +76,7 @@ public class UnidadesBussines {
         if (fila.moveToFirst()) {
             personalTO = new PersonalTO();
             personalTO.setNoPipa(Integer.parseInt(fila.getString(0)));
-            personalTO.setNomina(fila.getString(1));
+            personalTO.setNomina(fila.getInt(1));
             personalTO.setNombre(fila.getString(2));
             personalTO.setApellidoPaterno(fila.getString(3));
             personalTO.setApellidoMaterno(fila.getString(4));
@@ -98,7 +98,7 @@ public class UnidadesBussines {
         if (fila.moveToFirst()) {
             personalTO = new PersonalTO();
             personalTO.setNoPipa(Integer.parseInt(fila.getString(0)));
-            personalTO.setNomina(fila.getString(1));
+            personalTO.setNomina(fila.getInt(1));
             personalTO.setNombre(fila.getString(2));
             personalTO.setApellidoPaterno(fila.getString(3));
             personalTO.setApellidoMaterno(fila.getString(4));

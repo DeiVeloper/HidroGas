@@ -35,11 +35,13 @@
                 android:hint="Económico"
                 android:textSize="23sp"
                 android:inputType="number"/>
-            <!--<TextView
-                android:id="@+id/lblNone"
+            <EditText
+                android:id="@+id/txtCapacidad"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:textSize="23sp"/>-->
+                android:layout_height="50dp"
+                android:hint="Capacidad"
+                android:textSize="23sp"
+                android:inputType="number"/>
         </TableRow>
     </TableLayout>
     <Button

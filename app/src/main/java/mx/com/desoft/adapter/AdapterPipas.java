@@ -38,6 +38,7 @@ public class AdapterPipas extends ArrayAdapter<PipasTO> {
             pipasTOWrapper = new AdapterPipas.PipasTOWrapper();
             pipasTOWrapper.pipa = (TextView) item.findViewById(R.id.txtPipa);
             pipasTOWrapper.porcentaje = (TextView) item.findViewById(R.id.txtPorcentaje);
+            pipasTOWrapper.capacidad = (TextView) item.findViewById(R.id.txtCapacidad);
             pipasTOWrapper.chofer = (TextView) item.findViewById(R.id.txtChofer);
             pipasTOWrapper.ayudante = (TextView) item.findViewById(R.id.txtAyudante);
             item.setTag(pipasTOWrapper);
@@ -47,11 +48,12 @@ public class AdapterPipas extends ArrayAdapter<PipasTO> {
         pipasTO = pipasTOs.get(position);
         pipasTOWrapper.pipa.setText(pipasTO.getNoPipa().toString());
         pipasTOWrapper.porcentaje.setText(pipasTO.getPorcentajeLlenado().toString());
+        pipasTOWrapper.capacidad.setText(pipasTO.getCapacidad().toString());
         pipasTOWrapper.chofer.setText(pipasTO.getNombreChofer());
         pipasTOWrapper.ayudante.setText(pipasTO.getNombreAyudante());
         return item;
     }
     static class PipasTOWrapper {
-        TextView pipa, porcentaje, chofer, ayudante;
+        TextView pipa, porcentaje, capacidad, chofer, ayudante;
     }
 }

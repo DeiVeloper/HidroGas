@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -67,14 +68,18 @@ public class ListaPersonal extends Fragment {
     }
 
     public void buscar() {
-        try {
-            personalTO.setNomina(txtNoNomina.getText().toString());
+        //try {
+            if (TextUtils.isEmpty(txtNoNomina.getText().toString())) {
+                personalTO.setNomina(0);
+            }else {
+                personalTO.setNomina(Integer.parseInt(txtNoNomina.getText().toString()));
+            }
             personalTO.setNombre(txtNombre.getText().toString().trim());
             Cursor registros = personalBussines.buscar(viewGroup.getContext(), personalTO);
             personalTOArray = new ArrayList<PersonalTO>();
             if (registros.moveToFirst()) {
                 do {
-                    personalTOArray.add(new PersonalTO(registros.getString(0), registros.getString(1), registros.getString(2), registros.getString(3), registros.getInt(5), registros.getInt(8)));
+                    personalTOArray.add(new PersonalTO(registros.getInt(0), registros.getString(1), registros.getString(2), registros.getString(3), registros.getInt(5), registros.getInt(8)));
                 } while (registros.moveToNext());
             } else {
                 Toast.makeText(viewGroup.getContext(), "Su búsqueda no tiene registros asociados.", Toast.LENGTH_SHORT).show();
@@ -84,9 +89,9 @@ public class ListaPersonal extends Fragment {
             listview.setItemsCanFocus(false);
             listview.setAdapter(adapterPersonal);
             registerForContextMenu(listview);
-        } catch (Exception e) {
+        /*} catch (Exception e) {
             Toast.makeText(viewGroup.getContext(), "Ha ocurrido un error al realizar la búsqueda, Intente nuevamente por favor.", Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
     @Override

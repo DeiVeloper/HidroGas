@@ -31,6 +31,7 @@ public class PipasBussines {
         bd = getBase(context);
         registro = new ContentValues();
         registro.put("noPipa", pipasTO.getNoPipa());
+        registro.put("capacidad", pipasTO.getCapacidad());
         registro.put("fechaRegistro", pipasTO.getFechaRegistro());
         registro.put("nominaRegistro", pipasTO.getNominaRegistro());
         registros = buscarByNoPipa(context, pipasTO.getNoPipa());
@@ -48,6 +49,7 @@ public class PipasBussines {
         registro.put("noPipa", pipasTO.getNoPipa());
         registro.put("fechaRegistro", pipasTO.getFechaRegistro());
         registro.put("nominaRegistro", pipasTO.getNominaRegistro());
+        registro.put("capacidad", pipasTO.getCapacidad());
         registros = buscarByNoPipa(context, pipasTO.getNoPipa());
         if (registros.moveToFirst()) {
             return 0L;

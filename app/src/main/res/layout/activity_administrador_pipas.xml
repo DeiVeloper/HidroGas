@@ -64,6 +64,10 @@
                 android:layout_height="wrap_content"
                 android:text="% Llenado" android:textSize="20sp" />
             <TextView
+                android:id="@+id/lblCapacidad" android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Capacidad" android:textSize="20sp"/>
+            <TextView
                 android:id="@+id/lblChofer" android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="Chofer" android:textSize="20sp"/>

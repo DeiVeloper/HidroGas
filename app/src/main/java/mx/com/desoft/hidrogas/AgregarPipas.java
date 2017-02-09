@@ -15,30 +15,27 @@ import java.util.Date;
 
 import mx.com.desoft.hidrogas.bussines.PipasBussines;
 import mx.com.desoft.hidrogas.to.PipasTO;
+import mx.com.desoft.utils.Utils;
 
 /**
  * Created by erick.martinez on 25/11/2016.
  */
 
 public class AgregarPipas extends Activity {
-    EditText txtNoPipa;
+    EditText txtNoPipa, txtCapacidad;
     Button btnCancelar, btnGuardar;
     private PipasTO pipasTO;
     private PipasBussines pipasBussines;
     private Long fecha;
+    private Utils utils;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pipas);
+        utils = new Utils();
         pipasTO = new PipasTO();
         pipasBussines = new PipasBussines();
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            Date soloFecha = formato.parse(formato.format(new Date()));
-            fecha = soloFecha.getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        fecha = utils.consultaFechaLong(new Date(), "dd/MM/yyyy");
         inicializarComponentes();
         cargarEventos();
     }
@@ -46,6 +43,7 @@ public class AgregarPipas extends Activity {
     private void inicializarComponentes() {
         //acceder a los items de la vista
         txtNoPipa = (EditText)findViewById(R.id.txtEconomico);
+        txtCapacidad = (EditText)findViewById(R.id.txtCapacidad);
         btnGuardar = (Button)findViewById(R.id.btnGuardar);
         btnCancelar = (Button)findViewById(R.id.btnCancelar);
     }
@@ -79,8 +77,9 @@ public class AgregarPipas extends Activity {
                 Toast.makeText(getApplicationContext(), "Todos los campos son obligatorios.", Toast.LENGTH_SHORT).show();
             } else {
                 pipasTO.setNoPipa(Integer.parseInt(txtNoPipa.getText().toString()));
+                pipasTO.setCapacidad(Integer.parseInt(txtCapacidad.getText().toString()));
                 pipasTO.setFechaRegistro(fecha);
-                pipasTO.setNominaRegistro("20");
+                pipasTO.setNominaRegistro(LoginActivity.personalTO.getNomina());
                 resultadoGuardar = pipasBussines.guardar(getApplicationContext(), pipasTO);
                 if (resultadoGuardar) {
                     Toast.makeText(getApplicationContext(), "La pipa número: " + pipasTO.getNoPipa() + " se ha registrdo correctamente.", Toast.LENGTH_SHORT).show();

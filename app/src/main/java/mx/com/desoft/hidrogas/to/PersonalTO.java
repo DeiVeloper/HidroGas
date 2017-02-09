@@ -6,14 +6,14 @@ package mx.com.desoft.hidrogas.to;
 
 public class PersonalTO {
 
-    private String nomina;
+    private Integer nomina;
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String password;
     private Integer noPipa;
     private Long fechaRegistro;
-    private String nominaRegistro;
+    private Integer nominaRegistro;
     private Integer tipoEmpleado;
     private String nombreTipoEmpleado;
 
@@ -26,7 +26,7 @@ public class PersonalTO {
         this.nombreTipoEmpleado = nombreTipoEmpleado;
     }
 
-    public PersonalTO(String nomina, String nombre, String apellidoPaterno, String apellidoMaterno, Integer noPipa, Integer tipoEmpleado) {
+    public PersonalTO(Integer nomina, String nombre, String apellidoPaterno, String apellidoMaterno, Integer noPipa, Integer tipoEmpleado) {
         this.nomina = nomina;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -35,8 +35,8 @@ public class PersonalTO {
         this.tipoEmpleado = tipoEmpleado;
     }
 
-    public PersonalTO(String nomina, String nombre, String apellidoPaterno, String apellidoMaterno, String password, Integer noPipa, Long fechaRegistro,
-                      String nominaRegistro, Integer tipoEmpleado) {
+    public PersonalTO(Integer nomina, String nombre, String apellidoPaterno, String apellidoMaterno, String password, Integer noPipa, Long fechaRegistro,
+                      Integer nominaRegistro, Integer tipoEmpleado) {
         this.nombre = nombre;
         this.nomina = nomina;
         this.apellidoPaterno = apellidoPaterno;
@@ -57,11 +57,11 @@ public class PersonalTO {
         this.nombre = nombre;
     }
 
-    public String getNomina(){
+    public Integer getNomina(){
         return nomina;
     }
 
-    public void setNomina(String nomina){
+    public void setNomina(Integer nomina){
         this.nomina = nomina;
     }
 
@@ -105,11 +105,11 @@ public class PersonalTO {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public String getNominaRegistro(){
+    public Integer getNominaRegistro(){
         return nominaRegistro;
     }
 
-    public void setNominaRegistro(String nominaRegistro){
+    public void setNominaRegistro(Integer nominaRegistro){
         this.nominaRegistro = nominaRegistro;
     }
 

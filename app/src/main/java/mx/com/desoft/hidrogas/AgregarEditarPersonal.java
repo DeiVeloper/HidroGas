@@ -20,12 +20,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-//import javax.inject.Inject;
-
 import mx.com.desoft.hidrogas.bussines.CatalogoBussines;
 import mx.com.desoft.hidrogas.bussines.PersonalBussines;
 import mx.com.desoft.hidrogas.bussines.PipasBussines;
 import mx.com.desoft.hidrogas.to.PersonalTO;
+import mx.com.desoft.utils.Utils;
 
 /**
  * Created by David on 03/12/16.
@@ -44,12 +43,12 @@ public class AgregarEditarPersonal extends Activity {
     private KeyListener keyListenerPass;
     private Bundle bundle;
     private Integer tipoEmpleadoInicial;
-
-    LoginActivity loginActivity;
+    private Utils utils;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
+        utils = new Utils();
         personalTO = new PersonalTO();
         catalogoBussines = new CatalogoBussines();
         flgEditar = false;
@@ -115,13 +114,7 @@ public class AgregarEditarPersonal extends Activity {
                 tipoEmpleadoInicial = bundle.getInt("tipoEmpleado");
             }
         } else {
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            try {
-                Date soloFecha = formato.parse(formato.format(new Date()));
-                fecha = soloFecha.getTime();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            fecha = utils.consultaFechaLong(new Date(), "dd/MM/yyyy");
         }
         //txtNomina.setText(loginActivity.getPersonalTO().getNomina());
         //txtNomina.setKeyListener(null);
@@ -181,14 +174,14 @@ public class AgregarEditarPersonal extends Activity {
                     resultadoGuardar = verificarPipa((int) sprPipa.getSelectedItem(), (int) sprTipoEmpleado.getSelectedItemId());
                 }
                 if (resultadoGuardar) {
-                    personalTO.setNomina(txtNomina.getText().toString());
+                    personalTO.setNomina(Integer.parseInt(txtNomina.getText().toString()));
                     personalTO.setNombre(txtNombre.getText().toString());
                     personalTO.setApellidoPaterno(txtAPaterno.getText().toString());
                     personalTO.setApellidoMaterno(txtAMaterno.getText().toString());
                     personalTO.setPassword(txtPass.getText().toString());
                     personalTO.setNoPipa((int) sprPipa.getSelectedItem());
                     personalTO.setFechaRegistro(fecha);
-                    personalTO.setNominaRegistro("203040");
+                    personalTO.setNominaRegistro(LoginActivity.personalTO.getNomina());
                     personalTO.setTipoEmpleado((int) sprTipoEmpleado.getSelectedItemId());
                     resultadoGuardar = personalBussines.guardar(getApplicationContext(), personalTO, flgEditar);
                     if (resultadoGuardar) {

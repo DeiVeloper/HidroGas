@@ -16,6 +16,7 @@ import java.util.Date;
 
 import mx.com.desoft.hidrogas.bussines.PipasBussines;
 import mx.com.desoft.hidrogas.to.PipasTO;
+import mx.com.desoft.utils.Utils;
 
 /**
  * Created by erick.martinez on 25/11/2016.
@@ -30,10 +31,12 @@ public class LlenarPipa extends Activity {
     private PipasTO pipasTO;
     private PipasBussines pipasBussines;
     private Integer idPipa;
+	private Utils utils;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_llenar_pipa);
+        utils = new Utils();
         pipasTO = new PipasTO();
         pipasBussines = new PipasBussines();
         bundle = getIntent().getExtras();
@@ -45,15 +48,8 @@ public class LlenarPipa extends Activity {
         txtFecha = (TextView)findViewById(R.id.lblFecha);
         txtNoPipa = (TextView)findViewById(R.id.txtEconomico);
         txtPorcentaje = (EditText)findViewById(R.id.txtPorcentaje);
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            String fechaText = formato.format(new Date());
-            Date soloFecha = formato.parse(fechaText);
-            fecha = soloFecha.getTime();
-            txtFecha.setText(fechaText);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        txtFecha.setText(utils.consultaFechaString(new Date(), "dd/MM/yyyy"));
+        fecha = utils.consultaFechaLong(new Date(), "dd/MM/yyyy");
 
         //obtener datos que se pasaron en el Intent para llenar
         if(bundle != null) {
@@ -103,9 +99,9 @@ public class LlenarPipa extends Activity {
                     pipasTO.setNoPipa(Integer.parseInt(txtNoPipa.getText().toString()));
                     pipasTO.setPorcentajeLlenado(Integer.parseInt(txtPorcentaje.getText().toString()));
                     pipasTO.setFechaRegistro(fecha);
-                    pipasTO.setNominaRegistro("20");
+                    pipasTO.setNominaRegistro(LoginActivity.personalTO.getNomina());
                     pipasBussines.llenar(getApplicationContext(), pipasTO);
-                    Toast.makeText(getApplicationContext(), "La pipa número: " + pipasTO.getNoPipa() + " se ha llenado correctamente.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "La pipa número: " + pipasTO.getNoPipa() + " se ha llenado correctamente." + pipasTO.getPorcentajeLlenado(), Toast.LENGTH_SHORT).show();
                     return true;
                 }
             }

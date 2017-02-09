@@ -42,14 +42,14 @@ public class AgregarEditar extends Fragment {
         return viewGroup;
     }
     private void guardar(View view) {
-        personalTO.setNomina(txtNomina.getText().toString());
+        personalTO.setNomina(Integer.parseInt(txtNomina.getText().toString()));
         personalTO.setNombre(txtNombre.getText().toString());
         personalTO.setApellidoPaterno(txtAPaterno.getText().toString());
         personalTO.setApellidoMaterno(txtAMaterno.getText().toString());
         personalTO.setPassword(txtPass.getText().toString());
         personalTO.setNoPipa(1);
         personalTO.setFechaRegistro(1L);
-        personalTO.setNominaRegistro("203040");
+        personalTO.setNominaRegistro(LoginActivity.personalTO.getNominaRegistro());
         personalTO.setTipoEmpleado(1);
         personalBussines.guardar(view.getContext(), personalTO,false);
         Toast.makeText(viewGroup.getContext(), "El usuario con nómina: " + personalTO.getNomina() + " se ha registrado correctamente.", Toast.LENGTH_SHORT).show();

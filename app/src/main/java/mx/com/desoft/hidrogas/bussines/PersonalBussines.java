@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import mx.com.desoft.hidrogas.to.PersonalTO;
 public class PersonalBussines {
     private static AdminSQLiteOpenHelper baseDatos;
     private Cursor registros;
+    private PipasBussines pipasBussines;
     public PersonalBussines() {
 
     }
@@ -26,7 +28,7 @@ public class PersonalBussines {
 
     public boolean guardar(Context context, PersonalTO personalTO, boolean flgEditar) {
         baseDatos = new AdminSQLiteOpenHelper(context);
-
+        pipasBussines = new PipasBussines();
         SQLiteDatabase bd = baseDatos.getWritableDatabase();
 
         ContentValues registro = new ContentValues();
@@ -35,13 +37,18 @@ public class PersonalBussines {
         registro.put("apellidoPaterno", personalTO.getApellidoPaterno());
         registro.put("apellidoMaterno", personalTO.getApellidoMaterno());
         registro.put("password", personalTO.getPassword());
-        registro.put("idPipa", personalTO.getNoPipa());
+        registros = pipasBussines.buscarByNoPipa(context, personalTO.getNoPipa());
+        if (registros.moveToFirst()){
+            registro.put("noPipa", registros.getInt(1));
+        } else {
+            registro.put("noPipa", 0);
+        }
         registro.put("nominaRegistro", personalTO.getNominaRegistro());
         registro.put("tipoEmpleado", personalTO.getTipoEmpleado());
         if (flgEditar) {
             bd.update("empleados", registro, "nominaEmpleado = " + personalTO.getNomina(), null);
         } else {
-            Cursor registros = buscarByNomina(context, personalTO.getNomina());
+            registros = buscarByNomina(context, personalTO.getNomina());
             if (registros.moveToFirst()) {
                 flgEditar = false;
             } else {
@@ -58,8 +65,8 @@ public class PersonalBussines {
         String condicion = "";
         baseDatos = new AdminSQLiteOpenHelper(context);
         SQLiteDatabase bd = baseDatos.getWritableDatabase();
-        if (!personalTO.getNomina().equals("")) {
-            condicion += " AND nominaEmpleado = '" + personalTO.getNomina() + "' ";
+        if (personalTO.getNomina() != 0) {
+            condicion += " AND nominaEmpleado = " + personalTO.getNomina();
         }
         if (!personalTO.getNombre().equals("")) {
             condicion += " AND nombre = '" + personalTO.getNombre() + "' ";
@@ -68,13 +75,13 @@ public class PersonalBussines {
         return registros;
     }
 
-    private Cursor buscarByNomina(Context context, String nomina) {
+    private Cursor buscarByNomina(Context context, Integer nomina) {
         if (nomina.equals("")) {
             return null;
         } else {
             baseDatos = new AdminSQLiteOpenHelper(context);
             SQLiteDatabase bd = baseDatos.getWritableDatabase();
-            return bd.rawQuery("SELECT * FROM empleados WHERE nominaEmpleado = '" + nomina + "'", null);
+            return bd.rawQuery("SELECT * FROM empleados WHERE nominaEmpleado = " + nomina, null);
         }
     }
 
@@ -89,24 +96,42 @@ public class PersonalBussines {
         SQLiteDatabase bd = baseDatos.getWritableDatabase();
 
         String selectQuery = "SELECT nominaEmpleado, nombre, apellidoPaterno, apellidoMaterno, password, idPipa, fechaRegistro, nominaRegistro, tipoEmpleado FROM Empleados" +
-                " WHERE nominaEmpleado = " + user + " AND password = " +pass;
+                " WHERE nominaEmpleado = " + user + " AND password = " +pass+ " AND tipoEmpleado = 0 ";
         PersonalTO usuario = null;
 
         Cursor cursor = bd.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
                 usuario = new PersonalTO();
-                usuario.setNomina(cursor.getString(0));
+                usuario.setNomina(cursor.getInt(0));
                 usuario.setNombre(cursor.getString(1));
                 usuario.setApellidoPaterno(cursor.getString(2));
                 usuario.setApellidoMaterno(cursor.getString(3));
                 usuario.setPassword(cursor.getString(4));
                 usuario.setNoPipa(cursor.getInt(5));
                 //usuario.setFechaRegistro(cursor.getInt(6));
-                usuario.setNominaRegistro(cursor.getColumnName(7));
+                usuario.setNominaRegistro(cursor.getInt(7));
                 usuario.setTipoEmpleado(cursor.getInt(8));
             } while (cursor.moveToNext());
         }
         return usuario;
+    }
+
+    public void guardarEmpleadosExcel(Context context, PersonalTO personalTO){
+        baseDatos = new AdminSQLiteOpenHelper(context);
+
+        SQLiteDatabase bd = baseDatos.getWritableDatabase();
+
+        ContentValues registro = new ContentValues();
+        registro.put("nominaEmpleado", personalTO.getNomina());
+        registro.put("nombre", personalTO.getNombre());
+        registro.put("apellidoPaterno", personalTO.getApellidoPaterno());
+        registro.put("apellidoMaterno", personalTO.getApellidoMaterno());
+        registro.put("idPipa", personalTO.getNoPipa());
+        registro.put("nominaRegistro", personalTO.getNominaRegistro());
+        registro.put("tipoEmpleado", personalTO.getTipoEmpleado());
+        registro.put("fechaRegistro", personalTO.getFechaRegistro());
+        bd.insert("empleados", null, registro);
+        bd.close();
     }
 }

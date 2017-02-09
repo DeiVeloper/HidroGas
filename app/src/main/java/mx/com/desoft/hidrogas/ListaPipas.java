@@ -111,16 +111,17 @@ public class ListaPipas extends Fragment {
                         }
                     } while (resgistroChoferAyudante.moveToNext());
                 }
-                pipasTOArray.add(new PipasTO(registros.getInt(0),registros.getInt(1), porcentajeLlenado, registros.getLong(2), registros.getString(3), chofer, ayudante));
+                System.out.println(registros.getInt(0) + "_"+registros.getInt(1)+"_"+registros.getInt(2)+"_"+registros.getLong(3)+"_"+registros.getInt(4));
+                pipasTOArray.add(new PipasTO(registros.getInt(0),registros.getInt(1), porcentajeLlenado, registros.getInt(4), registros.getLong(2), registros.getInt(3), chofer, ayudante));
             } while (registros.moveToNext());
-            this.adapterPipas = new AdapterPipas(viewGroup.getContext(), R.layout.list_items_pipas, pipasTOArray);
-            listView = (ListView)viewGroup.findViewById(R.id.lstPipas);
-            listView.setItemsCanFocus(false);
-            listView.setAdapter(adapterPipas);
-            registerForContextMenu(listView);
         } else {
             Toast.makeText(viewGroup.getContext(), "Su búsqueda no tiene registros asociados.", Toast.LENGTH_SHORT).show();
         }
+        this.adapterPipas = new AdapterPipas(viewGroup.getContext(), R.layout.list_items_pipas, pipasTOArray);
+        listView = (ListView)viewGroup.findViewById(R.id.lstPipas);
+        listView.setItemsCanFocus(false);
+        listView.setAdapter(adapterPipas);
+        registerForContextMenu(listView);
     }
 
     @Override

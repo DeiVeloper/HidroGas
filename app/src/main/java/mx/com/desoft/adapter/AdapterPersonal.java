@@ -44,7 +44,7 @@ public class AdapterPersonal extends ArrayAdapter<PersonalTO> {
             personalTOWrapper = (PersonalTOWrapper) item.getTag();
         }
         personalTO = personalTOs.get(position);
-        personalTOWrapper.nomina.setText(personalTO.getNomina());
+        personalTOWrapper.nomina.setText(personalTO.getNomina().toString());
         personalTOWrapper.nombre.setText(personalTO.getNombre() + " " + personalTO.getApellidoPaterno() + " " + personalTO.getApellidoMaterno());
         personalTOWrapper.pipa.setText(personalTO.getNoPipa().toString());
         return item;
