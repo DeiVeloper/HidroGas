@@ -225,6 +225,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:text="Variación"
+                android:layout_marginTop="10dp"
                 android:textSize="30dp"/>
 
             <TextView
@@ -253,7 +254,7 @@
         android:id="@+id/tabla_Mov_Extr"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="380dp"
+        android:layout_marginTop="400dp"
         android:stretchColumns="0,1,2,3"
         android:collapseColumns="10dp">
 
