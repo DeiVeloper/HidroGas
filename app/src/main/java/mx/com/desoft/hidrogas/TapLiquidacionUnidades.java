@@ -184,11 +184,6 @@ public class TapLiquidacionUnidades extends Fragment{
                     }else{
                         textViewNombreChofer.setText("");
                     }
-
-
-                    //InputMethodManager imm =
-                      //      (InputMethodManager) viewGroup.getSystemService(INPUT_METHOD_SERVICE);
-                    //imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     procesado = true;
                 }
                 return procesado;
@@ -206,11 +201,6 @@ public class TapLiquidacionUnidades extends Fragment{
                     }else{
                         textViewNombreAyudante.setText("");
                     }
-
-
-                    //InputMethodManager imm =
-                    //      (InputMethodManager) viewGroup.getSystemService(INPUT_METHOD_SERVICE);
-                    //imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     procesado = true;
                 }
                 return procesado;
@@ -324,12 +314,10 @@ public class TapLiquidacionUnidades extends Fragment{
     }
 
     private void setViajesVista(List<ViajesTO> listaViajes){
-        if (listaViajes.isEmpty()){
-            editTextSalida_1.setText("");
-            editTextTotInicial_1.setText("");
-        }
-        for (ViajesTO viajes: listaViajes) {
-
+        if (!listaViajes.isEmpty()) {
+            for (ViajesTO viajes : listaViajes) {
+                editTextTotInicial_1.setText(viajes.getTotalizadorFinal().toString());
+            }
         }
     }
 
@@ -346,13 +334,24 @@ public class TapLiquidacionUnidades extends Fragment{
         Integer totFinal_1 = !TextUtils.isEmpty(editTextTotFinal_1.getText().toString()) ? Integer.valueOf(editTextTotFinal_1.getText().toString()) : 0;
         Integer totFinal_2 = !TextUtils.isEmpty(editTextTotFinal_2.getText().toString()) ? Integer.valueOf(editTextTotFinal_2.getText().toString()) : 0;
         Integer totFinal_3 = !TextUtils.isEmpty(editTextTotFinal_3.getText().toString()) ? Integer.valueOf(editTextTotFinal_3.getText().toString()) : 0;
-
+        Integer autoconsumo = !TextUtils.isEmpty(editTextAutoconsumo.getText().toString()) ? Integer.valueOf(editTextAutoconsumo.getText().toString()): 0;
+        Integer medidores = !TextUtils.isEmpty(editTextMedidores.getText().toString()) ? Integer.valueOf(editTextMedidores.getText().toString()) : 0;
+        Integer trasRecibidos = !TextUtils.isEmpty(editTextTraspasosRecibidos.getText().toString()) ? Integer.valueOf(editTextTraspasosRecibidos.getText().toString()) : 0;
 
 
         venta = totIni_1 - (totFinal_1 != 0 ? totFinal_1 : totFinal_2 != 0 ? totFinal_2 : totFinal_3 != 0 ? totFinal_3 :0);
+        System.out.println("Venta" + venta);
         variacion = ((getPorcentaje((float)salida_1)  + getPorcentaje((float)salida_2) + getPorcentaje((float)salida_3))
                 - (getPorcentaje((float)llegada_1) + getPorcentaje((float)llegada_2) + getPorcentaje((float)llegada_3))) * capacidadPipa;
-        variacion = ((-1) * venta) - variacion;
+        System.out.println("variacion" + variacion);
+        System.out.println("capacidadPipa" + capacidadPipa);
+        System.out.println("autoconsumo" + autoconsumo);
+        System.out.println("medidores" + medidores);
+        System.out.println("trasRecibidos" + trasRecibidos);
+        if(venta < 0){
+            venta = venta * (-1);
+        }
+        variacion = (venta - autoconsumo - medidores - trasRecibidos) - variacion;
 
         textViewVariacion.setText(variacion.toString());
         if (variacion < 0 || variacion >2){

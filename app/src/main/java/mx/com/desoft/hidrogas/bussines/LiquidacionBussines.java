@@ -13,12 +13,8 @@ import java.util.Date;
 import java.util.List;
 
 import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
-import mx.com.desoft.hidrogas.model.Empleado;
-import mx.com.desoft.hidrogas.model.Liquidaciones;
 import mx.com.desoft.hidrogas.to.LiquidacionesTO;
 import mx.com.desoft.hidrogas.to.ViajesTO;
-
-import static mx.com.desoft.hidrogas.R.id.fecha;
 
 /**
  * Created by carlosdavid.castro on 29/12/2016.
@@ -27,7 +23,7 @@ import static mx.com.desoft.hidrogas.R.id.fecha;
 public class LiquidacionBussines {
     private static AdminSQLiteOpenHelper baseDatos;
     private static SQLiteDatabase bd;
-    private Calendar calendar = Calendar.getInstance();
+    private Calendar calendar;
 
     public LiquidacionBussines() {
 
@@ -124,7 +120,6 @@ public class LiquidacionBussines {
         selectQuery.append("WHERE   viajes.idLiquidacion = liquidacion.idLiquidacion ");
         selectQuery.append("AND     liquidacion.fechaRegistro = " + this.getFechaAnterior());
         selectQuery.append(" AND     liquidacion.idPipa = " + idPipa);
-
         Cursor cursor = bd.rawQuery(selectQuery.toString(), null);
 
         if (cursor.moveToFirst()) {
@@ -135,7 +130,7 @@ public class LiquidacionBussines {
                 viaje.setPorcentajeInicial(cursor.getInt(2));
                 viaje.setPorcentajeFinal(cursor.getInt(3));
                 viaje.setTotalizadorInicial(cursor.getInt(4));
-                viaje.setTotalizadorFinal(cursor.getInt(4));
+                viaje.setTotalizadorFinal(cursor.getInt(5));
                 lista.add(viaje);
             } while (cursor.moveToNext());
         }
@@ -143,13 +138,14 @@ public class LiquidacionBussines {
     }
 
     private Long getFechaAnterior(){
-
+        calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        calendar.set(year, month, day-1);
+        calendar.set(year, month, day);
         Date fecha = null;
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        calendar.add(Calendar.DATE,-1);
         try {
             fecha = formato.parse(formato.format(calendar.getTime()));
         } catch (ParseException e) {

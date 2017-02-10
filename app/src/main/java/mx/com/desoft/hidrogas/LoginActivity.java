@@ -76,16 +76,16 @@ public class LoginActivity extends AppCompatActivity {
     private void saveOnPreferences(String usuario, String password){
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("usuario", usuario);// Usuario que se enceuntra en la base de datos y es administrador
-        editor.putString("password", password); // contraseña del usuario logueado
+        //editor.putString("password", password); // contraseña del usuario logueado
         editor.apply();
     }
 
     private void setCredentialsIfExist(){
-        String usuario = preferences.getString("usuario", "");;
-        String password = preferences.getString("password", "");;
+        String usuario = preferences.getString("usuario", "");
+        String password = preferences.getString("password", "");
         if (!TextUtils.isEmpty(usuario) && !TextUtils.isEmpty(password)) {
             editTextUsuario.setText(usuario);
-            editTextPassword.setText(password);
+            //editTextPassword.setText(password);
         }
     }
 

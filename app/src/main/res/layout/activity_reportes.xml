@@ -77,14 +77,6 @@
 
             <TextView
                 android:layout_column="1"
-                android:text="Porcentaje"
-                android:textSize="20dp"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_column="2"
                 android:text="Fecha Registro"
                 android:textSize="20dp"
                 android:layout_gravity="center"

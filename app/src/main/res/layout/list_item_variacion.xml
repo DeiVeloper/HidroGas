@@ -20,6 +20,7 @@
                 android:text="Pipa"
                 android:layout_column="1"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
+
             <TextView
                 android:id="@+id/txtReporteFechaRegistro"
                 android:layout_width="100dp"
@@ -27,6 +28,7 @@
                 android:layout_column="2"
                 android:text="Fecha Registro"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
+
             <TextView
                 android:id="@+id/txtReporteVariacion"
                 android:layout_width="100dp"

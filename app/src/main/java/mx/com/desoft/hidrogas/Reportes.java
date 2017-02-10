@@ -37,7 +37,6 @@ public class Reportes  {
 
         String[] headers = new String[]{
                 "No. Pipa",
-                "Porcentaje",
                 "Fecha Registro",
                 "Variación"
         };
@@ -63,9 +62,8 @@ public class Reportes  {
             HSSFRow dataRow = sheet.createRow(i + 1);
             LlenadoTO registros = miarray[i];
             dataRow.createCell(0).setCellValue(registros.getNoPipa());
-            dataRow.createCell(1).setCellValue(registros.getPorcentajeLlenado());
-            dataRow.createCell(2).setCellValue(convertirFecha(registros.getFechaRegistro()));
-            dataRow.createCell(3).setCellValue(registros.getVariacion());
+            dataRow.createCell(1).setCellValue(convertirFecha(registros.getFechaRegistro()));
+            dataRow.createCell(2).setCellValue(registros.getVariacion());
         }
 
         String str_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString();
@@ -112,7 +110,7 @@ public class Reportes  {
                 HSSFRow dataRow = sheet.createRow(i + 1);
                 PipasTO registros = miarray[i];
                 dataRow.createCell(0).setCellValue(registros.getNoPipa());
-                dataRow.createCell(1).setCellValue(registros.getPorcentajeLlenado());
+                dataRow.createCell(1).setCellValue(registros.getPorcentajeLlenado()+"%");
             }
 
 
