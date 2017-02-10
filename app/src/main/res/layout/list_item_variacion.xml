@@ -8,7 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:stretchColumns="0,1,2,3,4,"
+        android:stretchColumns="0,1,2"
         android:collapseColumns="50dp">
 
 
@@ -18,14 +18,16 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="Pipa"
-                android:layout_column="1"
+                android:textAlignment="center"
+                android:layout_column="0"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
                 android:id="@+id/txtReporteFechaRegistro"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_column="2"
+                android:layout_column="1"
+                android:textAlignment="center"
                 android:text="Fecha Registro"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -33,7 +35,8 @@
                 android:id="@+id/txtReporteVariacion"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_column="4"
+                android:layout_column="2"
+                android:textAlignment="center"
                 android:text="Variación"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </TableRow>
