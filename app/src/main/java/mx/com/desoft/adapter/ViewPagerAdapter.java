@@ -35,6 +35,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return mFragmentTitleList.get(position);
-    }        // As there are only 3 Tabs
+    }
 
 }

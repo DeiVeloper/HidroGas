@@ -1,7 +1,5 @@
 package mx.com.desoft.hidrogas.model;
 
-import java.util.Date;
-
 /**
  * Created by David on 14/12/16.
  */

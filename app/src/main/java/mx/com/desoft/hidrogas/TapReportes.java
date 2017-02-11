@@ -1,8 +1,6 @@
 package mx.com.desoft.hidrogas;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -10,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
@@ -27,10 +24,7 @@ import java.util.List;
 import mx.com.desoft.adapter.ListLlenadoAdapter;
 import mx.com.desoft.hidrogas.bussines.LiquidacionBussines;
 import mx.com.desoft.hidrogas.bussines.ReporteUnidadesBussines;
-import mx.com.desoft.hidrogas.to.LiquidacionesTO;
 import mx.com.desoft.hidrogas.to.LlenadoTO;
-
-import static mx.com.desoft.hidrogas.R.id.fecha;
 
 /**
  * Created by David on 03/12/16.
@@ -67,44 +61,21 @@ public class TapReportes extends Fragment{
             if (!TextUtils.isEmpty(labelFechaBusqueda.getText().toString())){
                 reporteUnidadesBussines = new ReporteUnidadesBussines(view.getContext());
                 listaLlenado = reporteUnidadesBussines.getUnidadLlenadoByFecha(fechaBusqueda);
-                listAdapter = new ListLlenadoAdapter(view.getContext(),R.layout.list_item_variacion, listaLlenado);
-                listView = (ListView) view.findViewById(R.id.listViewBusquedaVariacion);
-                listView.setItemsCanFocus(false);
-                listView.setAdapter(listAdapter);
+                if (!listaLlenado.isEmpty()){
+
+                    listAdapter = new ListLlenadoAdapter(view.getContext(),R.layout.list_item_variacion, listaLlenado);
+                    listView = (ListView) view.findViewById(R.id.listViewBusquedaVariacion);
+                    listView.setItemsCanFocus(false);
+                    listView.setAdapter(listAdapter);
+                }   else    {
+                    Toast.makeText(view.getContext(), "No existen registros asociados a su busqueda.", Toast.LENGTH_LONG).show();
+                }
             }   else    {
                 Toast.makeText(view.getContext(), "El campo de fecha es requerido , favor de seleccionar una fecha.", Toast.LENGTH_LONG).show();
             }
 
-                //List<LiquidacionesTO> lista = liquidacionBussines.getAllLiquidaciones(view);
-                //Date fechahoy= null;
-
-                /*
-                for (LlenadoTO l: listaLlenado) {
-                    Log.d("Error " +l.toString(), "LLENADO  " +l.getIdLlenado() + " " + l.getNoPipa() + " " +l.getPorcentajeLlenado()+" " + l.getVariacion()
-                            +" " + l.getNominaRegistro()+ " " + l.getFechaRegistro());
-                    Date date=new Date(l.getFechaRegistro());
-                    SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
-                    String dateText = df2.format(date);
-                    try {
-                        fechahoy = df2.parse(dateText);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    Log.d("FEcha"," fecha completada" + dateText);
-                }*/
-                //Toast.makeText(view.getContext(), "Fui a buscar las unidades "+fechahoy, Toast.LENGTH_LONG).show();
             }
         });
-
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                //Toast.makeText(view.getContext(), "Clicked: "+names.get(position), Toast.LENGTH_LONG).show();
-            }
-        });*/
-
-        // Enlazamos con nuestro adaptador personalizado
-
 
         btnExportarExcel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0)

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -39,9 +40,9 @@ public class PersonalBussines {
         registro.put("password", personalTO.getPassword());
         registros = pipasBussines.buscarByNoPipa(context, personalTO.getNoPipa());
         if (registros.moveToFirst()){
-            registro.put("noPipa", registros.getInt(1));
+            registro.put("idPipa", registros.getInt(0));
         } else {
-            registro.put("noPipa", 0);
+            registro.put("idPipa", 0);
         }
         registro.put("nominaRegistro", personalTO.getNominaRegistro());
         registro.put("tipoEmpleado", personalTO.getTipoEmpleado());
@@ -92,14 +93,18 @@ public class PersonalBussines {
     }
 
     public PersonalTO getUserDataBase(Context context, String user, String pass){
+        PersonalTO usuario = null;
+        Cursor cursor = null;
         baseDatos = new AdminSQLiteOpenHelper(context);
         SQLiteDatabase bd = baseDatos.getWritableDatabase();
-
-        String selectQuery = "SELECT nominaEmpleado, nombre, apellidoPaterno, apellidoMaterno, password, idPipa, fechaRegistro, nominaRegistro, tipoEmpleado FROM Empleados" +
-                " WHERE nominaEmpleado = " + user + " AND password = " +pass+ " AND tipoEmpleado = 0 ";
-        PersonalTO usuario = null;
-
-        Cursor cursor = bd.rawQuery(selectQuery, null);
+        String  selectQuery = "SELECT nominaEmpleado, nombre, apellidoPaterno, apellidoMaterno, nominaRegistro FROM Empleados" +
+                    " WHERE nominaEmpleado = " + user + " AND password = " +pass+ " AND tipoEmpleado = 0 ";
+        try {
+            cursor = bd.rawQuery(selectQuery, null);
+        }catch (SQLiteException e){
+            usuario = null;
+            return usuario;
+        }
         if (cursor.moveToFirst()) {
             do {
                 usuario = new PersonalTO();
@@ -107,11 +112,7 @@ public class PersonalBussines {
                 usuario.setNombre(cursor.getString(1));
                 usuario.setApellidoPaterno(cursor.getString(2));
                 usuario.setApellidoMaterno(cursor.getString(3));
-                usuario.setPassword(cursor.getString(4));
-                usuario.setNoPipa(cursor.getInt(5));
-                //usuario.setFechaRegistro(cursor.getInt(6));
-                usuario.setNominaRegistro(cursor.getInt(7));
-                usuario.setTipoEmpleado(cursor.getInt(8));
+                usuario.setNominaRegistro(Integer.valueOf(cursor.getString(4)));
             } while (cursor.moveToNext());
         }
         return usuario;

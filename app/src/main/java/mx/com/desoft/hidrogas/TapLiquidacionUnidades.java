@@ -1,23 +1,15 @@
 package mx.com.desoft.hidrogas;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.database.Cursor;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,25 +18,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import mx.com.desoft.hidrogas.bussines.LiquidacionBussines;
 import mx.com.desoft.hidrogas.bussines.PipasBussines;
 import mx.com.desoft.hidrogas.bussines.UnidadesBussines;
-import mx.com.desoft.hidrogas.model.Empleado;
 import mx.com.desoft.hidrogas.to.LiquidacionesTO;
 import mx.com.desoft.hidrogas.to.PersonalTO;
-import mx.com.desoft.hidrogas.to.PipasTO;
 import mx.com.desoft.hidrogas.to.ViajesTO;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
-import static mx.com.desoft.hidrogas.R.id.fecha;
 
 
 /**
@@ -143,15 +128,7 @@ public class TapLiquidacionUnidades extends Fragment{
         );
 
         btnImprimir.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                datos = new ImportarDatos();
-                try {
-                    datos.importarPipas(viewGroup);
-                    datos.importarEmpleados(viewGroup);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            public void onClick(View view) {}
         });
 
         btnGuardarLiquidacion.setOnClickListener(new View.OnClickListener() {
@@ -206,33 +183,6 @@ public class TapLiquidacionUnidades extends Fragment{
                 return procesado;
             }
         });
-
-       /* btnMostrarMovExtra.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(viewGroup.getContext());
-                // Get the layout inflater
-                LayoutInflater inflater = getActivity().getLayoutInflater();
-
-                // Inflate and set the layout for the dialog
-                // Pass null as the parent view because its going in the dialog layout
-                builder.setView(inflater.inflate(R.layout.dialog_signin, null))
-                        // Add action buttons
-                        .setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                // sign in the user ...
-                            }
-                        })
-                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                            }
-                        });
-                builder.show();
-            }
-        });*/
-
-
     }
 
     private boolean validarLiquidacion(){
@@ -340,14 +290,8 @@ public class TapLiquidacionUnidades extends Fragment{
 
 
         venta = totIni_1 - (totFinal_1 != 0 ? totFinal_1 : totFinal_2 != 0 ? totFinal_2 : totFinal_3 != 0 ? totFinal_3 :0);
-        System.out.println("Venta" + venta);
         variacion = ((getPorcentaje((float)salida_1)  + getPorcentaje((float)salida_2) + getPorcentaje((float)salida_3))
                 - (getPorcentaje((float)llegada_1) + getPorcentaje((float)llegada_2) + getPorcentaje((float)llegada_3))) * capacidadPipa;
-        System.out.println("variacion" + variacion);
-        System.out.println("capacidadPipa" + capacidadPipa);
-        System.out.println("autoconsumo" + autoconsumo);
-        System.out.println("medidores" + medidores);
-        System.out.println("trasRecibidos" + trasRecibidos);
         if(venta < 0){
             venta = venta * (-1);
         }

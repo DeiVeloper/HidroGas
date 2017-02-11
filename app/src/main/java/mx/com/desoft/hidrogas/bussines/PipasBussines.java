@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
 import mx.com.desoft.hidrogas.to.PipasTO;
@@ -92,7 +91,7 @@ public class PipasBussines {
         String condicion = "";
         bd = getBase(context);
         if (pipa != 0) {
-            condicion += " AND noPipa = " + pipa;
+            condicion += " AND idPipa = " + pipa;
         }
         registros = bd.rawQuery("SELECT * FROM pipas WHERE 1=1 " + condicion, null);
         return registros;

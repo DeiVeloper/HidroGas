@@ -14,8 +14,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +42,7 @@ public class AgregarEditarPersonal extends Activity {
     private Bundle bundle;
     private Integer tipoEmpleadoInicial;
     private Utils utils;
+    private Integer idPipa;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,16 +70,13 @@ public class AgregarEditarPersonal extends Activity {
         sprPipa = (Spinner) findViewById(R.id.sprPipa);
         sprTipoEmpleado = (Spinner) findViewById(R.id.sprPuesto);
 
-        ArrayAdapter<Integer> spinnerAdapterPipas;
-        List<Integer> pipas = new ArrayList<>();
-        Cursor registroPipas = catalogoBussines.getPipas(getApplicationContext());
-        if (registroPipas.moveToFirst()) {
-            do {
-                pipas.add(registroPipas.getInt(0));
-            } while (registroPipas.moveToNext());
-            spinnerAdapterPipas = new ArrayAdapter<Integer>(AgregarEditarPersonal.this, android.R.layout.simple_list_item_1, pipas);
-            sprPipa.setAdapter(spinnerAdapterPipas);
-        }
+        ArrayAdapter<String> spinnerAdapterPipas;
+        /*List<Integer> pipas = new ArrayList<>();
+        Cursor registroPipas = catalogoBussines.getPipas(getApplicationContext());*/
+        List<String> listSpinner = pipasBussines.getAllPipas(getApplicationContext());
+        spinnerAdapterPipas = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listSpinner);
+        spinnerAdapterPipas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sprPipa.setAdapter(spinnerAdapterPipas);
 
         ArrayAdapter<String> spinnerAdapter;
         List<String> tipoEmpleados = new ArrayList<>();
@@ -97,7 +93,7 @@ public class AgregarEditarPersonal extends Activity {
         if(bundle != null) {
             flgEditar = true;
             if (bundle.containsKey("nomina")) {
-                txtNomina.setText(bundle.getString("nomina"));
+                txtNomina.setText(((Integer)bundle.getInt("nomina")).toString());
                 txtNomina.setKeyListener(null);
             }
             if (bundle.containsKey("nombre")) {
@@ -122,6 +118,15 @@ public class AgregarEditarPersonal extends Activity {
     }
 
     private void cargarEventos() {
+        sprPipa.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> parent,View v, int position, long id) {
+                        idPipa = pipasBussines.spinnerMap.get(parent.getSelectedItemPosition());
+                    }
+
+                    public void onNothingSelected(AdapterView<?> parent) {}
+                }
+        );
         sprTipoEmpleado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -171,7 +176,12 @@ public class AgregarEditarPersonal extends Activity {
                 Toast.makeText(getApplicationContext(), "La contraseña es obligatoria.", Toast.LENGTH_SHORT).show();
             } else {
                 if (sprTipoEmpleado.getSelectedItemId() != 0) {
-                    resultadoGuardar = verificarPipa((int) sprPipa.getSelectedItem(), (int) sprTipoEmpleado.getSelectedItemId());
+                    if (idPipa != null){
+                        resultadoGuardar = verificarPipa(idPipa, (int) sprTipoEmpleado.getSelectedItemId());
+                    }   else    {
+                        Toast.makeText(getApplicationContext(), "No se ha seleccionado una pipa, favor de validar.", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
                 }
                 if (resultadoGuardar) {
                     personalTO.setNomina(Integer.parseInt(txtNomina.getText().toString()));
@@ -179,7 +189,7 @@ public class AgregarEditarPersonal extends Activity {
                     personalTO.setApellidoPaterno(txtAPaterno.getText().toString());
                     personalTO.setApellidoMaterno(txtAMaterno.getText().toString());
                     personalTO.setPassword(txtPass.getText().toString());
-                    personalTO.setNoPipa((int) sprPipa.getSelectedItem());
+                    personalTO.setNoPipa(idPipa);
                     personalTO.setFechaRegistro(fecha);
                     personalTO.setNominaRegistro(LoginActivity.personalTO.getNomina());
                     personalTO.setTipoEmpleado((int) sprTipoEmpleado.getSelectedItemId());
@@ -196,6 +206,7 @@ public class AgregarEditarPersonal extends Activity {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Ha ocurrido un error al guardar el trabajador: " + txtNombre.getText() + ".", Toast.LENGTH_SHORT).show();
         }
         return false;

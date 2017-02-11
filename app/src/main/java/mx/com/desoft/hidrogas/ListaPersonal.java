@@ -33,11 +33,11 @@ public class ListaPersonal extends Fragment {
     Button btnAgregar, btnBuscar;
     EditText txtNombre, txtNoNomina;
     private ViewGroup viewGroup;
-    private ListView lstPersonal;
+    //private ListView lstPersonal;
     private PersonalTO personalTO;
     private PersonalBussines personalBussines;
 
-    ListView listview;
+    ListView listviewPersonal;
     private AdapterPersonal adapterPersonal;
     ArrayList<PersonalTO> personalTOArray;
 
@@ -69,26 +69,26 @@ public class ListaPersonal extends Fragment {
 
     public void buscar() {
         //try {
-            if (TextUtils.isEmpty(txtNoNomina.getText().toString())) {
-                personalTO.setNomina(0);
-            }else {
-                personalTO.setNomina(Integer.parseInt(txtNoNomina.getText().toString()));
-            }
-            personalTO.setNombre(txtNombre.getText().toString().trim());
-            Cursor registros = personalBussines.buscar(viewGroup.getContext(), personalTO);
-            personalTOArray = new ArrayList<PersonalTO>();
-            if (registros.moveToFirst()) {
-                do {
-                    personalTOArray.add(new PersonalTO(registros.getInt(0), registros.getString(1), registros.getString(2), registros.getString(3), registros.getInt(5), registros.getInt(8)));
-                } while (registros.moveToNext());
-            } else {
-                Toast.makeText(viewGroup.getContext(), "Su búsqueda no tiene registros asociados.", Toast.LENGTH_SHORT).show();
-            }
-            this.adapterPersonal = new AdapterPersonal(viewGroup.getContext(), R.layout.list_items_personal, personalTOArray);
-            listview= (ListView)viewGroup.findViewById(R.id.lstPersonal);
-            listview.setItemsCanFocus(false);
-            listview.setAdapter(adapterPersonal);
-            registerForContextMenu(listview);
+        if (TextUtils.isEmpty(txtNoNomina.getText().toString())) {
+            personalTO.setNomina(0);
+        }else {
+            personalTO.setNomina(Integer.parseInt(txtNoNomina.getText().toString()));
+        }
+        personalTO.setNombre(txtNombre.getText().toString().trim());
+        Cursor registros = personalBussines.buscar(viewGroup.getContext(), personalTO);
+        personalTOArray = new ArrayList<PersonalTO>();
+        if (registros.moveToFirst()) {
+            do {
+                personalTOArray.add(new PersonalTO(registros.getInt(0), registros.getString(1), registros.getString(2), registros.getString(3), registros.getInt(5), registros.getInt(8)));
+            } while (registros.moveToNext());
+        } else {
+            Toast.makeText(viewGroup.getContext(), "Su búsqueda no tiene registros asociados.", Toast.LENGTH_SHORT).show();
+        }
+        this.adapterPersonal = new AdapterPersonal(viewGroup.getContext(), R.layout.list_items_personal, personalTOArray);
+        listviewPersonal= (ListView)viewGroup.findViewById(R.id.lstPersonal);
+        listviewPersonal.setItemsCanFocus(false);
+        listviewPersonal.setAdapter(adapterPersonal);
+        registerForContextMenu(listviewPersonal);
         /*} catch (Exception e) {
             Toast.makeText(viewGroup.getContext(), "Ha ocurrido un error al realizar la búsqueda, Intente nuevamente por favor.", Toast.LENGTH_SHORT).show();
         }*/
@@ -105,7 +105,7 @@ public class ListaPersonal extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         final AdapterView.AdapterContextMenuInfo adapterContextMenuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
-            case R.id.eliminar:
+            case R.id.eliminarUsuario:
                 AlertDialog.Builder dialogo1 = new AlertDialog.Builder(viewGroup.getContext());
                 dialogo1.setTitle("Eliminar Personal");
                 dialogo1.setMessage("¿Está seguro de eliminar este registro?");
@@ -124,7 +124,7 @@ public class ListaPersonal extends Fragment {
                 });
                 dialogo1.show();
                 return true;
-            case R.id.editar:
+            case R.id.editarUsuario:
                 Intent accion = new Intent (viewGroup.getContext(), AgregarEditarPersonal.class);
                 accion.putExtra("nomina", personalTOArray.get(adapterContextMenuInfo.position).getNomina());
                 accion.putExtra("nombre", personalTOArray.get(adapterContextMenuInfo.position).getNombre());

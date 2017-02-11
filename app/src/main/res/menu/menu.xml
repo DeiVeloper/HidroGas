@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Main" >
+    <item android:id="@+id/impotarDatos"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="Importar datos"
+        android:orderInCategory="1"
+        />
     <item android:id="@+id/cerrarSesion"
         android:icon="@android:drawable/ic_menu_add"
         android:title="Cerrar Sesion"

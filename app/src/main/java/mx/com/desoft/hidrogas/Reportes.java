@@ -113,7 +113,6 @@ public class Reportes  {
                 dataRow.createCell(1).setCellValue(registros.getPorcentajeLlenado()+"%");
             }
 
-
             String str_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString();
             File file ;
             file = new File(str_path, view.getContext().getString(R.string.app_name)+"_Reporte_Llenado" + ".xls");

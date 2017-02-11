@@ -4,23 +4,16 @@ package mx.com.desoft.hidrogas;
  * Created by David on 30/11/16.
  */
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
-
-import java.util.List;
 
 import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
 import mx.com.desoft.hidrogas.bussines.PersonalBussines;
@@ -50,23 +43,18 @@ public class LoginActivity extends AppCompatActivity {
                 String usuario = editTextUsuario.getText().toString();
                 String password = editTextPassword.getText().toString();
                 if(isFormValid(usuario,password)){
-                    personalTO = personalBussines.getUserDataBase(getApplication(), usuario, password);
-                    if(personalTO != null){
-                        goToMain();
-                        saveOnPreferences(usuario,password);
+                    goToMain();
+                    saveOnPreferences(usuario,password);
+                    Toast.makeText(getApplication(), "Bienvenido "+personalTO.getNombre()+" "+personalTO.getApellidoPaterno()+" "+personalTO.getApellidoMaterno(), Toast.LENGTH_SHORT).show();
                     }   else    {
-                        Toast.makeText(getApplication(), "Usaurio inválido solo se permiten administradores", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplication(), "Usuario y/o contraseña incorrectos, favor de validar", Toast.LENGTH_LONG).show();
                     }
-                }
             }
         });
 
         btnAgregarRegistro.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-
-
                 dataBase.addContact(editTextUsuario.getText().toString(),editTextPassword.getText().toString());
-
                 Toast toast = Toast.makeText(getApplication(), "Usuario:" + editTextUsuario.getText() + " Password: " + editTextPassword.getText(), Toast.LENGTH_LONG);
                 toast.show();
             }
@@ -76,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     private void saveOnPreferences(String usuario, String password){
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("usuario", usuario);// Usuario que se enceuntra en la base de datos y es administrador
-        //editor.putString("password", password); // contraseña del usuario logueado
+        editor.putString("password", password); // contraseña del usuario logueado
         editor.apply();
     }
 
@@ -87,10 +75,6 @@ public class LoginActivity extends AppCompatActivity {
             editTextUsuario.setText(usuario);
             //editTextPassword.setText(password);
         }
-    }
-
-    private void conectarBaseDeDatos(){
-        dataBase = new AdminSQLiteOpenHelper(this);
     }
 
     private void bindUI(){
@@ -108,27 +92,19 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isFormValid(String usuario, String password){
         if (TextUtils.isEmpty(usuario)){
-            Toast.makeText(this, "El Usuario no puede ir vacio, favor de validar", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Favor de capturar un nombre de Usuario", Toast.LENGTH_LONG).show();
             return false;
 
         }   else if(TextUtils.isEmpty(password)){
-            Toast.makeText(this, "La contraseña no puede ir vacia, favor de validar", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Favor de capturar su Contraseña", Toast.LENGTH_LONG).show();
             return false;
         }
 
-        return getUsarioLogin(usuario,password);
+        return getUsarioLogin(usuario, password);
     };
 
     private boolean getUsarioLogin(String usuario, String password){
-        // consulta para traer el usuario de la base de datos
-        return true;
-    }
-
-    public PersonalTO getPersonalTO() {
-        return personalTO;
-    }
-
-    public void setPersonalTO(PersonalTO personalTO) {
-        this.personalTO = personalTO;
+        personalTO = personalBussines.getUserDataBase(getApplication(), usuario, password);
+        return personalTO != null ?  true : false;
     }
 }

@@ -140,7 +140,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     private Calendar calendar = Calendar.getInstance();
 
     private static final String SQL_CREAR_EMPLEADOS = "CREATE TABLE Empleados(nominaEmpleado INTEGER PRIMARY KEY, nombre TEXT NOT NULL," +
-            "apellidoPaterno TEXT NOT NULL, apellidoMaterno TEXT, password TEXT, idPipa INTEGER NOT NULL DEFAULT 0, fechaRegistro INTEGER NOT NULL," +
+            "apellidoPaterno TEXT NOT NULL, apellidoMaterno TEXT, password TEXT, idPipa INTEGER NULL DEFAULT 0, fechaRegistro INTEGER NOT NULL," +
             "nominaRegistro TEXT NOT NULL, tipoEmpleado INTEGER NOT NULL DEFAULT 1)";
 
     private static final String SQL_CREAR_LIQUIDACION = "CREATE TABLE Liquidacion(idLiquidacion INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -194,7 +194,6 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         registro.put("apellidoPaterno", "Castro");
         registro.put("apellidoMaterno", "Aguilar");
         registro.put("password", password);
-        registro.put("idPipa", 1);
         registro.put("fechaRegistro", this.getFechaActual());
         registro.put("nominaRegistro", "130191");
         registro.put("tipoEmpleado", 0);
@@ -202,12 +201,12 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         // Inserting Row
         db.insert("Empleados", null, registro);
 
-        ContentValues llenado = new ContentValues();
+        /*ContentValues llenado = new ContentValues();
         llenado.put("noPipa", 701);
         llenado.put("fechaRegistro", this.getFechaActual());
         llenado.put("nominaRegistro", usuario);
         llenado.put("capacidad", 5800);
-        db.insert("Pipas", null, llenado);
+        db.insert("Pipas", null, llenado);*/
 
         db.close(); // Closing database connection
     }

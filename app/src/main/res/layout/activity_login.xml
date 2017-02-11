@@ -9,25 +9,17 @@
     <LinearLayout android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
         android:orientation="vertical">
         <!-- Logo Start-->
         <ImageView android:src="@drawable/logo"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
+            android:layout_gravity="center"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:textAlignment="center">
         </ImageView>
-        <!-- Logo Ends -->
-
-
-<!--<LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:orientation="vertical"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp" >-->
 
     <EditText
         android:id="@+id/email"
@@ -38,8 +30,9 @@
         android:layout_marginRight="50dp"
         android:background="@color/white"
         android:hint="@string/hint_email"
-        android:inputType="textEmailAddress"
         android:padding="10dp"
+        android:layout_marginTop="25dp"
+        android:inputType="number"
         android:singleLine="true"
         android:textColor="@color/input_login"
         android:textColorHint="@color/input_login_hint" />
@@ -98,13 +91,5 @@
             android:textColor="#ffffff"
             android:textSize="15dp"
             android:textAlignment="center"/>
-<!--</LinearLayout>-->
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/input_login">
-
-    </RelativeLayout>
 </LinearLayout>

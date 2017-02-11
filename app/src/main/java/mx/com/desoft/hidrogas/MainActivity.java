@@ -11,6 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.io.IOException;
 
 import mx.com.desoft.adapter.ViewPagerAdapter;
 
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPagerAdapter viewPagerAdapter;
     private Button btnImprimir;
     private SharedPreferences preferences;
+    private ImportarDatos importarDatos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +79,21 @@ public class MainActivity extends AppCompatActivity {
                 logOut();
                 removeSharedPreferences();
                 return true;
+            case R.id.impotarDatos:
+                try {
+                    importarDatos = new ImportarDatos();
+                    importarDatos.importarPipas(view);
+                    importarDatos.importarEmpleados(view.getContext());
+                    Toast.makeText(view.getContext(), "Se importaron los datos con éxito", Toast.LENGTH_LONG).show();
+                }catch (IOException e){
+                    e.printStackTrace();
+                    Toast.makeText(view.getContext(), "Error al importar datos," + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
 
     private void logOut() {
         Intent intent = new Intent(this, LoginActivity.class);
@@ -91,6 +104,4 @@ public class MainActivity extends AppCompatActivity {
     private void removeSharedPreferences() {
         preferences.edit().clear().apply();
     }
-
-
 }

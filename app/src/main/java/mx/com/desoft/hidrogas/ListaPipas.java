@@ -73,9 +73,14 @@ public class ListaPipas extends Fragment {
             public void onClick(View arg0)
             {
                 try {
-                    reportes = new Reportes();
-                    reportes.reporteExcelPipas(viewGroup, pipasTOArray);
-                    Toast.makeText(viewGroup.getContext(), "Se reporte se creo con éxito"+ pipasTOArray.size()  , Toast.LENGTH_LONG).show();
+                    if (!pipasTOArray.isEmpty()){
+                        reportes = new Reportes();
+                        reportes.reporteExcelPipas(viewGroup, pipasTOArray);
+                        Toast.makeText(viewGroup.getContext(), "Se genero su reporte con exito"  , Toast.LENGTH_LONG).show();
+                    }else   {
+                        Toast.makeText(viewGroup.getContext(), "No existen registros para exportar, favor de validar"  , Toast.LENGTH_LONG).show();
+                    }
+
                 }catch (Exception  e)   {
                     Log.d("Error " + e.getStackTrace()," , Mensaje "+ e.getMessage());
                     Toast.makeText(viewGroup.getContext(), "No se pudo crear al excel, favor de contactar al Administrador", Toast.LENGTH_LONG).show();
@@ -111,8 +116,7 @@ public class ListaPipas extends Fragment {
                         }
                     } while (resgistroChoferAyudante.moveToNext());
                 }
-                System.out.println(registros.getInt(0) + "_"+registros.getInt(1)+"_"+registros.getInt(2)+"_"+registros.getLong(3)+"_"+registros.getInt(4));
-                pipasTOArray.add(new PipasTO(registros.getInt(0),registros.getInt(1), porcentajeLlenado, registros.getInt(4), registros.getLong(2), registros.getInt(3), chofer, ayudante));
+                pipasTOArray.add(new PipasTO(registros.getInt(0),registros.getInt(1), porcentajeLlenado, registros.getInt(2), registros.getLong(4), registros.getInt(3), chofer, ayudante));
             } while (registros.moveToNext());
         } else {
             Toast.makeText(viewGroup.getContext(), "Su búsqueda no tiene registros asociados.", Toast.LENGTH_SHORT).show();
@@ -135,7 +139,7 @@ public class ListaPipas extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         final AdapterView.AdapterContextMenuInfo adapterContextMenuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
-            case R.id.eliminar:
+            case R.id.eliminarPipa:
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(viewGroup.getContext());
                 alertDialog.setTitle("Eliminar Pipa");
                 alertDialog.setMessage("¿Está seguro de eliminar este registro?");
@@ -157,7 +161,7 @@ public class ListaPipas extends Fragment {
                 });
                 alertDialog.show();
                 return true;
-            case R.id.llenar:
+            case R.id.llenarPipa:
                 Intent accion = new Intent(viewGroup.getContext(), LlenarPipa.class);
                 accion.putExtra("idPipa", pipasTOArray.get(adapterContextMenuInfo.position).getIdPipa().toString());
                 accion.putExtra("noPipa",pipasTOArray.get(adapterContextMenuInfo.position).getNoPipa().toString());
