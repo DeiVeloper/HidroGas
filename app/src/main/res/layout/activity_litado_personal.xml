@@ -10,14 +10,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:stretchColumns="0,1,2,3,4,"
+        android:stretchColumns="0,1"
         android:collapseColumns="50dp">
 
-        <TableRow android:background="@color/PrimaryColor">
+        <TableRow android:background="@color/ColorPrimary">
             <TextView
                 android:layout_column="0"
                 android:text="Filtros de Búsqueda"
-                android:textSize="20dp"
+                android:textSize="35dp"
                 android:textAlignment="center"
                 android:layout_gravity="center"
                 android:layout_span="3"
@@ -26,38 +26,33 @@
 
         <TableRow >
             <EditText
-                android:id="@+id/txtNombre"
-                android:layout_width="100dp" android:layout_height="50dp"
-                android:hint="Nombre" android:textSize="23sp" />
-
-            <EditText
-                android:id="@+id/txtNoNomina"
-                android:layout_width="100dp" android:layout_height="50dp"
+                android:id="@+id/txtNoNomina" android:textSize="30dp"
+                android:layout_width="100dp" android:layout_height="wrap_content"
                 android:hint="No. de Nómina" android:inputType="number"/>
+            <EditText
+                android:id="@+id/txtNombre"
+                android:layout_width="100dp" android:layout_height="wrap_content"
+                android:hint="Nombre" android:textSize="30dp" />
 
             <Button
-                android:text="Buscar" android:layout_width="wrap_content"
+                android:text="Buscar" android:layout_width="200dp"
                 android:layout_height="wrap_content" android:layout_gravity="right"
                 android:id="@+id/btnBuscar" android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true" android:layout_alignParentEnd="true"
-                android:layout_marginTop="40dp"/>
+                android:layout_marginTop="40dp" android:textSize="30dp"/>
 
         </TableRow>
         <TableRow>
             <TextView
-                android:id="@+id/lblNomina" android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Nómina" android:textSize="20sp"/>
+                android:id="@+id/lblNomina"
+                android:text="Nómina" android:textSize="30dp"/>
             <TextView
-                android:id="@+id/lblNombre" android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Nombre" android:textSize="20sp"
+                android:id="@+id/lblNombre" android:layout_width="350dp"
+                android:text="Nombre" android:textSize="30dp"
                 />
             <TextView
-                android:id="@+id/lblPipa" android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Pipa"
-                android:textSize="20sp"/>
+                android:id="@+id/lblPipa"
+                android:text="Pipa" android:textSize="30dp"/>
 
         </TableRow>
         <TableRow>
@@ -70,10 +65,9 @@
         </TableRow>
     </TableLayout>
     <Button
-        android:text="Agregar" android:layout_width="96dp"
+        android:text="Agregar" android:layout_width="200dp"
         android:layout_height="wrap_content" android:layout_alignParentBottom="true"
-        android:id="@+id/btnAgregar"
-        android:layout_alignParentRight="true" android:layout_alignParentEnd="true"
-        android:layout_marginRight="100dp"/>
+        android:id="@+id/btnAgregar" android:textSize="30dp"
+        android:layout_alignParentRight="true" android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
