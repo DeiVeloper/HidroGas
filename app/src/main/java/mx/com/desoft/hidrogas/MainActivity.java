@@ -3,7 +3,6 @@ package mx.com.desoft.hidrogas;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(view);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         view.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
 
@@ -89,6 +88,16 @@ public class MainActivity extends AppCompatActivity {
                 }catch (IOException e){
                     e.printStackTrace();
                     Toast.makeText(view.getContext(), "Error al importar datos," + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+                return true;
+            case R.id.impotarClaves:
+                try {
+                    importarDatos = new ImportarDatos();
+                    importarDatos.importarClavesPipas(view);
+                    Toast.makeText(view.getContext(), "Se importaron los datos con éxito", Toast.LENGTH_LONG).show();
+                }catch (IOException e){
+                    e.printStackTrace();
+                    Toast.makeText(view.getContext(), "Error al importar claves," + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
                 return true;
             default:

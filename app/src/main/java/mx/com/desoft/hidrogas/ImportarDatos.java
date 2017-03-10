@@ -4,7 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
+
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,10 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
-
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
 
 import mx.com.desoft.hidrogas.bussines.PersonalBussines;
 import mx.com.desoft.hidrogas.bussines.PipasBussines;
@@ -56,6 +57,29 @@ public class ImportarDatos extends Activity{
 
         workbook.close();
 
+    }
+
+    public void importarClavesPipas(View view) throws IOException{
+        FileInputStream file = new FileInputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString(),"PipasClaves.xls"));
+        HSSFWorkbook workbook = new HSSFWorkbook(file);
+        HSSFSheet sheet = workbook.getSheetAt(0);
+        Iterator<Row> rowIterator = sheet.iterator();
+        Row row;
+        PipasTO pipasTO = new PipasTO();
+        while (rowIterator.hasNext()){
+            row = rowIterator.next();
+            try {
+                pipasTO.setNoPipa(((Double) Double.parseDouble(row.getCell(0).toString().trim())).intValue());
+                pipasTO.setClave(((Double) Double.parseDouble(row.getCell(1).toString().trim())).intValue());
+                if (pipasTO.getNoPipa() > 0 && pipasTO.getClave() > 0) {
+                    pipasBussines.setClavePipa(view.getContext(), pipasTO);
+                }
+            } catch (NumberFormatException nfe) {
+                System.out.println("error pipa o clave no numericos" + nfe);
+                continue;
+            }
+        }
+        workbook.close();
     }
 
     public void importarEmpleados(Context context) throws IOException{
