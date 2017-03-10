@@ -2,19 +2,13 @@ package mx.com.desoft.SQLite;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-
-import mx.com.desoft.hidrogas.model.Empleado;
 
 /**
  * Created by erick.martinez on 14/12/2016.
@@ -151,7 +145,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
             "porcentajeLlenado INTEGER NOT NULL, fechaRegistro INTEGER NOT NULL, nominaRegistro TEXT NOT NULL)";
 
     private static final String SQL_CREAR_PIPAS = "CREATE TABLE Pipas (idPipa INTEGER PRIMARY KEY AUTOINCREMENT, noPipa INTEGER NOT NULL, capacidad INTEGER NOT NULL, " +
-            "totalizador INTEGER NULL DEFAULT 0, fechaRegistro INTEGER NOT NULL, nominaRegistro TEXT NOT NULL)";
+            "totalizador INTEGER NULL DEFAULT 0, fechaRegistro INTEGER NOT NULL, nominaRegistro TEXT NOT NULL, clave INTEGER NOT NULL DEFAULT 0)";
 
     private static final String SQL_CREAR_TIPOEMPLEADOS = "CREATE TABLE TipoEmpleados (idEmpleado INTEGER PRIMARY KEY, descripcion TEXT)";
 
