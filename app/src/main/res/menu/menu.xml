@@ -7,6 +7,11 @@
         android:title="Importar datos"
         android:orderInCategory="1"
         />
+    <item android:id="@+id/impotarClaves"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="Importar Claves"
+        android:orderInCategory="1"
+        />
     <item android:id="@+id/cerrarSesion"
         android:icon="@android:drawable/ic_menu_add"
         android:title="Cerrar Sesion"
