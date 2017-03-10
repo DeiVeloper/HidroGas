@@ -5,13 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.view.ViewGroup;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
-import mx.com.desoft.hidrogas.model.Empleado;
 import mx.com.desoft.hidrogas.to.PersonalTO;
 
 /**
@@ -38,7 +33,7 @@ public class PersonalBussines {
         registro.put("apellidoPaterno", personalTO.getApellidoPaterno());
         registro.put("apellidoMaterno", personalTO.getApellidoMaterno());
         registro.put("password", personalTO.getPassword());
-        registros = pipasBussines.buscarByNoPipa(context, personalTO.getNoPipa());
+        registros = pipasBussines.buscarByIdPipa(context, personalTO.getNoPipa());
         if (registros.moveToFirst()){
             registro.put("idPipa", registros.getInt(0));
         } else {

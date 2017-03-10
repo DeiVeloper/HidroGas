@@ -67,6 +67,25 @@ public class PipasBussines {
         bd.insert("Llenado", null, registro);
     }
 
+    public void setClavePipa(Context context, PipasTO pipasTO) {
+        bd = getBase(context);
+        registro = new ContentValues();
+        registro.put("clave", pipasTO.getClave());
+        bd.update("Pipas", registro, "noPipa = " + pipasTO.getNoPipa(), null);
+    }
+
+    public List<String> getClavePipa(Context context) {
+        bd = getBase(context);
+        registros = bd.rawQuery("SELECT clave, noPipa from pipas where 1=1", null);
+        List<String> claves = new ArrayList<String>();
+        if (registros.moveToFirst()) {
+            do {
+                claves.add(registros.getString(registros.getColumnIndex("clave"))+" "+registros.getString(registros.getColumnIndex("noPipa")));
+            } while (registros.moveToNext());
+        }
+        return claves;
+    }
+
     public Cursor buscarLlenadoByNoPipa(Context context, Integer pipa) {
         String condicion = "";
         bd = getBase(context);
@@ -87,7 +106,7 @@ public class PipasBussines {
         return registros;
     }
 
-    public Cursor buscarByNoPipa(Context context, Integer pipa) {
+    public Cursor buscarByIdPipa(Context context, Integer pipa) {
         String condicion = "";
         bd = getBase(context);
         if (pipa != 0) {
@@ -97,10 +116,34 @@ public class PipasBussines {
         return registros;
     }
 
-    public void eliminar (Context context, Integer pipa) {
+    public Cursor buscarByNoPipa(Context context, Integer pipa) {
+        String condicion = "";
         bd = getBase(context);
-        bd.delete("Pipas", "noPipa = " + pipa, null);
+        if (pipa != 0) {
+            condicion += " AND noPipa = " + pipa;
+        }
+        registros = bd.rawQuery("SELECT * FROM pipas WHERE 1=1 " + condicion, null);
+        return registros;
+    }
+
+    public Integer getNoPipaByIdPipa(Context context, Integer pipa) {
+        bd = getBase(context);
+        registros = bd.rawQuery("SELECT * FROM pipas WHERE idPipa = " + pipa, null);
+        if (registros.moveToFirst()){
+            return registros.getInt(1);
+        }
+        return 0;
+    }
+
+    public boolean eliminar (Context context, Integer pipa) {
+        bd = getBase(context);
+        Cursor resgistroChoferAyudante = buscarChoferAyudanteByNoPipa(context, pipa);
+        if (resgistroChoferAyudante.moveToFirst()) {
+            return false;
+        }
+        bd.delete("Pipas", "idPipa = " + pipa, null);
         bd.close();
+        return true;
     }
 
     public List<String> getAllPipas(Context context){
