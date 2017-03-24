@@ -34,7 +34,7 @@ public class LiquidacionBussines {
         bd = baseDatos.getWritableDatabase();
     }
 
-    public void guardarLiquidacion(ViewGroup viewGroup, LiquidacionesTO liquidacionesTO,List<ViajesTO> listaViajes) {
+    public Long guardarLiquidacion(ViewGroup viewGroup, LiquidacionesTO liquidacionesTO,List<ViajesTO> listaViajes) {
         iniciarDataBase(viewGroup);
         ContentValues registro = new ContentValues();
         registro.put("nominaChofer", liquidacionesTO.getNominaChofer());
@@ -44,6 +44,8 @@ public class LiquidacionBussines {
         registro.put("alerta", liquidacionesTO.getAlerta());
         registro.put("fechaRegistro", liquidacionesTO.getFechaRegistro().toString());
         registro.put("nominaRegistro", liquidacionesTO.getNominaRegistro());
+        registro.put("porcentajeVariacion", liquidacionesTO.getPorcentajeVariacion());
+        registro.put("economico", liquidacionesTO.getEconomico());
         Long idLiquidacion = bd.insert("liquidacion", null, registro);
 
 
@@ -57,52 +59,37 @@ public class LiquidacionBussines {
             bd.insert("viajes", null, registroViajes);
         }
 
-        bd.close();
+        //bd.close();
+        return idLiquidacion;
     }
 
-    public List<LiquidacionesTO> getAllLiquidaciones(ViewGroup viewGroup){
+    public LiquidacionesTO getLiquidacionByIdLiquidacion(ViewGroup viewGroup, Long idLiquidacion){
         iniciarDataBase(viewGroup);
-            List<LiquidacionesTO> contactList = new ArrayList<>();
-            // Select All Query
-            StringBuilder selectQuery = new StringBuilder();
-        selectQuery.append("    SELECT  liquidacion.idLiquidacion, ");
-        selectQuery.append("            liquidacion.noPipa, ");
-        selectQuery.append("            liquidacion.nominaChofer, ");
-        selectQuery.append("            liquidacion.nominaAyudante, ");
-        selectQuery.append("            liquidacion.variacion,  ");
-        selectQuery.append("            liquidacion.alerta, ");
-        selectQuery.append("            liquidacion.fechaRegistro, ");
-        selectQuery.append("            v.porcentajeInicial, ");
-        selectQuery.append("            v.porcentajeFinal, ");
-        selectQuery.append("            v.totalizadorInicial, ");
-        selectQuery.append("            v.totalizadorFinal ");
-        selectQuery.append("    FROM    Liquidacion liquidacion, ");
-        selectQuery.append("            viajes v ");
-        selectQuery.append("    where   liquidacion.idLiquidacion = v.idLiquidacion");
-
-
-            Cursor cursor = bd.rawQuery(selectQuery.toString(), null);
-
-            // looping through all rows and adding to list
-            if (cursor.moveToFirst()) {
-                do {
-                    LiquidacionesTO contact = new LiquidacionesTO();
-                    contact.setIdLiquidacion(Integer.parseInt(cursor.getString(0)));
-                    contact.setNoPipa(Integer.parseInt(cursor.getString(1)));
-                    contact.setNominaChofer(cursor.getString(2));
-                    contact.setNominaAyudante(cursor.getString(3));
-                    contact.setVariacion(cursor.getInt(4));
-                    contact.setAlerta(cursor.getInt(5));
-                    contact.setFechaRegistro(cursor.getLong(6));
-                    contact.setPorcentajeInicial(cursor.getInt(7));
-                    contact.setPorcentajeFinal(cursor.getInt(8));
-                    contact.setTotalizadorInicial(cursor.getInt(9));
-                    contact.setTotalizadorFinal(cursor.getInt(10));
-                    contactList.add(contact);
-                } while (cursor.moveToNext());
-            }
-            return contactList;
-
+        LiquidacionesTO liquidacion = null;
+        StringBuilder selectQuery = new StringBuilder();
+        selectQuery.append("    SELECT  liquidacion.*, ");
+        selectQuery.append("            (SELECT e.nombre||' '||e.apellidoPaterno||' '|| e.apellidoMaterno FROM Empleados e WHERE e.nominaEmpleado = liquidacion.nominaChofer) as chofer,");
+        selectQuery.append("            (SELECT e.nombre||' '||e.apellidoPaterno||' '|| e.apellidoMaterno FROM Empleados e WHERE e.nominaEmpleado = liquidacion.nominaAyudante) as ayudante");
+        selectQuery.append("    FROM    Liquidacion liquidacion ");
+        selectQuery.append("    WHERE   liquidacion.idLiquidacion = " + idLiquidacion.intValue());
+        Cursor cursor = bd.rawQuery(selectQuery.toString(), null);
+        if (cursor.moveToFirst()) {
+            do {
+                liquidacion = new LiquidacionesTO();
+                liquidacion.setIdLiquidacion(Integer.parseInt(cursor.getString(cursor.getColumnIndex("idLiquidacion"))));
+                liquidacion.setNoPipa(cursor.getInt(cursor.getColumnIndex("idPipa")));
+                liquidacion.setEconomico(cursor.getString(cursor.getColumnIndex("economico")));
+                liquidacion.setNominaChofer(cursor.getString(cursor.getColumnIndex("nominaChofer")));
+                liquidacion.setNominaAyudante(cursor.getString(cursor.getColumnIndex("nominaAyudante")));
+                liquidacion.setVariacion(cursor.getInt(cursor.getColumnIndex("variacion")));
+                liquidacion.setAlerta(cursor.getInt(cursor.getColumnIndex("alerta")));
+                liquidacion.setFechaRegistro(cursor.getLong(cursor.getColumnIndex("fechaRegistro")));
+                liquidacion.setPorcentajeVariacion(cursor.getFloat(cursor.getColumnIndex("porcentajeVariacion")));
+                liquidacion.setChofer(cursor.getString(cursor.getColumnIndex("chofer")));
+                liquidacion.setAyudante(cursor.getString(cursor.getColumnIndex("ayudante")));
+            } while (cursor.moveToNext());
+        }
+        return liquidacion;
     }
 
     public List<ViajesTO> getPorcentajeInicialAnterior(ViewGroup viewGroup, Integer idPipa){
@@ -131,6 +118,30 @@ public class LiquidacionBussines {
                 viaje.setPorcentajeFinal(cursor.getInt(3));
                 viaje.setTotalizadorInicial(cursor.getInt(4));
                 viaje.setTotalizadorFinal(cursor.getInt(5));
+                lista.add(viaje);
+            } while (cursor.moveToNext());
+        }
+        return lista;
+    }
+
+    public List<ViajesTO> getViajesByIdLiquidacion(ViewGroup viewGroup, int idLiquidacion){
+        iniciarDataBase(viewGroup);
+        List<ViajesTO> lista = new ArrayList<>();
+        StringBuilder selectQuery = new StringBuilder();
+        selectQuery.append("SELECT  * ");
+        selectQuery.append("FROM    Viajes viajes  ");
+        selectQuery.append("WHERE   viajes.idLiquidacion = " + idLiquidacion);
+        Cursor cursor = bd.rawQuery(selectQuery.toString(), null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                ViajesTO viaje = new ViajesTO();
+                viaje.setIdViaje(cursor.getInt(cursor.getColumnIndex("idViaje")));
+                viaje.setIdLiquidacion(cursor.getInt(cursor.getColumnIndex("idLiquidacion")));
+                viaje.setPorcentajeInicial(cursor.getInt(cursor.getColumnIndex("porcentajeInicial")));
+                viaje.setPorcentajeFinal(cursor.getInt(cursor.getColumnIndex("porcentajeFinal")));
+                viaje.setTotalizadorInicial(cursor.getInt(cursor.getColumnIndex("totalizadorInicial")));
+                viaje.setTotalizadorFinal(cursor.getInt(cursor.getColumnIndex("totalizadorFinal")));
                 lista.add(viaje);
             } while (cursor.moveToNext());
         }

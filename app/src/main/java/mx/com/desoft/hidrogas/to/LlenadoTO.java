@@ -12,6 +12,8 @@ public class LlenadoTO {
     private Long fechaRegistro;
     private String  nominaRegistro;
     private Integer variacion;
+    private Float porcentajeVariacion;
+    private String clave;
 
     public LlenadoTO() {
     }
@@ -70,5 +72,21 @@ public class LlenadoTO {
 
     public void setVariacion(Integer variacion) {
         this.variacion = variacion;
+    }
+
+    public Float getPorcentajeVariacion() {
+        return porcentajeVariacion;
+    }
+
+    public void setPorcentajeVariacion(Float porcentajeVariacion) {
+        this.porcentajeVariacion = porcentajeVariacion;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 }

@@ -58,7 +58,7 @@ public class LlenarPipa extends Activity {
                 txtNoPipa.setText(bundle.getString("noPipa"));
             }
             if (bundle.containsKey("porcentajeLlenado")) {
-                txtPorcentaje.setText(bundle.getString("porcentajeLlenado"));
+                txtPorcentaje.setText(bundle.getString("porcentajeLlenado").equals("0") ? "" : bundle.getString("porcentajeLlenado"));
             }
         }
 

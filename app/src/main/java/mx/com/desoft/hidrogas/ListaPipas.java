@@ -95,7 +95,7 @@ public class ListaPipas extends Fragment {
         if (!TextUtils.isEmpty(txtPipa.getText().toString())){
             pipa = Integer.parseInt (txtPipa.getText().toString());
         }
-        Cursor registros = pipasBussines.buscarByNoPipa(viewGroup.getContext(), pipa);
+        Cursor registros = pipasBussines.buscarByNoPipa2(viewGroup.getContext(), pipa);
         pipasTOArray = new ArrayList<PipasTO>();
         if (registros.moveToFirst()) {
             do {
@@ -147,10 +147,15 @@ public class ListaPipas extends Fragment {
                 alertDialog.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        pipasBussines.eliminar(viewGroup.getContext(), pipasTOArray.get(adapterContextMenuInfo.position).getNoPipa());
-                        Toast.makeText(viewGroup.getContext(), "La Pipa número: " + pipasTOArray.get(adapterContextMenuInfo.position).getNoPipa() + " se ha eliminado correctamente", Toast.LENGTH_SHORT).show();
-                        pipasTOArray.remove(adapterContextMenuInfo.position);
-                        adapterPipas.notifyDataSetChanged();
+                        final boolean eliminada = pipasBussines.eliminar(viewGroup.getContext(), pipasTOArray.get(adapterContextMenuInfo.position).getIdPipa());
+                        if (eliminada) {
+                            Toast.makeText(viewGroup.getContext(), "La Pipa número: " + pipasTOArray.get(adapterContextMenuInfo.position).getNoPipa() + " se ha eliminado correctamente", Toast.LENGTH_SHORT).show();
+                            pipasTOArray.remove(adapterContextMenuInfo.position);
+                            adapterPipas.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(viewGroup.getContext(), "La Pipa " + pipasTOArray.get(adapterContextMenuInfo.position).getNoPipa() + " no se puede eliminar. Tiene chofer y/o ayudante asignados.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(viewGroup.getContext(), "Favor de asignar otra pipa al chofer y/o ayudante o, eliminarlos antes de eliminar la pipa.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
                 alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {

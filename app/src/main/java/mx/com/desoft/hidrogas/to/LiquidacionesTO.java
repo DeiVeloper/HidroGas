@@ -2,6 +2,7 @@ package mx.com.desoft.hidrogas.to;
 
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by carlosdavid.castro on 26/12/2016.
@@ -11,15 +12,25 @@ public class LiquidacionesTO  {
     private Integer idLiquidacion;
     private String  nominaChofer;
     private String  nominaAyudante;
+    private String  chofer;
+    private String  ayudante;
     private Integer noPipa;
     private Integer variacion;
-    private Long fechaRegistro;
+    private Long    fechaRegistro;
     private String  nominaRegistro;
     private Integer alerta;
     private Integer porcentajeInicial;
     private Integer totalizadorInicial;
     private Integer porcentajeFinal;
     private Integer totalizadorFinal;
+    private Integer autoconsumo ;
+    private Integer medidores;
+    private Integer traspasosRecibidos;
+    private Integer traspasosRealizados;
+    private Float   porcentajeVariacion;
+    private String  clave;
+    private String  economico;
+    private List<ViajesTO> viajes;
 
     public Integer getIdLiquidacion() {
         return idLiquidacion;
@@ -115,5 +126,85 @@ public class LiquidacionesTO  {
 
     public void setTotalizadorFinal(Integer totalizadorFinal) {
         this.totalizadorFinal = totalizadorFinal;
+    }
+
+    public Integer getAutoconsumo() {
+        return autoconsumo;
+    }
+
+    public void setAutoconsumo(Integer autoconsumo) {
+        this.autoconsumo = autoconsumo;
+    }
+
+    public Integer getMedidores() {
+        return medidores;
+    }
+
+    public void setMedidores(Integer medidores) {
+        this.medidores = medidores;
+    }
+
+    public Integer getTraspasosRecibidos() {
+        return traspasosRecibidos;
+    }
+
+    public void setTraspasosRecibidos(Integer traspasosRecibidos) {
+        this.traspasosRecibidos = traspasosRecibidos;
+    }
+
+    public Integer getTraspasosRealizados() {
+        return traspasosRealizados;
+    }
+
+    public void setTraspasosRealizados(Integer traspasosRealizados) {
+        this.traspasosRealizados = traspasosRealizados;
+    }
+
+    public Float getPorcentajeVariacion() {
+        return porcentajeVariacion;
+    }
+
+    public void setPorcentajeVariacion(Float porcentajeVariacion) {
+        this.porcentajeVariacion = porcentajeVariacion;
+    }
+
+    public String getChofer() {
+        return chofer;
+    }
+
+    public void setChofer(String chofer) {
+        this.chofer = chofer;
+    }
+
+    public String getAyudante() {
+        return ayudante;
+    }
+
+    public void setAyudante(String ayudante) {
+        this.ayudante = ayudante;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    public String getEconomico() {
+        return economico;
+    }
+
+    public void setEconomico(String economico) {
+        this.economico = economico;
+    }
+
+    public List<ViajesTO> getViajes() {
+        return viajes;
+    }
+
+    public void setViajes(List<ViajesTO> viajes) {
+        this.viajes = viajes;
     }
 }

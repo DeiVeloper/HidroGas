@@ -5,7 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,6 +26,8 @@ public class PipasBussines {
     private ContentValues registro;
     private SQLiteDatabase bd;
     public static HashMap<Integer,Integer> spinnerMap;
+    private Calendar calendar;
+
     public PipasBussines() {
 
     }
@@ -51,7 +57,7 @@ public class PipasBussines {
         registro.put("capacidad", pipasTO.getCapacidad());
         registros = buscarByNoPipa(context, pipasTO.getNoPipa());
         if (registros.moveToFirst()) {
-            return 0L;
+            return ((long)bd.update("Pipas",registro, "noPipa = " + pipasTO.getNoPipa(), null));
         } else {
             return bd.insert("Pipas", null, registro);
         }
@@ -126,6 +132,16 @@ public class PipasBussines {
         return registros;
     }
 
+    public Cursor buscarByNoPipa2(Context context, Integer noPipa) {
+        String condicion = "";
+        bd = getBase(context);
+        if (noPipa != 0) {
+            condicion += " AND noPipa = " + noPipa;
+        }
+        registros = bd.rawQuery("SELECT * FROM pipas WHERE 1=1 " + condicion, null);
+        return registros;
+    }
+
     public Integer getNoPipaByIdPipa(Context context, Integer pipa) {
         bd = getBase(context);
         registros = bd.rawQuery("SELECT * FROM pipas WHERE idPipa = " + pipa, null);
@@ -142,7 +158,7 @@ public class PipasBussines {
             return false;
         }
         bd.delete("Pipas", "idPipa = " + pipa, null);
-        bd.close();
+        //bd.close();
         return true;
     }
 
@@ -171,9 +187,43 @@ public class PipasBussines {
         return lista;
     }
 
+    public Integer getCapacidadDiaAnteriorPipa(Context context, Integer idPipa){
+        bd = getBase(context);
+        StringBuilder consulta =  new StringBuilder();
+        consulta.append("   SELECT  porcentajeLlenado ");
+        consulta.append("   FROM    Llenado ");
+        consulta.append("   WHERE   fechaRegistro = " + this.getFechaAnterior());
+        consulta.append("   AND     idPipa = " + idPipa);
+        Cursor cursor = bd.rawQuery(consulta.toString(), null);
+        Integer porcentajeLlenado = 0;
+        if (cursor.moveToFirst()) {
+            do {
+               porcentajeLlenado = cursor.getInt(cursor.getColumnIndex("porcentajeLlenado"));
+            } while (cursor.moveToNext());
+        }
+        return porcentajeLlenado;
+    }
+
     private SQLiteDatabase getBase(Context context) {
         baseDatos = new AdminSQLiteOpenHelper(context/*, "hidroGas", null, 1*/);
         bd = baseDatos.getWritableDatabase();
         return bd;
+    }
+
+    private Long getFechaAnterior(){
+        calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        calendar.set(year, month, day);
+        Date fecha = null;
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        calendar.add(Calendar.DATE,-1);
+        try {
+            fecha = formato.parse(formato.format(calendar.getTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return fecha.getTime();
     }
 }

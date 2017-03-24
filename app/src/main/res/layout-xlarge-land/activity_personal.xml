@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tablaAgregarPersonal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:stretchColumns="0,1"
+        android:collapseColumns="50dp">
+
+        <TableRow android:background="@color/ColorPrimary">
+            <TextView
+                android:text="Agregar / Editar Personal"
+                android:textSize="35dp"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:layout_span="2"
+                android:textColor="@android:color/white" />
+        </TableRow>
+        <TableRow>
+            <EditText
+                android:id="@+id/txtNoNomina" android:inputType="number"
+                android:layout_width="100dp" android:layout_height="wrap_content"
+                android:hint="No. de Nómina" android:textSize="30dp" />
+            <EditText
+                android:id="@+id/txtNombre"
+                android:layout_width="100dp" android:layout_height="wrap_content"
+                android:hint="Nombre" android:textSize="30dp" />
+        </TableRow>
+        <TableRow>
+            <EditText
+                android:id="@+id/txtApellidoPaterno"
+                android:layout_width="100dp" android:layout_height="wrap_content"
+                android:hint="Apellido Paterno" android:textSize="30dp"/>
+            <EditText
+                android:id="@+id/txtApellidoMaterno"
+                android:layout_width="100dp" android:layout_height="wrap_content"
+                android:hint="Apellido Materno" android:textSize="30dp"/>
+        </TableRow>
+        <TableRow>
+            <EditText
+                android:id="@+id/txtPass" android:layout_span="2"
+                android:layout_width="100dp" android:layout_height="wrap_content"
+                android:hint="Contraseña" android:textSize="30dp"
+                android:inputType="textPassword"/>
+        </TableRow>
+        <TableRow>
+            <Spinner
+                android:id="@+id/sprPuesto"/>
+            <Spinner
+                android:id="@+id/sprPipa" android:textColor="#000000"
+                />
+        </TableRow>
+    </TableLayout>
+    <Button
+        android:text="Guardar"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnGuardar"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="guardar"
+        android:layout_gravity="center"
+        android:background="#dca951"
+        android:textColor="@android:color/white"
+        android:textSize="35dp"/>
+
+    <Button
+        android:text="Cancelar"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnCancelar"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/btnGuardar"
+        android:layout_gravity="center"
+        android:background="#dca951"
+        android:textColor="@android:color/white"
+        android:textSize="35dp"/>
+
+</RelativeLayout>

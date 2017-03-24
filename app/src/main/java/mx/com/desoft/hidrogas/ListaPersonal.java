@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import mx.com.desoft.adapter.AdapterPersonal;
 import mx.com.desoft.hidrogas.bussines.PersonalBussines;
+import mx.com.desoft.hidrogas.bussines.PipasBussines;
 import mx.com.desoft.hidrogas.to.PersonalTO;
 
 /**
@@ -36,6 +37,7 @@ public class ListaPersonal extends Fragment {
     //private ListView lstPersonal;
     private PersonalTO personalTO;
     private PersonalBussines personalBussines;
+    private PipasBussines pipasBussines;
 
     ListView listviewPersonal;
     private AdapterPersonal adapterPersonal;
@@ -46,6 +48,7 @@ public class ListaPersonal extends Fragment {
         viewGroup = (ViewGroup) inflater.inflate(R.layout.activity_litado_personal, container, false);
         personalTO = new PersonalTO();
         personalBussines = new PersonalBussines();
+        pipasBussines = new PipasBussines();
         personalTOArray = new ArrayList<PersonalTO>();
         btnAgregar = (Button)viewGroup.findViewById(R.id.btnAgregar);
         btnAgregar.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +82,9 @@ public class ListaPersonal extends Fragment {
         personalTOArray = new ArrayList<PersonalTO>();
         if (registros.moveToFirst()) {
             do {
-                personalTOArray.add(new PersonalTO(registros.getInt(0), registros.getString(1), registros.getString(2), registros.getString(3), registros.getInt(5), registros.getInt(8)));
+                //System.out.println(registros.getInt(0) + "_" + registros.getString(1)+"_"+registros.getString(2) + "_" + registros.getString(3)+"_"+registros.getString(4) + "_" + registros.getInt(5)+"_"+registros.getLong(6) + "_" + registros.getString(7)
+                //+"_" + registros.getInt(8) + "_" + registros.getInt(9)+ "_" + registros.getInt(10));
+                personalTOArray.add(new PersonalTO(registros.getInt(0), registros.getString(1), registros.getString(2), registros.getString(3), pipasBussines.getNoPipaByIdPipa(viewGroup.getContext(), registros.getInt(5)), registros.getInt(8)));
             } while (registros.moveToNext());
         } else {
             Toast.makeText(viewGroup.getContext(), "Su búsqueda no tiene registros asociados.", Toast.LENGTH_SHORT).show();

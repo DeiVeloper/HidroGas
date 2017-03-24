@@ -2,13 +2,20 @@ package mx.com.desoft.SQLite;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import mx.com.desoft.hidrogas.model.Empleado;
 
 /**
  * Created by erick.martinez on 14/12/2016.
@@ -139,13 +146,13 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREAR_LIQUIDACION = "CREATE TABLE Liquidacion(idLiquidacion INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "nominaChofer TEXT NOT NULL, nominaAyudante TEXT NOT NULL, idPipa INTEGER NOT NULL DEFAULT 0, alerta INTEGER NULL DEFAULT 0, " +
-            "variacion INTEGER NULL DEFAULT 0, fechaRegistro INTEGER NOT NULL, nominaRegistro TEXT NOT NULL)";
+            "variacion INTEGER NULL DEFAULT 0, fechaRegistro INTEGER NOT NULL, nominaRegistro TEXT NOT NULL, porcentajeVariacion REAL NOT NULL, economico TEXT NOT NULL)";
 
     private static final String SQL_CREAR_LLENADO = "CREATE TABLE Llenado(idLlenado INTEGER PRIMARY KEY AUTOINCREMENT, idPipa INTEGER NOT NULL," +
             "porcentajeLlenado INTEGER NOT NULL, fechaRegistro INTEGER NOT NULL, nominaRegistro TEXT NOT NULL)";
 
     private static final String SQL_CREAR_PIPAS = "CREATE TABLE Pipas (idPipa INTEGER PRIMARY KEY AUTOINCREMENT, noPipa INTEGER NOT NULL, capacidad INTEGER NOT NULL, " +
-            "totalizador INTEGER NULL DEFAULT 0, fechaRegistro INTEGER NOT NULL, nominaRegistro TEXT NOT NULL, clave INTEGER NOT NULL DEFAULT 0)";
+            "totalizador INTEGER NULL DEFAULT 0, fechaRegistro INTEGER NOT NULL, nominaRegistro TEXT NOT NULL, clave TEXT NULL)";
 
     private static final String SQL_CREAR_TIPOEMPLEADOS = "CREATE TABLE TipoEmpleados (idEmpleado INTEGER PRIMARY KEY, descripcion TEXT)";
 
@@ -180,28 +187,18 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         db.insert("tipoEmpleados", null, registro);
     }
 
-    public void addContact(String usuario, String password) {
+    public void addContact(String usuario, String password) throws SQLiteConstraintException {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues registro = new ContentValues();
         registro.put("nominaEmpleado", usuario);
         registro.put("nombre", "Carlos David");
         registro.put("apellidoPaterno", "Castro");
         registro.put("apellidoMaterno", "Aguilar");
-        registro.put("password", password);
+        registro.put("password", password.toString());
         registro.put("fechaRegistro", this.getFechaActual());
         registro.put("nominaRegistro", "130191");
         registro.put("tipoEmpleado", 0);
-
-        // Inserting Row
         db.insert("Empleados", null, registro);
-
-        /*ContentValues llenado = new ContentValues();
-        llenado.put("noPipa", 701);
-        llenado.put("fechaRegistro", this.getFechaActual());
-        llenado.put("nominaRegistro", usuario);
-        llenado.put("capacidad", 5800);
-        db.insert("Pipas", null, llenado);*/
-
         db.close(); // Closing database connection
     }
 

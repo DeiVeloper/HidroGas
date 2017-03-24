@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btnExportarPipas"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Exportar"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:background="#dca951"
+        android:textColor="@android:color/white"
+        android:textSize="35dp"/>
+    <Button
+        android:text="Agregar"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAgregar"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/btnExportarPipas"
+        android:layout_gravity="center"
+        android:background="#dca951"
+        android:textColor="@android:color/white"
+        android:textSize="35dp"/>
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tablaPersonal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0,1,2,3,4,"
+        android:collapseColumns="50dp">
+
+        <TableRow android:background="@color/ColorPrimary">
+            <TextView
+                android:layout_column="0"
+                android:text="Filtros de Búsqueda"
+                android:textSize="35dp"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:layout_span="5"
+                android:textColor="@android:color/white" />
+        </TableRow>
+        <TableRow>
+            <EditText
+                android:id="@+id/txtPipa"
+                android:layout_width="100dp" android:layout_height="wrap_content"
+                android:hint="Económico" android:textSize="30dp"
+                android:inputType="number" android:layout_span="2"/>
+
+            <Button
+                android:text="Buscar"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:id="@+id/btnBuscar"
+                android:layout_marginTop="20dp"
+                android:layout_span="3"
+                android:background="#dca951"
+                android:textColor="@android:color/white"
+                android:textSize="35dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/lblPipa"
+                android:text="Pipa" android:textSize="30dp"/>
+            <TextView
+                android:id="@+id/lblPorcentaje"
+                android:text="% Llenado" android:textSize="30dp" />
+            <TextView
+                android:id="@+id/lblCapacidad"
+                android:text="Capacidad" android:textSize="30dp"/>
+            <TextView
+                android:id="@+id/lblChofer" android:layout_width="300dp"
+                android:text="Chofer" android:textSize="30dp"/>
+            <TextView
+                android:id="@+id/lblAyudante" android:layout_width="300dp"
+                android:text="Ayudante" android:textSize="30dp"/>
+        </TableRow>
+        <TableRow>
+            <ListView
+                android:id="@+id/lstPipas" android:layout_span="5"
+                android:layout_width="fill_parent"
+                android:layout_height="450dp">
+            </ListView>
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>

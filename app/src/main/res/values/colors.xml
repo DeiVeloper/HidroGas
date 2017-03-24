@@ -24,4 +24,6 @@
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
     <color name="colorAccent">#c8e8ff</color>
+    <color name="pink">#e9a5f7</color>
+    <color name="color_white_semitransparent">#f8fafa</color>
 </resources>

@@ -7,6 +7,7 @@ package mx.com.desoft.hidrogas;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -22,11 +23,11 @@ import mx.com.desoft.hidrogas.to.PersonalTO;
 public class LoginActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
-    AdminSQLiteOpenHelper dataBase = new AdminSQLiteOpenHelper(this);
+    AdminSQLiteOpenHelper dataBase;
 
     private EditText editTextUsuario;
     private EditText editTextPassword;
-    private Button btnLogin, btnAgregarRegistro;
+    private Button btnLogin;
     private PersonalBussines  personalBussines = new PersonalBussines();
     public static PersonalTO personalTO;
 
@@ -34,17 +35,19 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        dataBase  =new AdminSQLiteOpenHelper(this.getApplicationContext());
+        dataBase.addContact("3","1");
         bindUI();
         preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         setCredentialsIfExist();
 
         btnLogin.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                String usuario = editTextUsuario.getText().toString();
+                Integer usuario = Integer.valueOf(editTextUsuario.getText().toString());
                 String password = editTextPassword.getText().toString();
-                if(isFormValid(usuario,password)){
+                if(isFormValid(usuario.toString(),password)){
                     goToMain();
-                    saveOnPreferences(usuario,password);
+                    saveOnPreferences(usuario.toString(),password);
                     Toast.makeText(getApplication(), "Bienvenido "+personalTO.getNombre()+" "+personalTO.getApellidoPaterno()+" "+personalTO.getApellidoMaterno(), Toast.LENGTH_SHORT).show();
                     }   else    {
                         Toast.makeText(getApplication(), "Usuario y/o contraseña incorrectos, favor de validar", Toast.LENGTH_LONG).show();
@@ -52,13 +55,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btnAgregarRegistro.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                dataBase.addContact(editTextUsuario.getText().toString(),editTextPassword.getText().toString());
-                Toast toast = Toast.makeText(getApplication(), "Usuario:" + editTextUsuario.getText() + " Password: " + editTextPassword.getText(), Toast.LENGTH_LONG);
-                toast.show();
-            }
-        });
     }
 
     private void saveOnPreferences(String usuario, String password){
@@ -81,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btnLogin);
         editTextUsuario = (EditText) findViewById(R.id.email);
         editTextPassword = (EditText) findViewById(R.id.password);
-        btnAgregarRegistro = (Button) findViewById(R.id.btnAgregarRegistro);
     }
 
     private void goToMain(){
@@ -100,10 +95,10 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
 
-        return getUsarioLogin(usuario, password);
+        return getUsarioLogin(Integer.valueOf(usuario), password);
     };
 
-    private boolean getUsarioLogin(String usuario, String password){
+    private boolean getUsarioLogin(Integer usuario, String password){
         personalTO = personalBussines.getUserDataBase(getApplication(), usuario, password);
         return personalTO != null ?  true : false;
     }

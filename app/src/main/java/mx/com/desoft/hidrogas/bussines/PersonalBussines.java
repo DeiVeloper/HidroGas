@@ -5,8 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
+import mx.com.desoft.hidrogas.model.Empleado;
 import mx.com.desoft.hidrogas.to.PersonalTO;
 
 /**
@@ -17,6 +22,8 @@ public class PersonalBussines {
     private static AdminSQLiteOpenHelper baseDatos;
     private Cursor registros;
     private PipasBussines pipasBussines;
+    private static final int ADMINISTRADOR = 0;
+
     public PersonalBussines() {
 
     }
@@ -33,11 +40,13 @@ public class PersonalBussines {
         registro.put("apellidoPaterno", personalTO.getApellidoPaterno());
         registro.put("apellidoMaterno", personalTO.getApellidoMaterno());
         registro.put("password", personalTO.getPassword());
-        registros = pipasBussines.buscarByIdPipa(context, personalTO.getNoPipa());
-        if (registros.moveToFirst()){
-            registro.put("idPipa", registros.getInt(0));
-        } else {
-            registro.put("idPipa", 0);
+        if (personalTO.getTipoEmpleado() != ADMINISTRADOR) {
+            registros = pipasBussines.buscarByIdPipa(context, personalTO.getNoPipa());
+            if (registros.moveToFirst()) {
+                registro.put("idPipa", registros.getInt(0));
+            } else {
+                registro.put("idPipa", 0);
+            }
         }
         registro.put("nominaRegistro", personalTO.getNominaRegistro());
         registro.put("tipoEmpleado", personalTO.getTipoEmpleado());
@@ -53,7 +62,7 @@ public class PersonalBussines {
                 flgEditar = true;
             }
         }
-        bd.close();
+        //bd.close();
         return flgEditar;
     }
 
@@ -67,7 +76,7 @@ public class PersonalBussines {
         if (!personalTO.getNombre().equals("")) {
             condicion += " AND nombre = '" + personalTO.getNombre() + "' ";
         }
-        registros = bd.rawQuery("SELECT * FROM empleados WHERE 1=1 " + condicion, null);
+        registros = bd.rawQuery("SELECT *,p.noPipa,p.idPipa FROM empleados e , pipas p  WHERE 1=1  AND p.idPipa = e.idPipa " + condicion, null);
         return registros;
     }
 
@@ -87,13 +96,13 @@ public class PersonalBussines {
         bd.delete("Empleados", "nominaEmpleado = " + personalTO.getNomina(), null);
     }
 
-    public PersonalTO getUserDataBase(Context context, String user, String pass){
+    public PersonalTO getUserDataBase(Context context, Integer user, String pass){
         PersonalTO usuario = null;
         Cursor cursor = null;
         baseDatos = new AdminSQLiteOpenHelper(context);
         SQLiteDatabase bd = baseDatos.getWritableDatabase();
         String  selectQuery = "SELECT nominaEmpleado, nombre, apellidoPaterno, apellidoMaterno, nominaRegistro FROM Empleados" +
-                    " WHERE nominaEmpleado = " + user + " AND password = " +pass+ " AND tipoEmpleado = 0 ";
+                    " WHERE nominaEmpleado = " + user + " AND password = '" + pass + "' AND tipoEmpleado = 0 ";
         try {
             cursor = bd.rawQuery(selectQuery, null);
         }catch (SQLiteException e){
@@ -127,7 +136,23 @@ public class PersonalBussines {
         registro.put("nominaRegistro", personalTO.getNominaRegistro());
         registro.put("tipoEmpleado", personalTO.getTipoEmpleado());
         registro.put("fechaRegistro", personalTO.getFechaRegistro());
-        bd.insert("empleados", null, registro);
-        bd.close();
+        registros = getEmpleadoByNoNomina(context, personalTO.getNomina());
+        if (registros.moveToFirst()) {
+            bd.update("Empleados", registro,"nominaEmpleado"+ "=" + personalTO.getNomina() ,null);
+        } else {
+            bd.insert("Empleados", null, registro);
+        }
+
+        //bd.close();
+    }
+
+    private Cursor getEmpleadoByNoNomina(Context context, Integer noNomina){
+        String condicion = "";
+        baseDatos = new AdminSQLiteOpenHelper(context);
+        SQLiteDatabase bd = baseDatos.getWritableDatabase();
+        if (noNomina != 0) {
+            condicion += " AND nominaEmpleado = " + noNomina;
+        }
+        return bd.rawQuery("SELECT * FROM Empleados WHERE 1=1 " + condicion, null);
     }
 }

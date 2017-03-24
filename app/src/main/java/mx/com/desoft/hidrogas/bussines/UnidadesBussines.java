@@ -12,6 +12,7 @@ import java.util.List;
 import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
 import mx.com.desoft.hidrogas.MainActivity;
 import mx.com.desoft.hidrogas.to.PersonalTO;
+import mx.com.desoft.hidrogas.to.PipasTO;
 
 /**
  * Created by carlosdavid.castro on 29/12/2016.
@@ -24,8 +25,8 @@ public class UnidadesBussines {
 
     private static AdminSQLiteOpenHelper baseDatos;
     private static final String ADMINISTRADOR = "Administrador";
-    private static final int CHOFER = 2;
-    private static final int AYUDANTE = 3;
+    private static final int CHOFER = 1;
+    private static final int AYUDANTE = 2;
 
     public List<PersonalTO> obtenerPersonal(ViewGroup viewGroup, Integer idUnidad) {
         List<PersonalTO> lista = new ArrayList<>();
@@ -49,19 +50,21 @@ public class UnidadesBussines {
         return lista;
     }
 
-    public Integer getCapacidadPipa (ViewGroup viewGroup, Integer idPipa){
+    public PipasTO getCapacidadPipa (ViewGroup viewGroup, Integer idPipa){
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(viewGroup.getContext());
         SQLiteDatabase bd = admin.getWritableDatabase();
-        Integer porcentaje = 0;
+        PipasTO pipa = new PipasTO();
         StringBuilder consulta = new StringBuilder();
-        consulta.append("   SELECT  capacidad ");
+        consulta.append("   SELECT  capacidad, ");
+        consulta.append("           clave");
         consulta.append("   FROM    Pipas ");
-        consulta.append("   WHERE   idPipa = " + idPipa);
+        consulta.append("   WHERE   noPipa = " + idPipa);
         Cursor cursor = bd.rawQuery(consulta.toString(), null);
         if (cursor.moveToFirst()){
-            porcentaje = cursor.getInt(0);
+            pipa.setCapacidad(cursor.getInt(cursor.getColumnIndex("capacidad")));
+            pipa.setClave(cursor.getInt(cursor.getColumnIndex("clave")));
         }
-        return porcentaje;
+        return pipa;
     }
 
     public PersonalTO getChoferPipa(ViewGroup viewGroup, Integer noNomina){

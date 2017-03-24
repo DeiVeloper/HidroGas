@@ -8,7 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:stretchColumns="0,1,2"
+        android:stretchColumns="0,1,2,3"
         android:collapseColumns="50dp">
 
 
@@ -38,6 +38,24 @@
                 android:layout_column="2"
                 android:textAlignment="center"
                 android:text="Variación"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/txtReportePorcentajeVariacion"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:textAlignment="center"
+                android:text="Porcentaje Variación"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/txtReporteClave"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_column="4"
+                android:textAlignment="center"
+                android:text="Clave"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </TableRow>
     </TableLayout>

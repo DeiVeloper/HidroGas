@@ -189,6 +189,7 @@ public class AgregarEditarPersonal extends Activity {
                     personalTO.setApellidoPaterno(txtAPaterno.getText().toString());
                     personalTO.setApellidoMaterno(txtAMaterno.getText().toString());
                     personalTO.setPassword(txtPass.getText().toString());
+
                     personalTO.setNoPipa(idPipa);
                     personalTO.setFechaRegistro(fecha);
                     personalTO.setNominaRegistro(LoginActivity.personalTO.getNomina());

@@ -4,15 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
-
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,8 +17,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+
 import mx.com.desoft.hidrogas.bussines.PersonalBussines;
 import mx.com.desoft.hidrogas.bussines.PipasBussines;
+import mx.com.desoft.hidrogas.to.LiquidacionesTO;
 import mx.com.desoft.hidrogas.to.PersonalTO;
 import mx.com.desoft.hidrogas.to.PipasTO;
 
@@ -59,6 +61,40 @@ public class ImportarDatos extends Activity{
 
     }
 
+    public void importarEmpleados(Context context) throws IOException{
+        FileInputStream file = new FileInputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString(),"Empleados.xls"));
+        HSSFWorkbook workbook = new HSSFWorkbook(file);
+        HSSFSheet sheet = workbook.getSheetAt(0);
+        Iterator<Row> rowIterator = sheet.iterator();
+        Row row;
+        PersonalTO empleados = null;
+        while (rowIterator.hasNext()){
+            row = rowIterator.next();
+            empleados = new PersonalTO();
+            empleados.setNomina(((Double)Double.parseDouble(row.getCell(0).toString())).intValue());
+            if (!row.getCell(1).toString().equals("SUPLENTE")) {
+                System.out.print("Entre Excel");
+                Cursor registros = pipasBussines.buscarByNoPipa(context,((Double)Double.parseDouble(row.getCell(1).toString())).intValue());
+                if (registros.moveToFirst()) {
+                    do {
+                        System.out.print("Entre");
+                        empleados.setNoPipa(registros.getInt(0));
+                    } while (registros.moveToNext());
+                }
+            }
+            empleados.setApellidoPaterno(row.getCell(2).toString());
+            empleados.setApellidoMaterno(row.getCell(3).toString());
+            empleados.setNombre(row.getCell(4).toString());
+            empleados.setTipoEmpleado(row.getCell(5).toString().equals("CHOFER") ? 1 : 2);
+            empleados.setFechaRegistro(this.getFechaActual());
+            empleados.setNominaRegistro(LoginActivity.personalTO.getNominaRegistro());
+            personalBussines.guardarEmpleadosExcel(context, empleados);
+
+        }
+        workbook.close();
+
+    }
+
     public void importarClavesPipas(View view) throws IOException{
         FileInputStream file = new FileInputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString(),"PipasClaves.xls"));
         HSSFWorkbook workbook = new HSSFWorkbook(file);
@@ -82,44 +118,11 @@ public class ImportarDatos extends Activity{
         workbook.close();
     }
 
-    public void importarEmpleados(Context context) throws IOException{
-        FileInputStream file = new FileInputStream(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString(),"Empleados.xls"));
-        HSSFWorkbook workbook = new HSSFWorkbook(file);
-        HSSFSheet sheet = workbook.getSheetAt(0);
-        Iterator<Row> rowIterator = sheet.iterator();
-        Row row;
-        PersonalTO empleados = null;
-        while (rowIterator.hasNext()){
-            row = rowIterator.next();
-            empleados = new PersonalTO();
-            empleados.setNomina(((Double)Double.parseDouble(row.getCell(0).toString())).intValue());
-            if (!row.getCell(1).toString().equals("SUPLENTE")) {
-                Cursor registros = pipasBussines.buscarByNoPipa(context,((Double)Double.parseDouble(row.getCell(1).toString())).intValue());
-                if (registros.moveToFirst()) {
-                    do {
-                        System.out.print("Entre");
-                        empleados.setNoPipa(registros.getInt(0));
-                    } while (registros.moveToNext());
-                }
-            }
-            empleados.setApellidoPaterno(row.getCell(2).toString());
-            empleados.setApellidoMaterno(row.getCell(3).toString());
-            empleados.setNombre(row.getCell(4).toString());
-            empleados.setTipoEmpleado(row.getCell(5).toString().equals("CHOFER") ? 1 : 2);
-            empleados.setFechaRegistro(this.getFechaActual());
-            empleados.setNominaRegistro(LoginActivity.personalTO.getNominaRegistro());
-            personalBussines.guardarEmpleadosExcel(context, empleados);
-
-        }
-        workbook.close();
-
-    }
-
     private Long getFechaActual(){
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        calendar.set(year, month, day-1);
+        calendar.set(year, month, day);
         Date fecha = null;
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         try {

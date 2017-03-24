@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +34,8 @@ import mx.com.desoft.hidrogas.to.LlenadoTO;
 public class TapReportes extends Fragment{
 
     private TextView labelFechaBusqueda;
-    private Button btnBuscar,btnExportarExcel, btnFechaBusqueda;
+    private Button btnBuscar,btnExportarExcel;
+    private ImageButton btnFechaBusqueda;
     private ListView listView;
     private ViewGroup view;
     private ReporteUnidadesBussines reporteUnidadesBussines;
@@ -52,7 +54,7 @@ public class TapReportes extends Fragment{
         btnBuscar = (Button) view.findViewById(R.id.btnBuscar);
         btnExportarExcel = (Button) view.findViewById(R.id.btnExportarExcel);
         labelFechaBusqueda = (TextView) view.findViewById(R.id.labelFechaBusqueda);
-        btnFechaBusqueda = (Button) view.findViewById(R.id.btnFechaBusqueda);
+        btnFechaBusqueda = (ImageButton) view.findViewById(R.id.btnFechaBusqueda);
 
 
         btnBuscar.setOnClickListener(new View.OnClickListener() {

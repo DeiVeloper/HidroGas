@@ -13,6 +13,7 @@ public class PipasTO {
     private Integer nominaRegistro;
     private String nombreChofer;
     private String nombreAyudante;
+    private Integer clave;
 
     public PipasTO () {
 
@@ -92,4 +93,13 @@ public class PipasTO {
     public void setIdPipa(Integer idPipa) {
         this.idPipa = idPipa;
     }
+
+    public Integer getClave() {
+        return clave;
+    }
+
+    public void setClave(Integer clave) {
+        this.clave = clave;
+    }
+
 }

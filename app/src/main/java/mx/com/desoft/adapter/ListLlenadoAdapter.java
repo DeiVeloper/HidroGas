@@ -22,22 +22,22 @@ public class ListLlenadoAdapter extends BaseAdapter{
 
         private Context context;
         private int layout;
-        private List<LlenadoTO> names;
+        private List<LlenadoTO> lista;
 
-        public ListLlenadoAdapter(Context context, int layout, List<LlenadoTO> names) {
+        public ListLlenadoAdapter(Context context, int layout, List<LlenadoTO> lista) {
             this.context = context;
             this.layout = layout;
-            this.names = names;
+            this.lista = lista;
         }
 
         @Override
         public int getCount() {
-            return this.names.size();
+            return this.lista.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return this.names.get(position);
+            return this.lista.get(position);
         }
 
         @Override
@@ -61,20 +61,26 @@ public class ListLlenadoAdapter extends BaseAdapter{
                 holder.textViewPipar = (TextView) v.findViewById(R.id.txtReportePipa);
                 holder.textViewFechaRegistro = (TextView) v.findViewById(R.id.txtReporteFechaRegistro);
                 holder.textViewVariacion = (TextView) v.findViewById(R.id.txtReporteVariacion);
+                holder.textViewPorcentajeVariacion = (TextView) v.findViewById(R.id.txtReportePorcentajeVariacion);
+                holder.textViewClave = (TextView) v.findViewById(R.id.txtReporteClave);
                 v.setTag(holder);
             } else {
                 holder = (ViewHolder) v.getTag();
             }
 
             // Nos traemos el valor actual dependiente de la posición
-            String noPipa = names.get(position).getNoPipa().toString();
-            String fechaRegistro = convertirFecha(names.get(position).getFechaRegistro());
-            String variacion = names.get(position).getVariacion().toString();
+            String noPipa = lista.get(position).getNoPipa().toString();
+            String fechaRegistro = convertirFecha(lista.get(position).getFechaRegistro());
+            String variacion = lista.get(position).getVariacion().toString();
+            String porcentajeVariacion = lista.get(position).getPorcentajeVariacion().toString();
+            //String clave = lista.get(position).getClave().toString();
 
             // Referenciamos el elemento a modificar y lo rellenamos
             holder.textViewPipar.setText(noPipa);
             holder.textViewFechaRegistro.setText(fechaRegistro);
             holder.textViewVariacion.setText(variacion);
+            holder.textViewPorcentajeVariacion.setText(porcentajeVariacion);
+           // holder.textViewClave.setText(clave);
 
             // devolvemos la vista inflada y modificada con nuestros datos
             return v;
@@ -90,6 +96,8 @@ public class ListLlenadoAdapter extends BaseAdapter{
             private TextView textViewPipar;
             private TextView textViewFechaRegistro;
             private TextView textViewVariacion;
+            private TextView textViewPorcentajeVariacion;
+            private TextView textViewClave;
         }
 
 }

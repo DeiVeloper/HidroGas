@@ -10,8 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-
         <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/tabla_Datos"
             android:layout_width="match_parent"
@@ -22,7 +20,7 @@
                 <TextView
                     android:layout_column="0"
                     android:text="Datos Generales"
-                    android:textSize="25dp"
+                    android:textSize="35dp"
                     android:textAlignment="center"
                     android:layout_gravity="center"
                     android:layout_span="2"
@@ -30,11 +28,12 @@
             </TableRow>
 
             <TableRow>
+
                 <EditText
                     android:id="@+id/input_economico"
                     android:hint="Economico"
-                    android:textSize="15dp"
-                    android:inputType="number"/>
+                    android:textSize="30dp"
+                    android:inputType="textPersonName" />
 
                 <Spinner
                     android:layout_width="wrap_content"
@@ -50,13 +49,13 @@
                     android:hint="No. Nomina Chofer"
                     android:textAlignment="center"
                     android:layout_alignTop="@+id/input_nombreChofer"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:imeOptions="actionSearch"
                     android:singleLine="true"/>
 
                 <TextView
                     android:id="@+id/input_nombreChofer"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textColor="@color/navigationBarColor"
                     android:layout_gravity="center"/>
 
@@ -68,7 +67,7 @@
                 <EditText
                     android:id="@+id/input_ayudante"
                     android:textAlignment="center"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:hint="No. Nomina Ayudante"
                     android:imeOptions="actionSearch"
                     android:singleLine="true"/>
@@ -76,29 +75,25 @@
                 <TextView
                     android:id="@+id/input_nombreAyudante"
                     android:textColor="@color/navigationBarColor"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:layout_gravity="center"/>
             </TableRow>
         </TableLayout>
 
-        <TableLayout
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/tabla_viajes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="230dp"
             android:stretchColumns="0,1,2,3"
-            android:collapseColumns="50dp"
-            android:layout_below="@+id/tabla_Datos"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:collapseColumns="50dp">
 
-            <TableRow android:background="@color/ColorPrimary"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <TableRow android:background="@color/ColorPrimary">
 
                 <TextView
                     android:layout_column="0"
                     android:text="Viajes"
-                    android:textSize="25dp"
+                    android:textSize="35dp"
                     android:layout_gravity="center"
                     android:textAlignment="center"
                     android:layout_span="5"
@@ -110,7 +105,7 @@
                 <EditText
                     android:id="@+id/input_Salida_1"
                     android:layout_column="0"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
@@ -119,7 +114,7 @@
                 <EditText
                     android:id="@+id/input_Llegada_1"
                     android:layout_column="1"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
@@ -128,7 +123,7 @@
                 <EditText
                     android:id="@+id/input_totInicial_1"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
@@ -137,7 +132,7 @@
                 <EditText
                     android:id="@+id/input_totFinal_1"
                     android:layout_column="3"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
@@ -148,7 +143,7 @@
                 <EditText
                     android:id="@+id/input_Salida_2"
                     android:layout_column="0"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
@@ -157,7 +152,7 @@
                 <EditText
                     android:id="@+id/input_Llegada_2"
                     android:layout_column="1"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
@@ -166,7 +161,7 @@
                 <EditText
                     android:id="@+id/input_totInicial_2"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
@@ -175,7 +170,7 @@
                 <EditText
                     android:id="@+id/input_totFinal_2"
                     android:layout_column="3"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
@@ -186,7 +181,7 @@
                 <EditText
                     android:id="@+id/input_Salida_3"
                     android:layout_column="0"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
@@ -195,7 +190,7 @@
                 <EditText
                     android:id="@+id/input_Llegada_3"
                     android:layout_column="1"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
@@ -204,7 +199,7 @@
                 <EditText
                     android:id="@+id/input_totInicial_3"
                     android:layout_column="2"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
@@ -213,7 +208,7 @@
                 <EditText
                     android:id="@+id/input_totFinal_3"
                     android:layout_column="3"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
@@ -225,7 +220,7 @@
                 <TextView
                     android:layout_column="0"
                     android:text="Variacion"
-                    android:textSize="25dp"
+                    android:textSize="35dp"
                     android:layout_gravity="center"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
@@ -233,7 +228,7 @@
                 <TextView
                     android:layout_column="1"
                     android:text="Alerta"
-                    android:textSize="25dp"
+                    android:textSize="35dp"
                     android:layout_gravity="center"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
@@ -242,7 +237,7 @@
                 <TextView
                     android:layout_column="2"
                     android:text="Clave"
-                    android:textSize="25dp"
+                    android:textSize="35dp"
                     android:layout_gravity="center"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
@@ -251,7 +246,7 @@
                 <TextView
                     android:layout_column="3"
                     android:text="Porcentaje Variación"
-                    android:textSize="25dp"
+                    android:textSize="35dp"
                     android:layout_gravity="center"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
@@ -260,44 +255,44 @@
             <TableRow>
                 <TextView
                     android:id="@+id/input_variacion"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:hint="Variación"
                     android:textAlignment="center"/>
 
                 <TextView
                     android:id="@+id/labelAlerta"
                     android:textColor="#fc0202"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:textColorHint="#fc0202"
                     android:textAlignment="center"/>
 
                 <TextView
                     android:id="@+id/labelClave"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:hint="Clave"
                     android:textAlignment="center"/>
 
                 <TextView
                     android:id="@+id/labelPorcentajeVariacion"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:hint="% Variacion"
                     android:textAlignment="center"/>
             </TableRow>
 
         </TableLayout>
 
-        <TableLayout
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/tabla_Mov_Extr"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:stretchColumns="0,1,2,3"
-            android:layout_marginTop="380dp">
+            android:layout_height="150dp"
+            android:layout_marginTop="550dp"
+            android:stretchColumns="0,1,2,3">
 
             <TableRow android:background="#fca002">
                 <TextView
                     android:layout_column="0"
                     android:text="Movimientos Extraordinarios"
-                    android:textSize="25dp"
+                    android:textSize="35dp"
                     android:layout_gravity="center"
                     android:textAlignment="center"
                     android:layout_span="5"
@@ -307,55 +302,59 @@
             <TableRow>
                 <EditText
                     android:id="@+id/autoconsumo"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:numeric="integer"
                     android:hint="Autoconsumo"
                     android:layout_below="@+id/textViewVariacion"/>
 
                 <EditText
                     android:id="@+id/medidores"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:numeric="integer"
                     android:hint="Medidores"
                     android:layout_below="@+id/textViewVariacion"/>
 
                 <EditText
                     android:id="@+id/traspasosRecibidos"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:numeric="integer"
                     android:hint="Traspasos Recibidos"
                     android:layout_below="@+id/textViewVariacion"/>
 
                 <EditText
                     android:id="@+id/traspasosRealizados"
-                    android:textSize="15dp"
+                    android:textSize="30dp"
                     android:numeric="integer"
                     android:hint="Traspasos Realizados"
                     android:layout_below="@+id/textViewVariacion"/>
             </TableRow>
-
         </TableLayout>
+
 
         <Button
             android:id="@+id/btnGuardarLiquidacion"
-            android:layout_width="100dp"
+            android:layout_width="210dp"
             android:layout_height="wrap_content"
             android:text="Guardar"
             android:layout_below="@+id/tabla_Mov_Extr"
-            android:textSize="15dp"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:background="#dca951"
+            android:textColor="@android:color/white"
+            android:textSize="35dp"/>
         <Button
-            android:id="@+id/btnImprimir"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
             android:text="Imprimir"
-            android:textSize="15dp"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnImprimir"
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/btnGuardarLiquidacion"
-            android:layout_toStartOf="@+id/btnGuardarLiquidacion" />
+            android:layout_gravity="center"
+            android:background="#dca951"
+            android:textColor="@android:color/white"
+            android:textSize="35dp"/>
     </RelativeLayout>
 </ScrollView>
 

@@ -2,16 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Main" >
-    <item android:id="@+id/impotarDatos"
+    <item android:id="@+id/impotarPipas"
         android:icon="@android:drawable/ic_menu_add"
-        android:title="Importar datos"
+        android:title="Importar Pipas"
         android:orderInCategory="1"
         />
+
+    <item android:id="@+id/impotarEmpleados"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="Importar Empleados"
+        android:orderInCategory="1"
+        />
+
     <item android:id="@+id/impotarClaves"
         android:icon="@android:drawable/ic_menu_add"
         android:title="Importar Claves"
         android:orderInCategory="1"
         />
+
     <item android:id="@+id/cerrarSesion"
         android:icon="@android:drawable/ic_menu_add"
         android:title="Cerrar Sesion"
