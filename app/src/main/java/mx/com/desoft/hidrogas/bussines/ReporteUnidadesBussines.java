@@ -52,4 +52,27 @@ public class ReporteUnidadesBussines {
 
         return lista;
     }
+
+    public ArrayList<LiquidacionesTO> getAllLiquidacionesByFecha(Long fechaBusqueda){
+        ArrayList<LiquidacionesTO> lista = new ArrayList<>();
+        StringBuilder selectQuery = new StringBuilder();
+        selectQuery.append("    SELECT  liquidacion.idLiquidacion, liquidacion.fechaRegistro, pipa.noPipa " );
+        selectQuery.append("    FROM    Liquidacion liquidacion, ");
+        selectQuery.append("            Pipas pipa ");
+        selectQuery.append("    WHERE   liquidacion.idPipa = pipa.idPipa" );
+        selectQuery.append("    AND     liquidacion.fechaRegistro = " + fechaBusqueda);
+
+        Cursor cursor = sqLiteDatabase.rawQuery(selectQuery.toString(), null);
+        if (cursor.moveToFirst()) {
+            do {
+                lista.add(new LiquidacionesTO(cursor.getInt(0), cursor.getInt(2), cursor.getLong(1)));
+            } while (cursor.moveToNext());
+        }
+        return lista;
+    }
+
+    public void eliminarLiquidacion(Context context, LiquidacionesTO liquidacionTO) {
+        sqLiteDatabase.delete("Viajes", "idLiquidacion = " + liquidacionTO.getIdLiquidacion(), null);
+        sqLiteDatabase.delete("Liquidacion", "idLiquidacion = " + liquidacionTO.getIdLiquidacion(), null);
+    }
 }
