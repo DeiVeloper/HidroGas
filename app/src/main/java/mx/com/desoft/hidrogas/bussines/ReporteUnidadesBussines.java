@@ -30,7 +30,7 @@ public class ReporteUnidadesBussines {
     public List<LlenadoTO> getUnidadLlenadoByFecha(Long fechaBusqueda){
         List<LlenadoTO> lista = new ArrayList<>();
         StringBuilder selectQuery = new StringBuilder();
-        selectQuery.append("    SELECT  liquidacion.idPipa, pipa.noPipa, liquidacion.fechaRegistro, liquidacion.variacion, liquidacion.porcentajeVariacion " );
+        selectQuery.append("    SELECT  liquidacion.idPipa, pipa.noPipa, liquidacion.fechaRegistro, liquidacion.variacion, liquidacion.porcentajeVariacion, pipa.clave " );
         selectQuery.append("    FROM    Liquidacion liquidacion, ");
         selectQuery.append("            Pipas pipa ");
         selectQuery.append("    WHERE   liquidacion.idPipa = pipa.idPipa" );
@@ -45,6 +45,7 @@ public class ReporteUnidadesBussines {
                 unidad.setFechaRegistro(cursor.getLong(2));
                 unidad.setVariacion(cursor.getInt(3));
                 unidad.setPorcentajeVariacion(cursor.getFloat(cursor.getColumnIndex("porcentajeVariacion")));
+                unidad.setClave(cursor.getString(cursor.getColumnIndex("clave")));
                 lista.add(unidad);
             } while (cursor.moveToNext());
         }

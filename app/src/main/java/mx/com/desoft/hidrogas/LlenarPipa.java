@@ -1,7 +1,9 @@
 package mx.com.desoft.hidrogas;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.Date;
 
+import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
 import mx.com.desoft.hidrogas.bussines.PipasBussines;
 import mx.com.desoft.hidrogas.to.PipasTO;
 import mx.com.desoft.utils.Utils;
@@ -30,6 +33,9 @@ public class LlenarPipa extends Activity {
     private PipasBussines pipasBussines;
     private Integer idPipa;
 	private Utils utils;
+    private static AdminSQLiteOpenHelper baseDatos;
+    private SQLiteDatabase bd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +46,7 @@ public class LlenarPipa extends Activity {
         bundle = getIntent().getExtras();
         inicializarComponentes();
         cargarEventos();
+        this.getBase(getApplicationContext());
     }
 
     private void inicializarComponentes() {
@@ -98,7 +105,7 @@ public class LlenarPipa extends Activity {
                     pipasTO.setPorcentajeLlenado(Integer.parseInt(txtPorcentaje.getText().toString()));
                     pipasTO.setFechaRegistro(fecha);
                     pipasTO.setNominaRegistro(LoginActivity.personalTO.getNomina());
-                    pipasBussines.llenar(getApplicationContext(), pipasTO);
+                    pipasBussines.llenar(getApplicationContext(), pipasTO,bd);
                     Toast.makeText(getApplicationContext(), "La pipa número: " + pipasTO.getNoPipa() + " se ha llenado correctamente." + pipasTO.getPorcentajeLlenado(), Toast.LENGTH_SHORT).show();
                     return true;
                 }
@@ -106,6 +113,7 @@ public class LlenarPipa extends Activity {
 
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Ha ocurrido un error al llenar la pipa.", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
         return false;
     }
@@ -114,5 +122,11 @@ public class LlenarPipa extends Activity {
         Intent go = new Intent(getApplicationContext(), MainActivity.class);
         go.putExtra("viewpager_position", posicion);
         startActivity(go);
+    }
+
+    private SQLiteDatabase getBase(Context context) {
+        baseDatos = new AdminSQLiteOpenHelper(context);
+        bd = baseDatos.getWritableDatabase();
+        return bd;
     }
 }

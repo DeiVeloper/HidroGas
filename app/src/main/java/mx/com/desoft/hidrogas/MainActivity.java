@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         tabs.setupWithViewPager(view);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         view.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        importarDatos = new ImportarDatos(view.getContext());
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -82,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.impotarPipas:
                 try {
-                    importarDatos = new ImportarDatos();
                     importarDatos.importarPipas(view);
                     Toast.makeText(view.getContext(), "Se importaron los datos con éxito", Toast.LENGTH_LONG).show();
                 }catch (IOException e){
@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.impotarEmpleados:
                 try {
-                    importarDatos = new ImportarDatos();
                     importarDatos.importarEmpleados(view.getContext());
                     Toast.makeText(view.getContext(), "Se importaron los datos con éxito", Toast.LENGTH_LONG).show();
                 }catch (IOException e){
@@ -102,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.impotarClaves:
                 try {
-                    importarDatos = new ImportarDatos();
                     importarDatos.importarClavesPipas(view);
                     Toast.makeText(view.getContext(), "Se importaron los datos con éxito", Toast.LENGTH_LONG).show();
                 }catch (IOException e){

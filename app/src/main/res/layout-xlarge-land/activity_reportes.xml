@@ -71,7 +71,8 @@
                  />
 
         </TableRow>
-        <TableRow android:background="@color/ColorPrimary">
+        <TableRow android:background="@color/ColorPrimary"
+            android:id="@+id/listadoUnidadesAlerta">
 
             <TextView
                 android:id="@+id/listado"
@@ -110,7 +111,15 @@
 
             <TextView
                 android:layout_column="3"
-                android:text="Porcentaje Variación"
+                android:text="% Variación"
+                android:textSize="35dp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_column="1"
+                android:text="Clave"
                 android:textSize="35dp"
                 android:layout_gravity="center"
                 android:textAlignment="center"
@@ -124,9 +133,6 @@
         android:id="@+id/listViewBusquedaVariacion"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/titulo" />
 
 </RelativeLayout>

@@ -43,7 +43,6 @@ public class TapReportes extends Fragment{
     private Reportes reportes = new Reportes();
     private int year, month, day;
     private Long fechaBusqueda;
-    private LiquidacionBussines liquidacionBussines = new LiquidacionBussines();
     private final Calendar calendar = Calendar.getInstance();
     private ListLlenadoAdapter listAdapter;
 

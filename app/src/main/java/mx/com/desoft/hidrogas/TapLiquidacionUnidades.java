@@ -5,18 +5,13 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.LocalSocketAddress;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +25,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.poi.ss.usermodel.Name;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,8 +36,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.jar.Attributes;
-
 import mx.com.desoft.hidrogas.bussines.LiquidacionBussines;
 import mx.com.desoft.hidrogas.bussines.PipasBussines;
 import mx.com.desoft.hidrogas.bussines.UnidadesBussines;
@@ -62,11 +54,11 @@ public class TapLiquidacionUnidades extends Fragment{
     private static final Integer AYUDANTE = 2;
 
     private ViewGroup viewGroup;
-    private Button btnImprimir, btnGuardarLiquidacion;
+    private Button btnImprimir, btnGuardarLiquidacion, btnLimpiar;
     private EditText editTextEconomico, editTextNoChofer, editTextNoAyudante, editTextSalida_1, editTextLlegada_1, editTextTotInicial_1, editTextTotFinal_1,
             editTextSalida_2, editTextLlegada_2, editTextTotInicial_2, editTextTotFinal_2, editTextSalida_3, editTextLlegada_3, editTextTotInicial_3, editTextTotFinal_3,
             editTextAutoconsumo, editTextMedidores, editTextTraspasosRecibidos, editTextTraspasosRealizados;
-    private TextView textViewNombreChofer, textViewNombreAyudante, labelAlerta, textViewVariacion, labelVariacionPorcentaje, labelClave;
+    private TextView textViewNombreChofer, textViewNombreAyudante, labelAlerta, textViewVariacion, labelVariacionPorcentaje, labelClave, labelFolio;
     private Spinner spinnerRuta;
     private LiquidacionBussines liquidacionBussines;
     private UnidadesBussines unidadesBussines;
@@ -83,6 +75,8 @@ public class TapLiquidacionUnidades extends Fragment{
     private Integer ventaPorcentual;
     private Long idLiquidacion;
     private Integer porcentajeLlenado;
+
+
 
     // android built in classes for bluetooth operations
     BluetoothAdapter mBluetoothAdapter;
@@ -107,6 +101,7 @@ public class TapLiquidacionUnidades extends Fragment{
         inicializarComponentes();
         inicializarEventos();
         deshabilitarComponentes();
+
         return viewGroup;
     }
 
@@ -147,6 +142,9 @@ public class TapLiquidacionUnidades extends Fragment{
 
         labelVariacionPorcentaje = (TextView) viewGroup.findViewById(R.id.labelPorcentajeVariacion);
         labelClave = (TextView) viewGroup.findViewById(R.id.labelClave);
+        labelFolio = (TextView) viewGroup.findViewById(R.id.lblFolio);
+
+        btnLimpiar = (Button) viewGroup.findViewById(R.id.btnLimpiar);
     }
 
     private void inicializarEventos()   {
@@ -228,19 +226,24 @@ public class TapLiquidacionUnidades extends Fragment{
             @Override
             public void onClick(View view) {
                 if (validarLiquidacion()) {
-                    try {
+
                         calcularVariacion();
                         getFechaActual();
                         setLiquidacion();
                         setViajes();
                         idLiquidacion = liquidacionBussines.guardarLiquidacion(viewGroup, liquidacionesTO, viajesTO);
+                        labelFolio.setText("Folio: " + idLiquidacion.toString());
                         btnImprimir.setEnabled(true);
                         Toast.makeText(viewGroup.getContext(), "Se guardaron los datos con éxito.", Toast.LENGTH_LONG).show();
-                    } catch (Exception e){
-                        Toast.makeText(viewGroup.getContext(), "Error al guardar la liquidación.", Toast.LENGTH_LONG).show();
-                        Log.d("Error" + e.getStackTrace(),"" + e.getMessage());
-                    }
+
                 }
+            }
+        });
+
+        btnLimpiar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                limpiarCampos();
             }
         });
 
@@ -488,6 +491,7 @@ public class TapLiquidacionUnidades extends Fragment{
         labelAlerta.setText("");
         textViewVariacion.setText("");
         labelClave.setText("");
+        labelFolio.setText("");
         labelVariacionPorcentaje.setText("");
         editTextEconomico.setText("");
 
@@ -707,5 +711,7 @@ public class TapLiquidacionUnidades extends Fragment{
             e.printStackTrace();
         }
     }
+
+
 
 }

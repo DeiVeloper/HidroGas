@@ -73,14 +73,14 @@ public class ListLlenadoAdapter extends BaseAdapter{
             String fechaRegistro = convertirFecha(lista.get(position).getFechaRegistro());
             String variacion = lista.get(position).getVariacion().toString();
             String porcentajeVariacion = lista.get(position).getPorcentajeVariacion().toString();
-            //String clave = lista.get(position).getClave().toString();
+            String clave = lista.get(position).getClave() != null ? lista.get(position).getClave().toString() : "";
 
             // Referenciamos el elemento a modificar y lo rellenamos
             holder.textViewPipar.setText(noPipa);
             holder.textViewFechaRegistro.setText(fechaRegistro);
             holder.textViewVariacion.setText(variacion);
             holder.textViewPorcentajeVariacion.setText(porcentajeVariacion);
-           // holder.textViewClave.setText(clave);
+            holder.textViewClave.setText(clave);
 
             // devolvemos la vista inflada y modificada con nuestros datos
             return v;

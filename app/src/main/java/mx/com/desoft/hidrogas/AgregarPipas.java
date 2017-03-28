@@ -88,6 +88,7 @@ public class AgregarPipas extends Activity {
             }
         }catch (Exception e){
             Toast.makeText(getApplicationContext(), "Ha ocurrido un error al guardar la pipa.", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
         return false;
     }

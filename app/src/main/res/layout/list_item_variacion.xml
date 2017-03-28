@@ -8,15 +8,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:stretchColumns="0,1,2,3"
-        android:collapseColumns="50dp">
+        android:stretchColumns="0,1,2,3">
 
 
         <TableRow >
             <TextView
                 android:id="@+id/txtReportePipa"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Pipa"
                 android:textAlignment="center"
                 android:layout_column="0"
@@ -24,8 +23,8 @@
 
             <TextView
                 android:id="@+id/txtReporteFechaRegistro"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_column="1"
                 android:textAlignment="center"
                 android:text="Fecha Registro"
@@ -33,8 +32,8 @@
 
             <TextView
                 android:id="@+id/txtReporteVariacion"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_column="2"
                 android:textAlignment="center"
                 android:text="Variación"
@@ -42,8 +41,8 @@
 
             <TextView
                 android:id="@+id/txtReportePorcentajeVariacion"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_column="3"
                 android:textAlignment="center"
                 android:text="Porcentaje Variación"
@@ -51,8 +50,8 @@
 
             <TextView
                 android:id="@+id/txtReporteClave"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_column="4"
                 android:textAlignment="center"
                 android:text="Clave"

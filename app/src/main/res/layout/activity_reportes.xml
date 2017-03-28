@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:stretchColumns="0,1,2"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
         <TableRow
             android:background="@color/ColorPrimary">
@@ -81,7 +80,7 @@
         </TableRow>
         <TableRow android:background="@color/ColorPrimary">
             <TextView
-                android:layout_column="0"
+
                 android:text="No. Pipa"
                 android:textSize="15dp"
                 android:layout_gravity="center"
@@ -89,7 +88,7 @@
                 android:textColor="@android:color/white" />
 
             <TextView
-                android:layout_column="1"
+
                 android:text="Fecha Registro"
                 android:textSize="15dp"
                 android:layout_gravity="center"
@@ -97,7 +96,7 @@
                 android:textColor="@android:color/white" />
 
             <TextView
-                android:layout_column="2"
+
                 android:text="Variación"
                 android:textSize="15dp"
                 android:layout_gravity="center"
@@ -105,12 +104,21 @@
                 android:textColor="@android:color/white" />
 
             <TextView
-                android:layout_column="2"
-                android:text="Porcentaje Variación"
+
+                android:text="% Variación"
                 android:textSize="15dp"
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 android:textColor="@android:color/white" />
+
+            <TextView
+
+                android:text="Clave"
+                android:textSize="15dp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="@android:color/white" />
+
 
         </TableRow>
 

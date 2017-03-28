@@ -26,6 +26,7 @@
         android:layout_toLeftOf="@+id/btnExportarPipas"
         android:layout_gravity="center"
         android:background="#dca951"
+        android:layout_marginRight="5dp"
         android:textColor="@android:color/white"
         android:textSize="35dp"/>
 

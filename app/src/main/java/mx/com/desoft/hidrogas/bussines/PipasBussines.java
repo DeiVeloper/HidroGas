@@ -40,7 +40,7 @@ public class PipasBussines {
         registro.put("capacidad", pipasTO.getCapacidad());
         registro.put("fechaRegistro", pipasTO.getFechaRegistro());
         registro.put("nominaRegistro", pipasTO.getNominaRegistro());
-        registros = buscarByNoPipa(context, pipasTO.getNoPipa());
+        registros = buscarByNoPipa(context, pipasTO.getNoPipa(), bd);
         if (registros.moveToFirst()) {
             return false;
         } else {
@@ -49,48 +49,40 @@ public class PipasBussines {
         }
     }
 
-    public Long guardar2(Context context, PipasTO pipasTO) {
-        bd = getBase(context);
+    public Long guardar2(Context context, PipasTO pipasTO, SQLiteDatabase data) {
+        Long idSaveOrUpdate;
         registro = new ContentValues();
         registro.put("noPipa", pipasTO.getNoPipa());
         registro.put("fechaRegistro", pipasTO.getFechaRegistro());
         registro.put("nominaRegistro", pipasTO.getNominaRegistro());
         registro.put("capacidad", pipasTO.getCapacidad());
-        registros = buscarByNoPipa(context, pipasTO.getNoPipa());
+        registros = buscarByNoPipa(context, pipasTO.getNoPipa(), data);
         if (registros.moveToFirst()) {
-            return ((long)bd.update("Pipas",registro, "noPipa = " + pipasTO.getNoPipa(), null));
+            idSaveOrUpdate = ((long)data.update("Pipas",registro, "noPipa = " + pipasTO.getNoPipa(), null));
         } else {
-            return bd.insert("Pipas", null, registro);
+            idSaveOrUpdate = data.insert("Pipas", null, registro);
         }
+        return idSaveOrUpdate;
+
     }
 
-    public void llenar(Context context, PipasTO pipasTO) {
-        bd = getBase(context);
+    public void llenar(Context context, PipasTO pipasTO, SQLiteDatabase data) {
+
         registro = new ContentValues();
         registro.put("idPipa", pipasTO.getIdPipa());
         registro.put("porcentajeLlenado", pipasTO.getPorcentajeLlenado());
         registro.put("fechaRegistro", pipasTO.getFechaRegistro());
         registro.put("nominaRegistro", pipasTO.getNominaRegistro());
-        bd.insert("Llenado", null, registro);
+        data.insert("Llenado", null, registro);
+
     }
 
-    public void setClavePipa(Context context, PipasTO pipasTO) {
-        bd = getBase(context);
+    public void setClavePipa(Context context, PipasTO pipasTO, SQLiteDatabase data) {
+        //bd = getBase(context);
         registro = new ContentValues();
         registro.put("clave", pipasTO.getClavePipa());
-        bd.update("Pipas", registro, "noPipa = " + pipasTO.getNoPipa(), null);
-    }
+        data.update("Pipas", registro, "noPipa = " + pipasTO.getNoPipa(), null);
 
-    public List<String> getClavePipa(Context context) {
-        bd = getBase(context);
-        registros = bd.rawQuery("SELECT clave, noPipa from pipas where 1=1", null);
-        List<String> claves = new ArrayList<String>();
-        if (registros.moveToFirst()) {
-            do {
-                claves.add(registros.getString(registros.getColumnIndex("clave"))+" "+registros.getString(registros.getColumnIndex("noPipa")));
-            } while (registros.moveToNext());
-        }
-        return claves;
     }
 
     public Cursor buscarLlenadoByNoPipa(Context context, Integer pipa) {
@@ -123,13 +115,13 @@ public class PipasBussines {
         return registros;
     }
 
-    public Cursor buscarByNoPipa(Context context, Integer pipa) {
+    public Cursor buscarByNoPipa(Context context, Integer pipa, SQLiteDatabase data) {
         String condicion = "";
-        bd = getBase(context);
         if (pipa != 0) {
             condicion += " AND noPipa = " + pipa;
         }
-        registros = bd.rawQuery("SELECT * FROM pipas WHERE 1=1 " + condicion, null);
+        registros = data.rawQuery("SELECT * FROM pipas WHERE 1=1 " + condicion, null);
+
         return registros;
     }
 
@@ -206,7 +198,7 @@ public class PipasBussines {
     }
 
     private SQLiteDatabase getBase(Context context) {
-        baseDatos = new AdminSQLiteOpenHelper(context/*, "hidroGas", null, 1*/);
+        baseDatos = new AdminSQLiteOpenHelper(context);
         bd = baseDatos.getWritableDatabase();
         return bd;
     }

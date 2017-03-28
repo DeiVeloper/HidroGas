@@ -315,29 +315,60 @@
         </TableLayout>
 
 
+
+
         <Button
             android:id="@+id/btnGuardarLiquidacion"
-            android:layout_width="210dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:text="Guardar"
             android:layout_below="@+id/tabla_Mov_Extr"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/btnLimpiar"
+            android:layout_gravity="center"
+            android:background="#dca951"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:textColor="@android:color/white"
+            android:textSize="35dp"/>
+
+        <Button
+            android:id="@+id/btnImprimir"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="Imprimir"
+            android:layout_toLeftOf="@+id/btnGuardarLiquidacion"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
             android:background="#dca951"
             android:textColor="@android:color/white"
             android:textSize="35dp"/>
+
         <Button
-            android:text="Imprimir"
-            android:layout_width="210dp"
+            android:id="@+id/btnLimpiar"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:id="@+id/btnImprimir"
+            android:text="Limpiar"
             android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/btnGuardarLiquidacion"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_gravity="center"
             android:background="#dca951"
             android:textColor="@android:color/white"
+            android:textSize="35dp"/>
+
+        <TextView
+            android:id="@+id/lblFolio"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:hint="Folio"
+            android:textColor="#000000"
+            android:textColorHint="@android:color/white"
+            android:layout_below="@+id/tabla_Mov_Extr"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
             android:textSize="35dp"/>
     </RelativeLayout>
 </ScrollView>

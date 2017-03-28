@@ -122,10 +122,7 @@ public class PersonalBussines {
         return usuario;
     }
 
-    public void guardarEmpleadosExcel(Context context, PersonalTO personalTO){
-        baseDatos = new AdminSQLiteOpenHelper(context);
-
-        SQLiteDatabase bd = baseDatos.getWritableDatabase();
+    public void guardarEmpleadosExcel(Context context, PersonalTO personalTO, SQLiteDatabase data){
 
         ContentValues registro = new ContentValues();
         registro.put("nominaEmpleado", personalTO.getNomina());
@@ -138,12 +135,11 @@ public class PersonalBussines {
         registro.put("fechaRegistro", personalTO.getFechaRegistro());
         registros = getEmpleadoByNoNomina(context, personalTO.getNomina());
         if (registros.moveToFirst()) {
-            bd.update("Empleados", registro,"nominaEmpleado"+ "=" + personalTO.getNomina() ,null);
+            data.update("Empleados", registro,"nominaEmpleado"+ "=" + personalTO.getNomina() ,null);
         } else {
-            bd.insert("Empleados", null, registro);
+            data.insert("Empleados", null, registro);
         }
 
-        //bd.close();
     }
 
     private Cursor getEmpleadoByNoNomina(Context context, Integer noNomina){
