@@ -24,7 +24,7 @@
         </TableRow>
         <TableRow>
             <EditText
-                android:id="@+id/txtNoNomina" android:inputType="number"
+                android:id="@+id/txtNoNomina"
                 android:layout_width="100dp" android:layout_height="wrap_content"
                 android:hint="No. de Nómina" android:textSize="30dp" />
             <EditText

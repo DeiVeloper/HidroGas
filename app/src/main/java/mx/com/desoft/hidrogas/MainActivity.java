@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new TapLiquidacionUnidades(), "Liquidaciones");
+        viewPagerAdapter.addFragment(new TapLiquidacionUnidades(), "Liquidacion");
         viewPagerAdapter.addFragment(new ListaPersonal(), "Personal");
         viewPagerAdapter.addFragment(new ListaPipas(), "Pipas");
         viewPagerAdapter.addFragment(new TapReportes(), "Variación");

@@ -32,15 +32,13 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Económico"
-                android:textSize="30dp"
-                android:inputType="number"/>
+                android:textSize="30dp"/>
             <EditText
                 android:id="@+id/txtCapacidad"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Capacidad"
-                android:textSize="30dp"
-                android:inputType="number"/>
+                android:textSize="30dp"/>
         </TableRow>
     </TableLayout>
     <Button

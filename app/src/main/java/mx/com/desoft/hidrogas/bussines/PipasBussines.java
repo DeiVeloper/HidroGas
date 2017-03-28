@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -76,7 +77,7 @@ public class PipasBussines {
     public void setClavePipa(Context context, PipasTO pipasTO) {
         bd = getBase(context);
         registro = new ContentValues();
-        registro.put("clave", pipasTO.getClave());
+        registro.put("clave", pipasTO.getClavePipa());
         bd.update("Pipas", registro, "noPipa = " + pipasTO.getNoPipa(), null);
     }
 

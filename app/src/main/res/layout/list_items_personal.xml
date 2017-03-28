@@ -13,15 +13,19 @@
         <TableRow >
             <TextView
             android:id="@+id/txtNomina"
-            android:layout_height="wrap_content" android:textSize="30dp"
+            android:layout_height="wrap_content"
+                android:textSize="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+
             <TextView
-            android:id="@+id/txtNombre" android:layout_width="350dp"
-            android:layout_height="wrap_content" android:textSize="30dp"
+            android:id="@+id/txtNombre"
+            android:layout_height="wrap_content"
+                android:textSize="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             />
             <TextView
-                android:id="@+id/txtPipa" android:textSize="30dp"
+                android:id="@+id/txtPipa"
+                android:textSize="10dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </TableRow>

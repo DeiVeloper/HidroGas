@@ -62,7 +62,7 @@ public class UnidadesBussines {
         Cursor cursor = bd.rawQuery(consulta.toString(), null);
         if (cursor.moveToFirst()){
             pipa.setCapacidad(cursor.getInt(cursor.getColumnIndex("capacidad")));
-            pipa.setClave(cursor.getInt(cursor.getColumnIndex("clave")));
+            pipa.setClavePipa(cursor.getString(cursor.getColumnIndex("clave")));
         }
         return pipa;
     }

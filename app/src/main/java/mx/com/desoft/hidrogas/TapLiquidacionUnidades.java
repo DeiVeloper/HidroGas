@@ -106,6 +106,7 @@ public class TapLiquidacionUnidades extends Fragment{
 
         inicializarComponentes();
         inicializarEventos();
+        deshabilitarComponentes();
         return viewGroup;
     }
 
@@ -173,7 +174,7 @@ public class TapLiquidacionUnidades extends Fragment{
 
                             setEmpleadosPipa(listaPersonal);
                             setViajesVista(listaViajes);
-                            labelClave.setText(pipa.getClave().toString());
+                            labelClave.setText(pipa.getClavePipa().toString());
                         }
                     }
 
@@ -183,6 +184,32 @@ public class TapLiquidacionUnidades extends Fragment{
                     }
                 }
         );
+
+        editTextEconomico.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            public void afterTextChanged(Editable s) {
+                spinnerRuta.setEnabled(true);
+                editTextNoChofer.setEnabled(true);
+                editTextNoAyudante.setEnabled(true);
+                editTextSalida_1.setEnabled(true);
+                editTextSalida_2.setEnabled(true);
+                editTextSalida_3.setEnabled(true);
+                editTextLlegada_1.setEnabled(true);
+                editTextLlegada_2.setEnabled(true);
+                editTextLlegada_3.setEnabled(true);
+                editTextTotInicial_1.setEnabled(true);
+                editTextTotInicial_2.setEnabled(true);
+                editTextTotInicial_3.setEnabled(true);
+                editTextTotFinal_1.setEnabled(true);
+                editTextTotFinal_2.setEnabled(true);
+                editTextTotFinal_3.setEnabled(true);
+            }
+        });
 
         btnImprimir.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
@@ -309,6 +336,24 @@ public class TapLiquidacionUnidades extends Fragment{
             liquidacionesTO.setVariacion(variacion.intValue());
             liquidacionesTO.setAlerta(0);
         }
+    }
+
+    private void deshabilitarComponentes(){
+        spinnerRuta.setEnabled(false);
+        editTextNoChofer.setEnabled(false);
+        editTextNoAyudante.setEnabled(false);
+        editTextSalida_1.setEnabled(false);
+        editTextSalida_2.setEnabled(false);
+        editTextSalida_3.setEnabled(false);
+        editTextLlegada_1.setEnabled(false);
+        editTextLlegada_2.setEnabled(false);
+        editTextLlegada_3.setEnabled(false);
+        editTextTotInicial_1.setEnabled(false);
+        editTextTotInicial_2.setEnabled(false);
+        editTextTotInicial_3.setEnabled(false);
+        editTextTotFinal_1.setEnabled(false);
+        editTextTotFinal_2.setEnabled(false);
+        editTextTotFinal_3.setEnabled(false);
     }
 
     private void setViajes(){

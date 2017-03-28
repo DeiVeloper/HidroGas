@@ -27,8 +27,7 @@
                 android:textSize="30dp"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:hint="No. de Nómina"
-                android:inputType="number"/>
+                android:hint="No. de Nómina"/>
             <EditText
                 android:id="@+id/txtNombre"
                 android:layout_width="100dp"

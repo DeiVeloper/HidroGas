@@ -77,7 +77,6 @@
             <EditText
                 android:id="@+id/txtPorcentaje" android:layout_span="2"
                 android:layout_width="100dp" android:layout_height="wrap_content"
-                android:inputType="number"
                 android:hint="Porcentaje" android:textSize="30dp"/>
         </TableRow>
     </TableLayout>

@@ -14,6 +14,7 @@ public class PipasTO {
     private String nombreChofer;
     private String nombreAyudante;
     private Integer clave;
+    private String clavePipa;
 
     public PipasTO () {
 
@@ -100,6 +101,14 @@ public class PipasTO {
 
     public void setClave(Integer clave) {
         this.clave = clave;
+    }
+
+    public String getClavePipa() {
+        return clavePipa;
+    }
+
+    public void setClavePipa(String clavePipa) {
+        this.clavePipa = clavePipa;
     }
 
 }

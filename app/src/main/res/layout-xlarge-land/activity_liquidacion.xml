@@ -106,7 +106,6 @@
                     android:id="@+id/input_Salida_1"
                     android:layout_column="0"
                     android:textSize="30dp"
-                    android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
                     android:hint="Salida"/>
@@ -115,7 +114,6 @@
                     android:id="@+id/input_Llegada_1"
                     android:layout_column="1"
                     android:textSize="30dp"
-                    android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
                     android:hint="Llegada" />
@@ -124,7 +122,6 @@
                     android:id="@+id/input_totInicial_1"
                     android:layout_column="2"
                     android:textSize="30dp"
-                    android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
                     android:hint="Totalizador Inicial" />
@@ -133,7 +130,6 @@
                     android:id="@+id/input_totFinal_1"
                     android:layout_column="3"
                     android:textSize="30dp"
-                    android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
                     android:hint="Totalizador Final" />
@@ -144,7 +140,6 @@
                     android:id="@+id/input_Salida_2"
                     android:layout_column="0"
                     android:textSize="30dp"
-                    android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
                     android:hint="Salida"/>
@@ -153,7 +148,6 @@
                     android:id="@+id/input_Llegada_2"
                     android:layout_column="1"
                     android:textSize="30dp"
-                    android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
                     android:hint="Llegada" />
@@ -162,7 +156,6 @@
                     android:id="@+id/input_totInicial_2"
                     android:layout_column="2"
                     android:textSize="30dp"
-                    android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
                     android:hint="Totalizador Inicial" />
@@ -171,7 +164,6 @@
                     android:id="@+id/input_totFinal_2"
                     android:layout_column="3"
                     android:textSize="30dp"
-                    android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
                     android:hint="Totalizador Final" />
@@ -182,7 +174,6 @@
                     android:id="@+id/input_Salida_3"
                     android:layout_column="0"
                     android:textSize="30dp"
-                    android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
                     android:hint="Salida"/>
@@ -191,7 +182,6 @@
                     android:id="@+id/input_Llegada_3"
                     android:layout_column="1"
                     android:textSize="30dp"
-                    android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
                     android:hint="Llegada" />
@@ -200,7 +190,6 @@
                     android:id="@+id/input_totInicial_3"
                     android:layout_column="2"
                     android:textSize="30dp"
-                    android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
                     android:hint="Totalizador Inicial" />
@@ -209,7 +198,6 @@
                     android:id="@+id/input_totFinal_3"
                     android:layout_column="3"
                     android:textSize="30dp"
-                    android:numeric="integer"
                     android:textAlignment="gravity"
                     android:singleLine="true"
                     android:hint="Totalizador Final" />
@@ -303,28 +291,24 @@
                 <EditText
                     android:id="@+id/autoconsumo"
                     android:textSize="30dp"
-                    android:numeric="integer"
                     android:hint="Autoconsumo"
                     android:layout_below="@+id/textViewVariacion"/>
 
                 <EditText
                     android:id="@+id/medidores"
                     android:textSize="30dp"
-                    android:numeric="integer"
                     android:hint="Medidores"
                     android:layout_below="@+id/textViewVariacion"/>
 
                 <EditText
                     android:id="@+id/traspasosRecibidos"
                     android:textSize="30dp"
-                    android:numeric="integer"
                     android:hint="Traspasos Recibidos"
                     android:layout_below="@+id/textViewVariacion"/>
 
                 <EditText
                     android:id="@+id/traspasosRealizados"
                     android:textSize="30dp"
-                    android:numeric="integer"
                     android:hint="Traspasos Realizados"
                     android:layout_below="@+id/textViewVariacion"/>
             </TableRow>

@@ -105,9 +105,10 @@ public class ImportarDatos extends Activity{
         while (rowIterator.hasNext()){
             row = rowIterator.next();
             try {
+
                 pipasTO.setNoPipa(((Double) Double.parseDouble(row.getCell(0).toString().trim())).intValue());
-                pipasTO.setClave(((Double) Double.parseDouble(row.getCell(1).toString().trim())).intValue());
-                if (pipasTO.getNoPipa() > 0 && pipasTO.getClave() > 0) {
+                pipasTO.setClavePipa(row.getCell(1).toString().trim());
+                if (pipasTO.getNoPipa() > 0 && !pipasTO.getClavePipa().isEmpty()) {
                     pipasBussines.setClavePipa(view.getContext(), pipasTO);
                 }
             } catch (NumberFormatException nfe) {

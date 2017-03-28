@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         dataBase  =new AdminSQLiteOpenHelper(this.getApplicationContext());
-        dataBase.addContact("3","1");
+        //dataBase.addContact("130191","Dc13#");
         bindUI();
         preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         setCredentialsIfExist();
