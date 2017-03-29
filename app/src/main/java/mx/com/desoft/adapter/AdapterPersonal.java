@@ -2,6 +2,7 @@ package mx.com.desoft.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,25 +14,23 @@ import java.util.ArrayList;
 import mx.com.desoft.hidrogas.R;
 import mx.com.desoft.hidrogas.to.PersonalTO;
 
-/**
- * Created by erick.martinez on 30/12/2016.
- */
-
 public class AdapterPersonal extends ArrayAdapter<PersonalTO> {
-    Context context;
+    private Context context;
     private int layoutResourceId;
-    ArrayList<PersonalTO> personalTOs = new ArrayList<PersonalTO>();
-    private PersonalTO personalTO;
+    private ArrayList<PersonalTO> personalTOs = new ArrayList<>();
+
     public AdapterPersonal(Context context, int layoutResourceId, ArrayList<PersonalTO> personalTOs) {
         super(context, layoutResourceId, personalTOs);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
         this.personalTOs = personalTOs;
     }
+
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         View item = convertView;
-        PersonalTOWrapper personalTOWrapper = null;
+        PersonalTOWrapper personalTOWrapper;
         if (item == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             item = inflater.inflate(layoutResourceId, parent, false);
@@ -43,18 +42,17 @@ public class AdapterPersonal extends ArrayAdapter<PersonalTO> {
         } else {
             personalTOWrapper = (PersonalTOWrapper) item.getTag();
         }
-        personalTO = personalTOs.get(position);
+        PersonalTO personalTO = personalTOs.get(position);
         personalTOWrapper.nomina.setText(personalTO.getNomina().toString());
         personalTOWrapper.nombre.setText(personalTO.getNombre() + " " + personalTO.getApellidoPaterno() + " " + personalTO.getApellidoMaterno());
         personalTOWrapper.pipa.setText(personalTO.getNoPipa().toString());
         return item;
     }
-    static class PersonalTOWrapper {
+
+    private static class PersonalTOWrapper {
         TextView nomina;
         TextView nombre;
         TextView pipa;
     }
-
-
 
 }

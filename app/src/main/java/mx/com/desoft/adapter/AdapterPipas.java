@@ -2,6 +2,7 @@ package mx.com.desoft.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,25 +14,23 @@ import java.util.ArrayList;
 import mx.com.desoft.hidrogas.R;
 import mx.com.desoft.hidrogas.to.PipasTO;
 
-/**
- * Created by erick.martinez on 08/01/2017.
- */
-
 public class AdapterPipas extends ArrayAdapter<PipasTO> {
-    Context context;
+    private Context context;
     private int layoutResourceId;
-    ArrayList<PipasTO> pipasTOs = new ArrayList<PipasTO>();
-    PipasTO pipasTO = new PipasTO();
+    private ArrayList<PipasTO> pipasTOs = new ArrayList<>();
+
     public AdapterPipas(Context context, int layoutResourceId, ArrayList<PipasTO> pipasTOs) {
         super(context, layoutResourceId, pipasTOs);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
         this.pipasTOs = pipasTOs;
     }
+
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         View item = convertView;
-        AdapterPipas.PipasTOWrapper pipasTOWrapper = null;
+        AdapterPipas.PipasTOWrapper pipasTOWrapper;
         if (item == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             item = inflater.inflate(layoutResourceId, parent, false);
@@ -45,7 +44,7 @@ public class AdapterPipas extends ArrayAdapter<PipasTO> {
         } else {
             pipasTOWrapper = (AdapterPipas.PipasTOWrapper) item.getTag();
         }
-        pipasTO = pipasTOs.get(position);
+        PipasTO pipasTO = pipasTOs.get(position);
         pipasTOWrapper.pipa.setText(pipasTO.getNoPipa().toString());
         pipasTOWrapper.porcentaje.setText(pipasTO.getPorcentajeLlenado().toString());
         pipasTOWrapper.capacidad.setText(pipasTO.getCapacidad().toString());
@@ -53,7 +52,7 @@ public class AdapterPipas extends ArrayAdapter<PipasTO> {
         pipasTOWrapper.ayudante.setText(pipasTO.getNombreAyudante());
         return item;
     }
-    static class PipasTOWrapper {
+    private static class PipasTOWrapper {
         TextView pipa, porcentaje, capacidad, chofer, ayudante;
     }
 }

@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -20,11 +19,8 @@ import mx.com.desoft.adapter.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
     private ViewPager view;
     private ViewPagerAdapter viewPagerAdapter;
-    private Button btnImprimir;
     private SharedPreferences preferences;
     private ImportarDatos importarDatos;
 
@@ -33,14 +29,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         view = (ViewPager) findViewById(R.id.viewpager);
-
         Bundle bundle;
         bundle = getIntent().getExtras();
-
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         setupViewPager(view);
         int position = 0;
@@ -51,12 +44,10 @@ public class MainActivity extends AppCompatActivity {
         }
         view.setCurrentItem(position);
         setSupportActionBar(toolbar);
-
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
-        tabs.setupWithViewPager(view);
+        tabLayout.setupWithViewPager(view);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         view.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        importarDatos = new ImportarDatos(view.getContext());
+        importarDatos = new ImportarDatos();
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -84,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.impotarPipas:
                 try {
-                    importarDatos.importarPipas(view);
+                    importarDatos.importarPipas();
                     Toast.makeText(view.getContext(), "Se importaron los datos con éxito", Toast.LENGTH_LONG).show();
                 }catch (IOException e){
                     e.printStackTrace();
@@ -93,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.impotarEmpleados:
                 try {
-                    importarDatos.importarEmpleados(view.getContext());
+                    importarDatos.importarEmpleados();
                     Toast.makeText(view.getContext(), "Se importaron los datos con éxito", Toast.LENGTH_LONG).show();
                 }catch (IOException e){
                     e.printStackTrace();
@@ -102,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.impotarClaves:
                 try {
-                    importarDatos.importarClavesPipas(view);
+                    importarDatos.importarClavesPipas();
                     Toast.makeText(view.getContext(), "Se importaron los datos con éxito", Toast.LENGTH_LONG).show();
                 }catch (IOException e){
                     e.printStackTrace();

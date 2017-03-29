@@ -5,30 +5,25 @@ import android.view.View;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
 
 import mx.com.desoft.hidrogas.to.LlenadoTO;
 import mx.com.desoft.hidrogas.to.PipasTO;
+import mx.com.desoft.utils.Utils;
 
-/**
- * Created by carlosdavid.castro on 05/01/2017.
- */
+class Reportes  {
 
-public class Reportes  {
 
-    public String excel(View view, List<LlenadoTO> lista)throws Exception{
+    String excel(View view, List<LlenadoTO> lista)throws Exception{
+        Utils utils = new Utils();
         LlenadoTO[] miarray = new LlenadoTO[lista.size()];
         miarray = lista.toArray(miarray);
         HSSFWorkbook workbook = new HSSFWorkbook();
@@ -62,7 +57,7 @@ public class Reportes  {
             HSSFRow dataRow = sheet.createRow(i + 1);
             LlenadoTO registros = miarray[i];
             dataRow.createCell(0).setCellValue(registros.getNoPipa());
-            dataRow.createCell(1).setCellValue(convertirFecha(registros.getFechaRegistro()));
+            dataRow.createCell(1).setCellValue(utils.convertirFecha(registros.getFechaRegistro()));
             dataRow.createCell(2).setCellValue(registros.getVariacion());
         }
 
@@ -76,7 +71,7 @@ public class Reportes  {
         return str_path;
     }
 
-    public  void reporteExcelPipas(View view, List<PipasTO> lista) throws Exception{
+    void reporteExcelPipas(View view, List<PipasTO> lista) throws Exception{
         {
             PipasTO[] miarray = new PipasTO[lista.size()];
             miarray = lista.toArray(miarray);
@@ -122,9 +117,5 @@ public class Reportes  {
             file2.close();
         }
     }
-    private String convertirFecha(Long fechaLong){
-        Date date=new Date(fechaLong);
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        return formato.format(date);
-    }
+
 }

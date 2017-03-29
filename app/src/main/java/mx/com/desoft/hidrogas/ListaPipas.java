@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -28,7 +27,6 @@ import mx.com.desoft.hidrogas.to.PipasTO;
 
 public class ListaPipas extends Fragment {
     private ViewGroup viewGroup;
-    private PipasTO pipasTO;
     private PipasBussines pipasBussines;
     private AdapterPipas adapterPipas;
     EditText txtPipa;
@@ -38,9 +36,8 @@ public class ListaPipas extends Fragment {
     private Reportes reportes;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        pipasTO = new PipasTO();
         pipasBussines = new PipasBussines();
-        pipasTOArray = new ArrayList<PipasTO>();
+        pipasTOArray = new ArrayList<>();
         viewGroup = (ViewGroup) inflater.inflate(R.layout.activity_administrador_pipas, container, false);
         inicializarComponentes();
         cargarEventos();
@@ -76,13 +73,13 @@ public class ListaPipas extends Fragment {
                     if (!pipasTOArray.isEmpty()){
                         reportes = new Reportes();
                         reportes.reporteExcelPipas(viewGroup, pipasTOArray);
-                        Toast.makeText(viewGroup.getContext(), "Se genero su reporte con exito"  , Toast.LENGTH_LONG).show();
+                        Toast.makeText(viewGroup.getContext(), "Se genero el reporte con éxito"  , Toast.LENGTH_LONG).show();
                     }else   {
                         Toast.makeText(viewGroup.getContext(), "No existen registros para exportar, favor de validar"  , Toast.LENGTH_LONG).show();
                     }
 
                 }catch (Exception  e)   {
-                    Log.d("Error " + e.getStackTrace()," , Mensaje "+ e.getMessage());
+                    e.printStackTrace();
                     Toast.makeText(viewGroup.getContext(), "No se pudo crear al excel, favor de contactar al Administrador", Toast.LENGTH_LONG).show();
                 }
             }
@@ -95,16 +92,16 @@ public class ListaPipas extends Fragment {
         if (!TextUtils.isEmpty(txtPipa.getText().toString())){
             pipa = Integer.parseInt (txtPipa.getText().toString());
         }
-        Cursor registros = pipasBussines.buscarByNoPipa2(viewGroup.getContext(), pipa);
-        pipasTOArray = new ArrayList<PipasTO>();
+        Cursor registros = pipasBussines.buscarByNoPipa2(pipa);
+        pipasTOArray = new ArrayList<>();
         if (registros.moveToFirst()) {
             do {
-                Cursor resgistroLlenado = pipasBussines.buscarLlenadoByNoPipa(viewGroup.getContext(), registros.getInt(0));
+                Cursor resgistroLlenado = pipasBussines.buscarLlenadoByNoPipa(registros.getInt(0));
                 porcentajeLlenado = 0;
                 if (resgistroLlenado.moveToFirst()) {
                     porcentajeLlenado = resgistroLlenado.getInt(2);
                 }
-                Cursor resgistroChoferAyudante = pipasBussines.buscarChoferAyudanteByNoPipa(viewGroup.getContext(), registros.getInt(0));
+                Cursor resgistroChoferAyudante = pipasBussines.buscarChoferAyudanteByNoPipa(registros.getInt(0));
                 chofer = "";
                 ayudante = "";
                 if (resgistroChoferAyudante.moveToFirst()) {
@@ -147,7 +144,7 @@ public class ListaPipas extends Fragment {
                 alertDialog.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        final boolean eliminada = pipasBussines.eliminar(viewGroup.getContext(), pipasTOArray.get(adapterContextMenuInfo.position).getIdPipa());
+                        final boolean eliminada = pipasBussines.eliminar(pipasTOArray.get(adapterContextMenuInfo.position).getIdPipa());
                         if (eliminada) {
                             Toast.makeText(viewGroup.getContext(), "La Pipa número: " + pipasTOArray.get(adapterContextMenuInfo.position).getNoPipa() + " se ha eliminado correctamente", Toast.LENGTH_SHORT).show();
                             pipasTOArray.remove(adapterContextMenuInfo.position);

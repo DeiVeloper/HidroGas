@@ -26,15 +26,10 @@ import mx.com.desoft.hidrogas.bussines.PersonalBussines;
 import mx.com.desoft.hidrogas.bussines.PipasBussines;
 import mx.com.desoft.hidrogas.to.PersonalTO;
 
-/**
- * Created by erick.martinez on 25/11/2016.
- */
-
 public class ListaPersonal extends Fragment {
     Button btnAgregar, btnBuscar;
     EditText txtNombre, txtNoNomina;
     private ViewGroup viewGroup;
-    //private ListView lstPersonal;
     private PersonalTO personalTO;
     private PersonalBussines personalBussines;
     private PipasBussines pipasBussines;
@@ -49,7 +44,7 @@ public class ListaPersonal extends Fragment {
         personalTO = new PersonalTO();
         personalBussines = new PersonalBussines();
         pipasBussines = new PipasBussines();
-        personalTOArray = new ArrayList<PersonalTO>();
+        personalTOArray = new ArrayList<>();
         btnAgregar = (Button)viewGroup.findViewById(R.id.btnAgregar);
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,20 +66,17 @@ public class ListaPersonal extends Fragment {
     }
 
     public void buscar() {
-        //try {
         if (TextUtils.isEmpty(txtNoNomina.getText().toString())) {
             personalTO.setNomina(0);
         }else {
             personalTO.setNomina(Integer.parseInt(txtNoNomina.getText().toString()));
         }
         personalTO.setNombre(txtNombre.getText().toString().trim());
-        Cursor registros = personalBussines.buscar(viewGroup.getContext(), personalTO);
-        personalTOArray = new ArrayList<PersonalTO>();
+        Cursor registros = personalBussines.buscar( personalTO);
+        personalTOArray = new ArrayList<>();
         if (registros.moveToFirst()) {
             do {
-                //System.out.println(registros.getInt(0) + "_" + registros.getString(1)+"_"+registros.getString(2) + "_" + registros.getString(3)+"_"+registros.getString(4) + "_" + registros.getInt(5)+"_"+registros.getLong(6) + "_" + registros.getString(7)
-                //+"_" + registros.getInt(8) + "_" + registros.getInt(9)+ "_" + registros.getInt(10));
-                personalTOArray.add(new PersonalTO(registros.getInt(0), registros.getString(1), registros.getString(2), registros.getString(3), pipasBussines.getNoPipaByIdPipa(viewGroup.getContext(), registros.getInt(5)), registros.getInt(8)));
+                personalTOArray.add(new PersonalTO(registros.getInt(0), registros.getString(1), registros.getString(2), registros.getString(3), pipasBussines.getNoPipaByIdPipa(registros.getInt(5)), registros.getInt(8)));
             } while (registros.moveToNext());
         } else {
             Toast.makeText(viewGroup.getContext(), "Su búsqueda no tiene registros asociados.", Toast.LENGTH_SHORT).show();
@@ -94,9 +86,6 @@ public class ListaPersonal extends Fragment {
         listviewPersonal.setItemsCanFocus(false);
         listviewPersonal.setAdapter(adapterPersonal);
         registerForContextMenu(listviewPersonal);
-        /*} catch (Exception e) {
-            Toast.makeText(viewGroup.getContext(), "Ha ocurrido un error al realizar la búsqueda, Intente nuevamente por favor.", Toast.LENGTH_SHORT).show();
-        }*/
     }
 
     @Override
@@ -117,7 +106,7 @@ public class ListaPersonal extends Fragment {
                 dialogo1.setCancelable(false);
                 dialogo1.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
-                        personalBussines.eliminar(viewGroup.getContext(), personalTOArray.get(adapterContextMenuInfo.position));
+                        personalBussines.eliminar(personalTOArray.get(adapterContextMenuInfo.position));
                         Toast.makeText(viewGroup.getContext(), "El usuario con nómina: " + personalTOArray.get(adapterContextMenuInfo.position).getNomina() + " se ha eliminado correctamente", Toast.LENGTH_SHORT).show();
                         personalTOArray.remove(adapterContextMenuInfo.position);
                         adapterPersonal.notifyDataSetChanged();
@@ -146,4 +135,5 @@ public class ListaPersonal extends Fragment {
     public void chargePage(Intent accion){
         startActivity(accion);
     }
+
 }

@@ -1,6 +1,7 @@
 package mx.com.desoft.hidrogas.to;
 
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,6 +37,8 @@ public class LiquidacionesTO  {
         this.noPipa = noPipa;
         this.fechaRegistro = fechaRegistro;
     }
+
+    public  LiquidacionesTO(){}
 
     public Integer getIdLiquidacion() {
         return idLiquidacion;

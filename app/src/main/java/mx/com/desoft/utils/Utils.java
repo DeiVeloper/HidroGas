@@ -1,32 +1,29 @@
 package mx.com.desoft.utils;
 
+import android.annotation.SuppressLint;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-
-/**
- * Created by erick.martinez on 30/01/2017.
- */
 
 public class Utils {
 
     private Date fecha;
-    private Long fechaLong;
-    private String formato;
-    private String fechaString;
+    private Calendar calendar = Calendar.getInstance();
 
     public Utils() {
     }
 
-    public Utils(String formato, Date fecha) {
-        this.formato = formato;
+    public Utils(Date fecha) {
         this.fecha = fecha;
     }
 
+    @SuppressLint("SimpleDateFormat")
     public Long consultaFechaLong (Date fecha, String formato) {
         SimpleDateFormat formatoTemp = new SimpleDateFormat(formato);
-        Date soloFecha = null;
-        fechaLong = 0L;
+        Date soloFecha;
+        Long fechaLong = 0L;
         try {
             soloFecha = formatoTemp.parse(formatoTemp.format(fecha));
             fechaLong = soloFecha.getTime();
@@ -36,10 +33,51 @@ public class Utils {
         return fechaLong;
     }
 
+    @SuppressLint("SimpleDateFormat")
     public String consultaFechaString (Date fecha, String formato) {
         SimpleDateFormat formatoTemp = new SimpleDateFormat(formato);
-        fechaString = formatoTemp.format(fecha);
-        return fechaString;
+        return formatoTemp.format(fecha);
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    public Long getFechaActual(){
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        calendar.set(year, month, day);
+        Date fecha = null;
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            fecha = formato.parse(formato.format(calendar.getTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return fecha != null ? fecha.getTime() : 0;
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    public Long getFechaAnterior(){
+        calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        calendar.set(year, month, day);
+        Date fecha = null;
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        calendar.add(Calendar.DATE,-1);
+        try {
+            fecha = formato.parse(formato.format(calendar.getTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return fecha != null ? fecha.getTime() : 0;
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    public String convertirFecha(Long fechaLong){
+        Date date=new Date(fechaLong);
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        return formato.format(date);
     }
 
     public Date getFecha() {
@@ -50,27 +88,4 @@ public class Utils {
         this.fecha = fecha;
     }
 
-    public Long getFechaLong() {
-        return fechaLong;
-    }
-
-    public void setFechaLong(Long fechaLong) {
-        this.fechaLong = fechaLong;
-    }
-
-    public String getFormato() {
-        return formato;
-    }
-
-    public void setFormato(String formato) {
-        this.formato = formato;
-    }
-
-    public String getFechaString() {
-        return fechaString;
-    }
-
-    public void setFechaString(String fechaString) {
-        this.fechaString = fechaString;
-    }
 }

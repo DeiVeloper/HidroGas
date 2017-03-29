@@ -1,41 +1,21 @@
 package mx.com.desoft.hidrogas.bussines;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.view.ViewGroup;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
+import mx.com.desoft.hidrogas.LoginActivity;
 import mx.com.desoft.hidrogas.to.LiquidacionesTO;
 import mx.com.desoft.hidrogas.to.ViajesTO;
-
-/**
- * Created by carlosdavid.castro on 29/12/2016.
- */
+import mx.com.desoft.utils.Utils;
 
 public class LiquidacionBussines {
-    private static AdminSQLiteOpenHelper baseDatos;
-    private static SQLiteDatabase bd;
-    private Calendar calendar;
+    private Utils utils = new Utils();
 
-    public LiquidacionBussines() {
-
-    }
-
-    private void iniciarDataBase(ViewGroup viewGroup){
-        baseDatos = new AdminSQLiteOpenHelper(viewGroup.getContext());
-        bd = baseDatos.getWritableDatabase();
-    }
-
-    public Long guardarLiquidacion(ViewGroup viewGroup, LiquidacionesTO liquidacionesTO,List<ViajesTO> listaViajes) {
-        iniciarDataBase(viewGroup);
+    public Long guardarLiquidacion(LiquidacionesTO liquidacionesTO,List<ViajesTO> listaViajes) {
         ContentValues registro = new ContentValues();
         registro.put("nominaChofer", liquidacionesTO.getNominaChofer());
         registro.put("nominaAyudante", liquidacionesTO.getNominaAyudante());
@@ -46,7 +26,7 @@ public class LiquidacionBussines {
         registro.put("nominaRegistro", liquidacionesTO.getNominaRegistro());
         registro.put("porcentajeVariacion", liquidacionesTO.getPorcentajeVariacion());
         registro.put("economico", liquidacionesTO.getEconomico());
-        Long idLiquidacion = bd.insert("liquidacion", null, registro);
+        Long idLiquidacion = LoginActivity.conexion.insert("liquidacion", null, registro);
 
 
         for (ViajesTO viajes : listaViajes) {
@@ -56,23 +36,20 @@ public class LiquidacionBussines {
             registroViajes.put("porcentajeFinal", viajes.getPorcentajeFinal());
             registroViajes.put("totalizadorInicial", viajes.getTotalizadorInicial());
             registroViajes.put("totalizadorFinal", viajes.getTotalizadorFinal());
-            bd.insert("viajes", null, registroViajes);
+            LoginActivity.conexion.insert("viajes", null, registroViajes);
         }
-
-        //bd.close();
         return idLiquidacion;
     }
 
-    public LiquidacionesTO getLiquidacionByIdLiquidacion(ViewGroup viewGroup, Long idLiquidacion){
-        iniciarDataBase(viewGroup);
+    @SuppressLint("Recycle")
+    public LiquidacionesTO getLiquidacionByIdLiquidacion(Long idLiquidacion){
         LiquidacionesTO liquidacion = null;
-        StringBuilder selectQuery = new StringBuilder();
-        selectQuery.append("    SELECT  liquidacion.*, ");
-        selectQuery.append("            (SELECT e.nombre||' '||e.apellidoPaterno||' '|| e.apellidoMaterno FROM Empleados e WHERE e.nominaEmpleado = liquidacion.nominaChofer) as chofer,");
-        selectQuery.append("            (SELECT e.nombre||' '||e.apellidoPaterno||' '|| e.apellidoMaterno FROM Empleados e WHERE e.nominaEmpleado = liquidacion.nominaAyudante) as ayudante");
-        selectQuery.append("    FROM    Liquidacion liquidacion ");
-        selectQuery.append("    WHERE   liquidacion.idLiquidacion = " + idLiquidacion.intValue());
-        Cursor cursor = bd.rawQuery(selectQuery.toString(), null);
+        String selectQuery = "    SELECT  liquidacion.*, " +
+                "            (SELECT e.nombre||' '||e.apellidoPaterno||' '|| e.apellidoMaterno FROM Empleados e WHERE e.nominaEmpleado = liquidacion.nominaChofer) as chofer," +
+                "            (SELECT e.nombre||' '||e.apellidoPaterno||' '|| e.apellidoMaterno FROM Empleados e WHERE e.nominaEmpleado = liquidacion.nominaAyudante) as ayudante" +
+                "    FROM    Liquidacion liquidacion " +
+                "    WHERE   liquidacion.idLiquidacion = " + idLiquidacion.intValue();
+        Cursor cursor = LoginActivity.conexion.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
                 liquidacion = new LiquidacionesTO();
@@ -92,22 +69,21 @@ public class LiquidacionBussines {
         return liquidacion;
     }
 
-    public List<ViajesTO> getPorcentajeInicialAnterior(ViewGroup viewGroup, Integer idPipa){
-        iniciarDataBase(viewGroup);
+    @SuppressLint("Recycle")
+    public List<ViajesTO> getPorcentajeInicialAnterior(Integer idPipa){
         List<ViajesTO> lista = new ArrayList<>();
-        StringBuilder selectQuery = new StringBuilder();
-        selectQuery.append("SELECT  min(idViaje), ");
-        selectQuery.append("        viajes.idLiquidacion, ");
-        selectQuery.append("        porcentajeInicial, ");
-        selectQuery.append("        porcentajeFinal, ");
-        selectQuery.append("        totalizadorInicial, ");
-        selectQuery.append("        totalizadorFinal ");
-        selectQuery.append("FROM    Viajes viajes,  ");
-        selectQuery.append("        Liquidacion liquidacion ");
-        selectQuery.append("WHERE   viajes.idLiquidacion = liquidacion.idLiquidacion ");
-        selectQuery.append("AND     liquidacion.fechaRegistro = " + this.getFechaAnterior());
-        selectQuery.append(" AND     liquidacion.idPipa = " + idPipa);
-        Cursor cursor = bd.rawQuery(selectQuery.toString(), null);
+        String selectQuery = "SELECT  min(idViaje), " +
+                "        viajes.idLiquidacion, " +
+                "        porcentajeInicial, " +
+                "        porcentajeFinal, " +
+                "        totalizadorInicial, " +
+                "        totalizadorFinal " +
+                "FROM    Viajes viajes,  " +
+                "        Liquidacion liquidacion " +
+                "WHERE   viajes.idLiquidacion = liquidacion.idLiquidacion " +
+                "AND     liquidacion.fechaRegistro = " + utils.getFechaAnterior() +
+                " AND     liquidacion.idPipa = " + idPipa;
+        Cursor cursor = LoginActivity.conexion.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
             do {
@@ -124,14 +100,14 @@ public class LiquidacionBussines {
         return lista;
     }
 
-    public List<ViajesTO> getViajesByIdLiquidacion(ViewGroup viewGroup, int idLiquidacion){
-        iniciarDataBase(viewGroup);
+    @SuppressLint("Recycle")
+    public List<ViajesTO> getViajesByIdLiquidacion(int idLiquidacion){
+
         List<ViajesTO> lista = new ArrayList<>();
-        StringBuilder selectQuery = new StringBuilder();
-        selectQuery.append("SELECT  * ");
-        selectQuery.append("FROM    Viajes viajes  ");
-        selectQuery.append("WHERE   viajes.idLiquidacion = " + idLiquidacion);
-        Cursor cursor = bd.rawQuery(selectQuery.toString(), null);
+        String selectQuery = "SELECT  * " +
+                "FROM    Viajes viajes  " +
+                "WHERE   viajes.idLiquidacion = " + idLiquidacion;
+        Cursor cursor = LoginActivity.conexion.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
             do {
@@ -148,19 +124,16 @@ public class LiquidacionBussines {
         return lista;
     }
 
-    public List<LiquidacionesTO> getLiquidacionByIdLiquidacion(ViewGroup viewGroup, Integer idLiquidacion){
-        iniciarDataBase(viewGroup);
-        List<LiquidacionesTO> lista = new ArrayList<>();
-        List<ViajesTO> listaViajes = new ArrayList<>();
-        StringBuilder selectQuery = new StringBuilder();
-        selectQuery.append("    SELECT  liquidacion.* ");
-        selectQuery.append("    FROM    Liquidacion liquidacion  ");
-        selectQuery.append("    WHERE   liquidacion.idLiquidacion = " + idLiquidacion);
-        Cursor cursor = bd.rawQuery(selectQuery.toString(), null);
-
+    @SuppressLint("Recycle")
+    public LiquidacionesTO getLiquidacionByIdLiquidacion(Integer idLiquidacion){
+        LiquidacionesTO liquidacion = null;
+        String selectQuery = "    SELECT  liquidacion.* " +
+                "    FROM    Liquidacion liquidacion  " +
+                "    WHERE   liquidacion.idLiquidacion = " + idLiquidacion;
+        Cursor cursor = LoginActivity.conexion.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                LiquidacionesTO liquidacion = new LiquidacionesTO();
+                liquidacion = new LiquidacionesTO();
                 liquidacion.setIdLiquidacion(cursor.getInt(cursor.getColumnIndex("idLiquidacion")));
                 liquidacion.setNominaChofer(cursor.getString(cursor.getColumnIndex("nominaChofer")));
                 liquidacion.setNominaAyudante(cursor.getString(cursor.getColumnIndex("nominaAyudante")));
@@ -171,45 +144,11 @@ public class LiquidacionBussines {
                 liquidacion.setNominaRegistro(cursor.getString(cursor.getColumnIndex("nominaRegistro")));
                 liquidacion.setPorcentajeVariacion(cursor.getFloat(cursor.getColumnIndex("porcentajeVariacion")));
                 liquidacion.setEconomico(cursor.getString(cursor.getColumnIndex("economico")));
-                lista.add(liquidacion);
+                liquidacion.setViajes(getViajesByIdLiquidacion(idLiquidacion));
             } while (cursor.moveToNext());
         }
 
-        StringBuilder consulta = new StringBuilder();
-        consulta.append("    SELECT  viaje.* ");
-        consulta.append("    FROM    Viajes viaje  ");
-        consulta.append("    WHERE   viaje.idLiquidacion = " + idLiquidacion);
-        Cursor cursorViajes = bd.rawQuery(consulta.toString(), null);
-
-        if (cursorViajes.moveToFirst()) {
-            do {
-            ViajesTO viajes = new ViajesTO();
-            viajes.setIdViaje(cursorViajes.getInt(cursorViajes.getColumnIndex("idLiquidacion")));
-                viajes.setPorcentajeInicial(cursorViajes.getInt(cursorViajes.getColumnIndex("porcentajeInicial")));
-                viajes.setPorcentajeFinal(cursorViajes.getInt(cursorViajes.getColumnIndex("porcentajeFinal")));
-                viajes.setTotalizadorInicial(cursorViajes.getInt(cursorViajes.getColumnIndex("totalizadorInicial")));
-                viajes.setTotalizadorFinal(cursorViajes.getInt(cursorViajes.getColumnIndex("totalizadorFinal")));
-                listaViajes.add(viajes);
-            } while (cursorViajes.moveToNext());
-        }
-        lista.get(0).setViajes(listaViajes);
-        return lista;
+        return liquidacion;
     }
 
-    private Long getFechaAnterior(){
-        calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        calendar.set(year, month, day);
-        Date fecha = null;
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        calendar.add(Calendar.DATE,-1);
-        try {
-            fecha = formato.parse(formato.format(calendar.getTime()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return fecha.getTime();
-    }
 }

@@ -15,22 +15,18 @@ import mx.com.desoft.hidrogas.bussines.PipasBussines;
 import mx.com.desoft.hidrogas.to.PipasTO;
 import mx.com.desoft.utils.Utils;
 
-/**
- * Created by erick.martinez on 25/11/2016.
- */
-
 public class AgregarPipas extends Activity {
     EditText txtNoPipa, txtCapacidad;
     Button btnCancelar, btnGuardar;
     private PipasTO pipasTO;
     private PipasBussines pipasBussines;
     private Long fecha;
-    private Utils utils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pipas);
-        utils = new Utils();
+        Utils utils = new Utils();
         pipasTO = new PipasTO();
         pipasBussines = new PipasBussines();
         fecha = utils.consultaFechaLong(new Date(), "dd/MM/yyyy");
@@ -39,7 +35,6 @@ public class AgregarPipas extends Activity {
     }
 
     private void inicializarComponentes() {
-        //acceder a los items de la vista
         txtNoPipa = (EditText)findViewById(R.id.txtEconomico);
         txtCapacidad = (EditText)findViewById(R.id.txtCapacidad);
         btnGuardar = (Button)findViewById(R.id.btnGuardar);
@@ -60,14 +55,10 @@ public class AgregarPipas extends Activity {
             @Override
             public void onClick(View view) {
                 returnTab(2);
-                //onBackPressed();
             }
         });
     }
 
-    /**
-     * Método para guarda la pipa
-     */
     private boolean guardar(){
         try{
             boolean resultadoGuardar;
@@ -78,7 +69,7 @@ public class AgregarPipas extends Activity {
                 pipasTO.setCapacidad(Integer.parseInt(txtCapacidad.getText().toString()));
                 pipasTO.setFechaRegistro(fecha);
                 pipasTO.setNominaRegistro(LoginActivity.personalTO.getNomina());
-                resultadoGuardar = pipasBussines.guardar(getApplicationContext(), pipasTO);
+                resultadoGuardar = pipasBussines.guardar(pipasTO);
                 if (resultadoGuardar) {
                     Toast.makeText(getApplicationContext(), "La pipa número: " + pipasTO.getNoPipa() + " se ha registrdo correctamente.", Toast.LENGTH_SHORT).show();
                     return true;

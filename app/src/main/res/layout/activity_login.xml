@@ -17,12 +17,13 @@
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:gravity="center"
+            android:contentDescription="@string/app_name"
             android:layout_gravity="center"
             android:textAlignment="center">
         </ImageView>
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/usuario"
             android:layout_width="300dp"
             android:gravity="center"
             android:layout_gravity="center"
@@ -51,17 +52,7 @@
             android:singleLine="true"
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
-        <CheckBox
-            android:id="@+id/recordarme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="30dp"
-            android:padding="15dp"
-            android:textSize="15dp"
-            android:textColor="@color/textColorPrimary"
-            android:text="Recordarme" />
+
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="300dp"
@@ -84,13 +75,14 @@
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:text="By Desoft."
+            android:text="@string/empresa"
             android:textAllCaps="false"
             android:textColor="#ffffff"
             android:textSize="15dp"
             android:layout_marginTop="30dp"
             android:textAlignment="center"/>
 
-
     </LinearLayout>
+
+
 </LinearLayout>

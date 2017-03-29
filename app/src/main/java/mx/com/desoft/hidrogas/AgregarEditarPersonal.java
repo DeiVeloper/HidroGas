@@ -24,13 +24,8 @@ import mx.com.desoft.hidrogas.bussines.PipasBussines;
 import mx.com.desoft.hidrogas.to.PersonalTO;
 import mx.com.desoft.utils.Utils;
 
-/**
- * Created by David on 03/12/16.
- */
-
 public class AgregarEditarPersonal extends Activity {
     private EditText txtNomina, txtNombre, txtAPaterno, txtAMaterno, txtPass;
-    private Button btnGuardar, btnCancelar;
     private PersonalTO personalTO;
     private PersonalBussines personalBussines;
     private boolean flgEditar;
@@ -60,7 +55,6 @@ public class AgregarEditarPersonal extends Activity {
     }
 
     private void inicializarComponentes() {
-        //acceder a los item de la vista
         txtNomina = (EditText)findViewById(R.id.txtNoNomina);
         txtNombre = (EditText)findViewById(R.id.txtNombre);
         txtAPaterno = (EditText)findViewById(R.id.txtApellidoPaterno);
@@ -71,25 +65,21 @@ public class AgregarEditarPersonal extends Activity {
         sprTipoEmpleado = (Spinner) findViewById(R.id.sprPuesto);
 
         ArrayAdapter<String> spinnerAdapterPipas;
-        /*List<Integer> pipas = new ArrayList<>();
-        Cursor registroPipas = catalogoBussines.getPipas(getApplicationContext());*/
-        List<String> listSpinner = pipasBussines.getAllPipas(getApplicationContext());
-        spinnerAdapterPipas = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listSpinner);
+        List<String> listSpinner = pipasBussines.getAllPipas();
+        spinnerAdapterPipas = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, listSpinner);
         spinnerAdapterPipas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sprPipa.setAdapter(spinnerAdapterPipas);
-
         ArrayAdapter<String> spinnerAdapter;
         List<String> tipoEmpleados = new ArrayList<>();
-        Cursor registros = catalogoBussines.getTipoEmpleado(getApplicationContext());
+        Cursor registros = catalogoBussines.getTipoEmpleado();
         if (registros.moveToFirst()) {
             do {
                 tipoEmpleados.add(registros.getString(1));
             } while (registros.moveToNext());
-            spinnerAdapter = new ArrayAdapter<String>(AgregarEditarPersonal.this, android.R.layout.simple_list_item_1, tipoEmpleados);
+            spinnerAdapter = new ArrayAdapter<>(AgregarEditarPersonal.this, android.R.layout.simple_list_item_1, tipoEmpleados);
             sprTipoEmpleado.setAdapter(spinnerAdapter);
         }
 
-        //obtener datos que se pasaron en el Intent para editar
         if(bundle != null) {
             flgEditar = true;
             if (bundle.containsKey("nomina")) {
@@ -112,21 +102,18 @@ public class AgregarEditarPersonal extends Activity {
         } else {
             fecha = utils.consultaFechaLong(new Date(), "dd/MM/yyyy");
         }
-        //txtNomina.setText(loginActivity.getPersonalTO().getNomina());
-        //txtNomina.setKeyListener(null);
-
     }
 
     private void cargarEventos() {
         sprPipa.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> parent,View v, int position, long id) {
-                        idPipa = pipasBussines.spinnerMap.get(parent.getSelectedItemPosition());
+                        idPipa = PipasBussines.spinnerMap.get(parent.getSelectedItemPosition());
                     }
-
                     public void onNothingSelected(AdapterView<?> parent) {}
                 }
         );
+
         sprTipoEmpleado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -143,31 +130,31 @@ public class AgregarEditarPersonal extends Activity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                return;
             }
         });
-        btnGuardar = (Button)findViewById(R.id.btnGuardar);
+
+        Button btnGuardar = (Button) findViewById(R.id.btnGuardar);
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean guardado = guardar(view);
+                boolean guardado = guardar();
                 if (guardado){
                     returnTab(1);
                 }
 
             }
         });
-        btnCancelar = (Button)findViewById(R.id.btnCancelar);
+
+        Button btnCancelar = (Button) findViewById(R.id.btnCancelar);
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 returnTab(1);
-                //onBackPressed();
             }
         });
     }
 
-    private boolean guardar(View view) {
+    private boolean guardar() {
         try {
             boolean resultadoGuardar = true;
             if (TextUtils.isEmpty(txtNomina.getText().toString()) || TextUtils.isEmpty(txtNombre.getText().toString()) || TextUtils.isEmpty(txtAPaterno.getText().toString())) {
@@ -194,7 +181,7 @@ public class AgregarEditarPersonal extends Activity {
                     personalTO.setFechaRegistro(fecha);
                     personalTO.setNominaRegistro(LoginActivity.personalTO.getNomina());
                     personalTO.setTipoEmpleado((int) sprTipoEmpleado.getSelectedItemId());
-                    resultadoGuardar = personalBussines.guardar(getApplicationContext(), personalTO, flgEditar);
+                    resultadoGuardar = personalBussines.guardar(personalTO, flgEditar);
                     if (resultadoGuardar) {
                         Toast.makeText(getApplicationContext(), "El usuario con nómina: " + personalTO.getNomina() + " se ha guardado correctamente.", Toast.LENGTH_SHORT).show();
                         onCleanForm();
@@ -214,14 +201,11 @@ public class AgregarEditarPersonal extends Activity {
     }
 
     private boolean verificarPipa(Integer pipa, Integer tipoEmpleado){
-        Cursor resgistroChoferAyudante = pipasBussines.buscarChoferAyudanteByNoPipa(getApplicationContext(), pipa);
+        Cursor resgistroChoferAyudante = pipasBussines.buscarChoferAyudanteByNoPipa(pipa);
         if (resgistroChoferAyudante.moveToFirst()) {
             do {
                 if (tipoEmpleado == resgistroChoferAyudante.getInt(8)) {
-                    if (flgEditar && tipoEmpleadoInicial == resgistroChoferAyudante.getInt(8)) {
-                        return true;
-                    }
-                    return false;
+                    return flgEditar && tipoEmpleadoInicial == resgistroChoferAyudante.getInt(8);
                 }
             } while (resgistroChoferAyudante.moveToNext());
         }

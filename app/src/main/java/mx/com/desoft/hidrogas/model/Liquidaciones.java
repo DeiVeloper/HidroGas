@@ -1,10 +1,7 @@
 package mx.com.desoft.hidrogas.model;
 
-/**
- * Created by carlosdavid.castro on 26/12/2016.
- */
-
 public class Liquidaciones {
+
     private Integer idLiquidacion;
     private String  nominaChofer;
     private String  nominaAyudante;

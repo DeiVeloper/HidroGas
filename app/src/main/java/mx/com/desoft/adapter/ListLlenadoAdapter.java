@@ -7,16 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import mx.com.desoft.hidrogas.R;
 import mx.com.desoft.hidrogas.to.LlenadoTO;
-
-/**
- * Created by David on 04/01/17.
- */
+import mx.com.desoft.utils.Utils;
 
 public class ListLlenadoAdapter extends BaseAdapter{
 
@@ -47,17 +42,15 @@ public class ListLlenadoAdapter extends BaseAdapter{
 
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
+            Utils utils = new Utils();
             View v = convertView;
-            // View Holder Pattern
-            ViewHolder holder = null;
+            ViewHolder holder;
 
             if (v == null) {
-                // Inflamos la vista que nos ha llegado con nuestro layout personalizado
                 LayoutInflater layoutInflater = LayoutInflater.from(context);
                 v = layoutInflater.inflate(layout, null);
 
                 holder = new ViewHolder();
-                // Referenciamos el elemento a modificar y lo rellenamos
                 holder.textViewPipar = (TextView) v.findViewById(R.id.txtReportePipa);
                 holder.textViewFechaRegistro = (TextView) v.findViewById(R.id.txtReporteFechaRegistro);
                 holder.textViewVariacion = (TextView) v.findViewById(R.id.txtReporteVariacion);
@@ -68,31 +61,22 @@ public class ListLlenadoAdapter extends BaseAdapter{
                 holder = (ViewHolder) v.getTag();
             }
 
-            // Nos traemos el valor actual dependiente de la posición
             String noPipa = lista.get(position).getNoPipa().toString();
-            String fechaRegistro = convertirFecha(lista.get(position).getFechaRegistro());
+            String fechaRegistro = utils.convertirFecha(lista.get(position).getFechaRegistro());
             String variacion = lista.get(position).getVariacion().toString();
             String porcentajeVariacion = lista.get(position).getPorcentajeVariacion().toString();
-            String clave = lista.get(position).getClave() != null ? lista.get(position).getClave().toString() : "";
+            String clave = lista.get(position).getClave() != null ? lista.get(position).getClave() : "";
 
-            // Referenciamos el elemento a modificar y lo rellenamos
             holder.textViewPipar.setText(noPipa);
             holder.textViewFechaRegistro.setText(fechaRegistro);
             holder.textViewVariacion.setText(variacion);
             holder.textViewPorcentajeVariacion.setText(porcentajeVariacion);
             holder.textViewClave.setText(clave);
 
-            // devolvemos la vista inflada y modificada con nuestros datos
             return v;
         }
 
-        private String convertirFecha(Long fechaLong){
-            Date date=new Date(fechaLong);
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            return formato.format(date);
-        }
-
-        static class ViewHolder {
+        private static class ViewHolder {
             private TextView textViewPipar;
             private TextView textViewFechaRegistro;
             private TextView textViewVariacion;

@@ -1,10 +1,10 @@
 package mx.com.desoft.hidrogas;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,19 +23,12 @@ import java.util.Date;
 import java.util.List;
 
 import mx.com.desoft.adapter.ListLlenadoAdapter;
-import mx.com.desoft.hidrogas.bussines.LiquidacionBussines;
 import mx.com.desoft.hidrogas.bussines.ReporteUnidadesBussines;
 import mx.com.desoft.hidrogas.to.LlenadoTO;
-
-/**
- * Created by David on 03/12/16.
- */
 
 public class TapReportes extends Fragment{
 
     private TextView labelFechaBusqueda;
-    private Button btnBuscar,btnExportarExcel;
-    private ImageButton btnFechaBusqueda;
     private ListView listView;
     private ViewGroup view;
     private ReporteUnidadesBussines reporteUnidadesBussines;
@@ -50,17 +43,17 @@ public class TapReportes extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = (ViewGroup) inflater.inflate(R.layout.activity_reportes, container, false);
 
-        btnBuscar = (Button) view.findViewById(R.id.btnBuscar);
-        btnExportarExcel = (Button) view.findViewById(R.id.btnExportarExcel);
+        Button btnBuscar = (Button) view.findViewById(R.id.btnBuscar);
+        Button btnExportarExcel = (Button) view.findViewById(R.id.btnExportarExcel);
         labelFechaBusqueda = (TextView) view.findViewById(R.id.labelFechaBusqueda);
-        btnFechaBusqueda = (ImageButton) view.findViewById(R.id.btnFechaBusqueda);
+        ImageButton btnFechaBusqueda = (ImageButton) view.findViewById(R.id.btnFechaBusqueda);
 
 
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             if (!TextUtils.isEmpty(labelFechaBusqueda.getText().toString())){
-                reporteUnidadesBussines = new ReporteUnidadesBussines(view.getContext());
+                reporteUnidadesBussines = new ReporteUnidadesBussines();
                 listaLlenado = reporteUnidadesBussines.getUnidadLlenadoByFecha(fechaBusqueda);
                 if (!listaLlenado.isEmpty()){
 
@@ -84,13 +77,13 @@ public class TapReportes extends Fragment{
                 try {
                     if (listaLlenado.size() > 0){
                         String ruta = reportes.excel(view,listaLlenado);
-                        Toast.makeText(view.getContext(), "El reporte se creo en la siguiente ruta: " + ruta, Toast.LENGTH_LONG).show();
+                        Toast.makeText(view.getContext(), "Se genero el reporte con éxito", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(view.getContext(), "No existe información para exportar, favor de validar", Toast.LENGTH_LONG).show();
                     }
 
                 }catch (Exception  e)   {
-                    Log.d("Error " + e.getStackTrace()," , Mensaje "+ e.getMessage());
+                    e.getStackTrace();
                     Toast.makeText(view.getContext(), "No se pudo crear al excel, favor de contactar al Administrador", Toast.LENGTH_LONG).show();
                 }
             }
@@ -118,6 +111,7 @@ public class TapReportes extends Fragment{
                 }
             };
 
+    @SuppressLint("SimpleDateFormat")
     private void showDate(int year, int month, int day) {
         calendar.set(year, month, day);
         Date fecha = null;
@@ -127,7 +121,7 @@ public class TapReportes extends Fragment{
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        fechaBusqueda = fecha.getTime();
+        fechaBusqueda = fecha != null ? fecha.getTime() : 0;
         labelFechaBusqueda.setText(formato.format(fecha));
     }
 

@@ -22,7 +22,7 @@
         </ImageView>
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/usuario"
             android:layout_width="300dp"
             android:gravity="center"
             android:layout_gravity="center"

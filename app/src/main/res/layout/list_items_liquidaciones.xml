@@ -8,21 +8,23 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:stretchColumns="0,1"
+        android:stretchColumns="0,1,2"
         android:collapseColumns="50dp">
         <TableRow >
             <TextView
                 android:id="@+id/txtFolioLiquidacion"
                 android:layout_height="wrap_content" android:textSize="30dp"
+                android:layout_width="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
             <TextView
-                android:id="@+id/txtFechaLiquidacion" android:layout_width="350dp"
+                android:id="@+id/txtFechaLiquidacion" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:textSize="30dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 />
             <TextView
                 android:id="@+id/txtPipaLiquidacion" android:textSize="30dp"
                 android:layout_height="wrap_content"
+                android:layout_width="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </TableRow>
     </TableLayout>

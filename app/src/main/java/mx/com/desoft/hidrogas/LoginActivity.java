@@ -1,13 +1,9 @@
 package mx.com.desoft.hidrogas;
 
-/**
- * Created by David on 30/11/16.
- */
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteConstraintException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -23,20 +19,18 @@ import mx.com.desoft.hidrogas.to.PersonalTO;
 public class LoginActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
-    AdminSQLiteOpenHelper dataBase;
-
     private EditText editTextUsuario;
     private EditText editTextPassword;
     private Button btnLogin;
     private PersonalBussines  personalBussines = new PersonalBussines();
     public static PersonalTO personalTO;
+    public static SQLiteDatabase conexion;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        dataBase  =new AdminSQLiteOpenHelper(this.getApplicationContext());
-        dataBase.addContact("130191","Dc13#");
+        this.getBase(getApplicationContext());
         bindUI();
         preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         setCredentialsIfExist();
@@ -49,9 +43,9 @@ public class LoginActivity extends AppCompatActivity {
                     goToMain();
                     saveOnPreferences(usuario.toString(),password);
                     Toast.makeText(getApplication(), "Bienvenido "+personalTO.getNombre()+" "+personalTO.getApellidoPaterno()+" "+personalTO.getApellidoMaterno(), Toast.LENGTH_SHORT).show();
-                    }   else    {
-                        Toast.makeText(getApplication(), "Usuario y/o contraseña incorrectos, favor de validar", Toast.LENGTH_LONG).show();
-                    }
+                }   else    {
+                    Toast.makeText(getApplication(), "Usuario y/o contraseña incorrectos, favor de validar", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -69,13 +63,12 @@ public class LoginActivity extends AppCompatActivity {
         String password = preferences.getString("password", "");
         if (!TextUtils.isEmpty(usuario) && !TextUtils.isEmpty(password)) {
             editTextUsuario.setText(usuario);
-            //editTextPassword.setText(password);
         }
     }
 
     private void bindUI(){
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        editTextUsuario = (EditText) findViewById(R.id.email);
+        editTextUsuario = (EditText) findViewById(R.id.usuario);
         editTextPassword = (EditText) findViewById(R.id.password);
     }
 
@@ -96,10 +89,15 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return getUsarioLogin(Integer.valueOf(usuario), password);
-    };
+    }
 
     private boolean getUsarioLogin(Integer usuario, String password){
-        personalTO = personalBussines.getUserDataBase(getApplication(), usuario, password);
-        return personalTO != null ?  true : false;
+        personalTO = personalBussines.getUserDataBase(usuario, password);
+        return personalTO != null;
+    }
+
+    private void getBase(Context context) {
+        AdminSQLiteOpenHelper baseDatos = new AdminSQLiteOpenHelper(context);
+        conexion = baseDatos.getWritableDatabase();
     }
 }

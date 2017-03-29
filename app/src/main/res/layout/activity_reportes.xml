@@ -36,7 +36,7 @@
                 android:layout_width="50dp"
                 android:layout_height="45dp"
                 android:background="#FFFFFF"
-                android:src="@drawable/calendario"
+                android:src="@mipmap/calendario"
                 android:id="@+id/btnFechaBusqueda" />
 
             <TextView

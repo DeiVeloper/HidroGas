@@ -1,9 +1,5 @@
 package mx.com.desoft.hidrogas.model;
 
-/**
- * Created by David on 14/12/16.
- */
-
 public class Empleado {
     private String nominaEmpleado;
     private String nombre;

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +38,8 @@ import mx.com.desoft.hidrogas.to.LiquidacionesTO;
  */
 
 public class ListaLiquidaciones extends Fragment {
-    private Button btnBuscar, btnFechaBusqueda;
+    private Button btnBuscar;
+    private ImageButton btnFechaBusqueda;
     private EditText txtFolioLiquidacion, txtNoNomina;
     private TextView labelFechaBusqueda;
     private ViewGroup viewGroup;
@@ -60,7 +63,7 @@ public class ListaLiquidaciones extends Fragment {
         labelFechaBusqueda = (TextView) viewGroup.findViewById(R.id.labelFechaBusqueda);
         txtFolioLiquidacion = (EditText)viewGroup.findViewById(R.id.txtFolioLiquidacionBusqueda);
         btnBuscar = (Button)viewGroup.findViewById(R.id.btnBuscar);
-        btnFechaBusqueda = (Button) viewGroup.findViewById(R.id.btnFechaBusqueda);
+        btnFechaBusqueda = (ImageButton) viewGroup.findViewById(R.id.btnFechaBusqueda2);
     }
 
     private void cargarEventos() {
@@ -84,7 +87,7 @@ public class ListaLiquidaciones extends Fragment {
     public void buscar() {
         //try {
         if (!TextUtils.isEmpty(labelFechaBusqueda.getText().toString())){
-            reporteUnidadesBussines = new ReporteUnidadesBussines(viewGroup.getContext());
+            reporteUnidadesBussines = new ReporteUnidadesBussines();
             listaLiquidaciones = reporteUnidadesBussines.getAllLiquidacionesByFecha(fechaBusqueda);
             if (!listaLiquidaciones.isEmpty()){
                 listAdapter = new AdapterLiquidaciones(viewGroup.getContext(),R.layout.list_items_liquidaciones, listaLiquidaciones);
@@ -121,7 +124,7 @@ public class ListaLiquidaciones extends Fragment {
                 dialogo1.setCancelable(false);
                 dialogo1.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
-                        reporteUnidadesBussines.eliminarLiquidacion(viewGroup.getContext(), listaLiquidaciones.get(adapterContextMenuInfo.position));
+                        reporteUnidadesBussines.eliminarLiquidacion( listaLiquidaciones.get(adapterContextMenuInfo.position));
                         Toast.makeText(viewGroup.getContext(), "La liquidación con Folio: " + listaLiquidaciones.get(adapterContextMenuInfo.position).getIdLiquidacion() + " se ha eliminado correctamente", Toast.LENGTH_SHORT).show();
                         listaLiquidaciones.remove(adapterContextMenuInfo.position);
                         listAdapter.notifyDataSetChanged();
@@ -134,11 +137,9 @@ public class ListaLiquidaciones extends Fragment {
                 dialogo1.show();
                 return true;
             case R.id.editarLiquidacion:
-                Intent accion = new Intent (viewGroup.getContext(), AgregarEditarPersonal.class);
-                accion.putExtra("viewpager_position", 4);
+                Intent accion = new Intent (viewGroup.getContext(), MainActivity.class);
+                accion.putExtra("viewpager_position", 0);
                 accion.putExtra("folio", listaLiquidaciones.get(adapterContextMenuInfo.position).getIdLiquidacion());
-                accion.putExtra("fecha", listaLiquidaciones.get(adapterContextMenuInfo.position).getFechaRegistro());
-                accion.putExtra("pipa", listaLiquidaciones.get(adapterContextMenuInfo.position).getNoPipa());
                 chargePage(accion);
                 return true;
             default:

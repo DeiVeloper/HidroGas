@@ -61,4 +61,5 @@ public class ViajesTO {
     public void setTotalizadorFinal(Integer totalizadorFinal) {
         this.totalizadorFinal = totalizadorFinal;
     }
+
 }

@@ -1,9 +1,7 @@
 package mx.com.desoft.hidrogas;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,18 +12,13 @@ import android.widget.Toast;
 
 import java.util.Date;
 
-import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
 import mx.com.desoft.hidrogas.bussines.PipasBussines;
 import mx.com.desoft.hidrogas.to.PipasTO;
 import mx.com.desoft.utils.Utils;
 
-/**
- * Created by erick.martinez on 25/11/2016.
- */
-
 public class LlenarPipa extends Activity {
     private EditText txtPorcentaje;
-    private TextView txtNoPipa, txtFecha;
+    private TextView txtNoPipa;
     private Button btnCancelar, btnGuardar;
     private Long fecha;
     private Bundle bundle;
@@ -33,8 +26,6 @@ public class LlenarPipa extends Activity {
     private PipasBussines pipasBussines;
     private Integer idPipa;
 	private Utils utils;
-    private static AdminSQLiteOpenHelper baseDatos;
-    private SQLiteDatabase bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,20 +37,17 @@ public class LlenarPipa extends Activity {
         bundle = getIntent().getExtras();
         inicializarComponentes();
         cargarEventos();
-        this.getBase(getApplicationContext());
     }
 
     private void inicializarComponentes() {
-        txtFecha = (TextView)findViewById(R.id.lblFecha);
+        TextView txtFecha = (TextView) findViewById(R.id.lblFecha);
         txtNoPipa = (TextView)findViewById(R.id.txtEconomico);
         txtPorcentaje = (EditText)findViewById(R.id.txtPorcentaje);
         txtFecha.setText(utils.consultaFechaString(new Date(), "dd/MM/yyyy"));
         fecha = utils.consultaFechaLong(new Date(), "dd/MM/yyyy");
-
-        //obtener datos que se pasaron en el Intent para llenar
         if(bundle != null) {
             if (bundle.containsKey("idPipa")){
-                idPipa = Integer.parseInt(bundle.getString("idPipa").toString());
+                idPipa = Integer.parseInt(bundle.getString("idPipa"));
             }
             if (bundle.containsKey("noPipa")) {
                 txtNoPipa.setText(bundle.getString("noPipa"));
@@ -78,7 +66,6 @@ public class LlenarPipa extends Activity {
             @Override
             public void onClick(View view) {
                 returnTab(2);
-                //onBackPressed();
             }
         });
         btnGuardar.setOnClickListener(new View.OnClickListener() {
@@ -105,12 +92,11 @@ public class LlenarPipa extends Activity {
                     pipasTO.setPorcentajeLlenado(Integer.parseInt(txtPorcentaje.getText().toString()));
                     pipasTO.setFechaRegistro(fecha);
                     pipasTO.setNominaRegistro(LoginActivity.personalTO.getNomina());
-                    pipasBussines.llenar(getApplicationContext(), pipasTO,bd);
+                    pipasBussines.llenar(pipasTO);
                     Toast.makeText(getApplicationContext(), "La pipa número: " + pipasTO.getNoPipa() + " se ha llenado correctamente." + pipasTO.getPorcentajeLlenado(), Toast.LENGTH_SHORT).show();
                     return true;
                 }
             }
-
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Ha ocurrido un error al llenar la pipa.", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
@@ -124,9 +110,4 @@ public class LlenarPipa extends Activity {
         startActivity(go);
     }
 
-    private SQLiteDatabase getBase(Context context) {
-        baseDatos = new AdminSQLiteOpenHelper(context);
-        bd = baseDatos.getWritableDatabase();
-        return bd;
-    }
 }
