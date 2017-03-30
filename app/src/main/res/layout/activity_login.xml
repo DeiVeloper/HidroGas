@@ -53,6 +53,18 @@
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
 
+        <CheckBox
+            android:id="@+id/recordarme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="30dp"
+            android:padding="15dp"
+            android:textSize="15dp"
+            android:textColor="@color/textColorPrimary"
+            android:text="Recordarme" />
+
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="300dp"
