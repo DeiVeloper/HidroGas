@@ -39,13 +39,14 @@ public class ReporteUnidadesBussines {
     }
 
     @SuppressLint("Recycle")
-    public ArrayList<LiquidacionesTO> getAllLiquidacionesByFecha(Long fechaBusqueda){
+    public ArrayList<LiquidacionesTO> getAllLiquidacionesByFecha(Long fechaBusqueda, int folioBusqueda){
         ArrayList<LiquidacionesTO> lista = new ArrayList<>();
         String selectQuery = "    SELECT  liquidacion.idLiquidacion, liquidacion.fechaRegistro, pipa.noPipa " +
                 "    FROM    Liquidacion liquidacion, " +
                 "            Pipas pipa " +
                 "    WHERE   liquidacion.idPipa = pipa.idPipa" +
-                "    AND     liquidacion.fechaRegistro = " + fechaBusqueda;
+                (fechaBusqueda == 0 ? "" : " AND liquidacion.fechaRegistro = " + fechaBusqueda)+
+                (folioBusqueda == 0 ? "" : " AND liquidacion.idLiquidacion = " + folioBusqueda);
 
         Cursor cursor = LoginActivity.conexion.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
