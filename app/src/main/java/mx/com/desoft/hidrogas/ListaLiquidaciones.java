@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -33,14 +32,11 @@ import mx.com.desoft.adapter.AdapterLiquidaciones;
 import mx.com.desoft.hidrogas.bussines.ReporteUnidadesBussines;
 import mx.com.desoft.hidrogas.to.LiquidacionesTO;
 
-/**
- * Created by erick.martinez on 27/03/2017.
- */
 
 public class ListaLiquidaciones extends Fragment {
     private Button btnBuscar;
     private ImageButton btnFechaBusqueda;
-    private EditText txtFolioLiquidacion, txtNoNomina;
+    private EditText txtFolioLiquidacion;
     private TextView labelFechaBusqueda;
     private ViewGroup viewGroup;
     private int year, month, day;
@@ -48,7 +44,7 @@ public class ListaLiquidaciones extends Fragment {
     private Long fechaBusqueda;
     private ReporteUnidadesBussines reporteUnidadesBussines;
     private ArrayList<LiquidacionesTO> listaLiquidaciones = new ArrayList<>();
-    private ListView listViewLiquidaciones;
+    private ListView listViewLiquidations;
     private AdapterLiquidaciones listAdapter;
 
 
@@ -64,6 +60,7 @@ public class ListaLiquidaciones extends Fragment {
         txtFolioLiquidacion = (EditText)viewGroup.findViewById(R.id.txtFolioLiquidacionBusqueda);
         btnBuscar = (Button)viewGroup.findViewById(R.id.btnBuscar);
         btnFechaBusqueda = (ImageButton) viewGroup.findViewById(R.id.btnFechaBusqueda2);
+        listViewLiquidations = (ListView) viewGroup.findViewById(R.id.lstLiquidaciones);
     }
 
     private void cargarEventos() {
@@ -86,21 +83,23 @@ public class ListaLiquidaciones extends Fragment {
 
     public void buscar() {
         //try {
-        if (!TextUtils.isEmpty(labelFechaBusqueda.getText().toString())){
             reporteUnidadesBussines = new ReporteUnidadesBussines();
-            listaLiquidaciones = reporteUnidadesBussines.getAllLiquidacionesByFecha(fechaBusqueda);
+            if (TextUtils.isEmpty(labelFechaBusqueda.getText().toString())){
+                fechaBusqueda = 0L;
+            }
+            Integer liquidacion = 0;
+            if (!TextUtils.isEmpty(txtFolioLiquidacion.getText().toString())){
+                liquidacion = Integer.parseInt (txtFolioLiquidacion.getText().toString());
+            }
+            listaLiquidaciones = reporteUnidadesBussines.getAllLiquidacionesByFecha(fechaBusqueda, liquidacion);
             if (!listaLiquidaciones.isEmpty()){
                 listAdapter = new AdapterLiquidaciones(viewGroup.getContext(),R.layout.list_items_liquidaciones, listaLiquidaciones);
-                listViewLiquidaciones = (ListView) viewGroup.findViewById(R.id.lstLiquidaciones);
-                listViewLiquidaciones.setItemsCanFocus(false);
-                listViewLiquidaciones.setAdapter(listAdapter);
-                registerForContextMenu(listViewLiquidaciones);
+                listViewLiquidations.setItemsCanFocus(false);
+                listViewLiquidations.setAdapter(listAdapter);
+                registerForContextMenu(listViewLiquidations);
             }   else    {
                 Toast.makeText(viewGroup.getContext(), "No existen registros asociados a su busqueda.", Toast.LENGTH_LONG).show();
             }
-        }   else    {
-            Toast.makeText(viewGroup.getContext(), "El campo de fecha es requerido , favor de seleccionar una fecha.", Toast.LENGTH_LONG).show();
-        }
         /*} catch (Exception e) {
             Toast.makeText(viewGroup.getContext(), "Ha ocurrido un error al realizar la búsqueda, Intente nuevamente por favor.", Toast.LENGTH_SHORT).show();
         }*/
@@ -169,7 +168,7 @@ public class ListaLiquidaciones extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        fechaBusqueda = fecha.getTime();
+        fechaBusqueda = fecha != null ? fecha.getTime() : 0;
         labelFechaBusqueda.setText(formato.format(fecha));
     }
 
