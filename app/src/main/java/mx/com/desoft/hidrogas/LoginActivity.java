@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,9 +19,10 @@ import mx.com.desoft.hidrogas.to.PersonalTO;
 
 public class LoginActivity extends AppCompatActivity {
 
-    SharedPreferences preferences;
+    private SharedPreferences preferences;
     private EditText editTextUsuario;
     private EditText editTextPassword;
+    private CheckBox checkBox;
     private Button btnLogin;
     private PersonalBussines  personalBussines = new PersonalBussines();
     public static PersonalTO personalTO;
@@ -48,14 +50,15 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void saveOnPreferences(String usuario, String password){
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("usuario", usuario);// Usuario que se enceuntra en la base de datos y es administrador
-        editor.putString("password", password); // contraseña del usuario logueado
-        editor.apply();
+        if (checkBox.isChecked())   {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("usuario", usuario);
+            editor.putString("password", password);
+            editor.apply();
+        }
     }
 
     private void setCredentialsIfExist(){
@@ -70,10 +73,11 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btnLogin);
         editTextUsuario = (EditText) findViewById(R.id.usuario);
         editTextPassword = (EditText) findViewById(R.id.password);
+        checkBox = (CheckBox) findViewById(R.id.recordarme);
     }
 
     private void goToMain(){
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
@@ -82,12 +86,10 @@ public class LoginActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(usuario)){
             Toast.makeText(this, "Favor de capturar un nombre de Usuario", Toast.LENGTH_LONG).show();
             return false;
-
         }   else if(TextUtils.isEmpty(password)){
             Toast.makeText(this, "Favor de capturar su Contraseña", Toast.LENGTH_LONG).show();
             return false;
         }
-
         return getUsarioLogin(Integer.valueOf(usuario), password);
     }
 
