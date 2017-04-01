@@ -1,86 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
 
     <ListView
         android:id="@+id/listViewBusquedaVariacion"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/titulo" />
 
     <TableLayout
         android:id="@+id/titulo"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="0,1,2"
+        android:stretchColumns="0,1,2,3"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
-        <TableRow
-            android:background="@color/ColorPrimary">
+        <TableRow android:background="@color/ColorPrimary">
 
             <TextView
                 android:layout_column="0"
                 android:text="Busqueda de Unidades con Alertas"
-                android:textSize="20dp"
-                android:layout_span="4"
+                android:textSize="25dp"
+                android:layout_span="5"
                 android:textAlignment="center"
                 android:layout_gravity="center"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:id="@+id/textView6" />
         </TableRow>
         <TableRow >
 
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="45dp"
-                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_column="0"
+                android:scaleType="centerInside"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:textColor="@android:color/white"
                 android:src="@mipmap/calendario"
                 android:id="@+id/btnFechaBusqueda" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_gravity="center"
-                android:textSize="25dp"
+                android:textSize="15dp"
                 android:id="@+id/labelFechaBusqueda" />
 
             <Button
                 android:id="@+id/btnBuscar"
-                android:layout_column="2"
-                android:layout_width="20dp"
+                android:layout_column="3"
+                android:layout_width="match_parent"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:text="Buscar"
-                android:layout_toRightOf="@+id/editFechaBusqueda"/>
+                android:background="#dca951"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"/>
 
             <Button
                 android:id="@+id/btnExportarExcel"
-                android:layout_width="96dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Exportar"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-        </TableRow>
-        <TableRow android:background="@color/ColorPrimary">
-
-            <TextView
-                android:id="@+id/listado"
-                android:layout_column="0"
-                android:text="Listado de Pipas"
-                android:layout_span="4"
-                android:textAlignment="center"
+                android:layout_column="4"
                 android:layout_gravity="center"
-                android:textSize="20dp"
-                android:textColor="@android:color/white" />
+                android:background="#dca951"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"
+                />
+
         </TableRow>
+
         <TableRow android:background="@color/ColorPrimary">
             <TextView
-
+                android:layout_column="0"
                 android:text="No. Pipa"
                 android:textSize="15dp"
                 android:layout_gravity="center"
@@ -88,7 +86,7 @@
                 android:textColor="@android:color/white" />
 
             <TextView
-
+                android:layout_column="1"
                 android:text="Fecha Registro"
                 android:textSize="15dp"
                 android:layout_gravity="center"
@@ -96,7 +94,7 @@
                 android:textColor="@android:color/white" />
 
             <TextView
-
+                android:layout_column="2"
                 android:text="Variación"
                 android:textSize="15dp"
                 android:layout_gravity="center"
@@ -104,7 +102,7 @@
                 android:textColor="@android:color/white" />
 
             <TextView
-
+                android:layout_column="3"
                 android:text="% Variación"
                 android:textSize="15dp"
                 android:layout_gravity="center"
@@ -112,13 +110,12 @@
                 android:textColor="@android:color/white" />
 
             <TextView
-
+                android:layout_column="1"
                 android:text="Clave"
                 android:textSize="15dp"
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 android:textColor="@android:color/white" />
-
 
         </TableRow>
 

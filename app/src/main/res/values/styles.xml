@@ -74,4 +74,8 @@
         <item name="textAllCaps">true</item>
     </style>
 
+    <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:background">@drawable/splash</item>
+    </style>
+
 </resources>

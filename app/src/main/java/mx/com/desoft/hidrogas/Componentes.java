@@ -243,7 +243,7 @@ class Componentes  {
         return traspasosRecibidos;
     }
 
-    private EditText getTraspasosRealizados() {
+    EditText getTraspasosRealizados() {
         return traspasosRealizados;
     }
 

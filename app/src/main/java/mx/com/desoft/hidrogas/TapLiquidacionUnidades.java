@@ -51,6 +51,7 @@ public class TapLiquidacionUnidades extends Fragment{
     private Componentes componentes;
     private Utils utils;
     private Bundle bundle;
+    private LiquidacionesTO liquidacion;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,7 +84,9 @@ public class TapLiquidacionUnidades extends Fragment{
                             if (!TextUtils.isEmpty(componentes.getEconomico().getText().toString())) {
                                 pipa = unidadesBussines.getCapacidadPipa(Integer.parseInt(componentes.getEconomico().getText().toString()));
                             }
-                            porcentajeLlenado = pipasBussines.getCapacidadDiaAnteriorPipa(idPipa);
+                            if(bundle == null){
+                                porcentajeLlenado = pipasBussines.getCapacidadDiaAnteriorPipa(idPipa);
+                            }
                             List<ViajesTO> listaViajes = liquidacionBussines.getPorcentajeInicialAnterior(idPipa);
                             setEmpleadosPipa(listaPersonal);
                             setViajesVista(listaViajes);
@@ -128,10 +131,13 @@ public class TapLiquidacionUnidades extends Fragment{
             public void onClick(View view) {
                 if (validarLiquidacion()) {
                     calcularVariacion();
-                    utils.getFechaActual();
                     setLiquidacion();
                     setViajes();
-                    idLiquidacion = liquidacionBussines.guardarLiquidacion(liquidacionesTO, viajesTO);
+                    if (bundle != null && bundle.getBoolean("bandera")) {
+                        liquidacionesTO.setIdLiquidacion(liquidacion.getIdLiquidacion());
+                    }
+                    Toast.makeText(viewGroup.getContext(), "Se guardaron los datos con éxito.", Toast.LENGTH_LONG).show();
+                    idLiquidacion = liquidacionBussines.guardarLiquidacion(liquidacionesTO, viajesTO, bundle);
                     componentes.getFolio().setText("Folio: " + idLiquidacion.toString());
                     componentes.getImprimir().setEnabled(true);
                     Toast.makeText(viewGroup.getContext(), "Se guardaron los datos con éxito.", Toast.LENGTH_LONG).show();
@@ -231,6 +237,19 @@ public class TapLiquidacionUnidades extends Fragment{
         liquidacionesTO.setPorcentajeVariacion(Float.valueOf(componentes.getPorcentajeVariacion().getText().toString()));
         liquidacionesTO.setClave(componentes.getClave().getText().toString());
         liquidacionesTO.setEconomico(componentes.getEconomico().getText().toString());
+
+        liquidacionesTO.setAutoconsumo(TextUtils.isEmpty(componentes.getAutoconsumo().getText().toString()) ? null :
+                Integer.parseInt(componentes.getAutoconsumo().getText().toString()));
+
+        liquidacionesTO.setMedidores(TextUtils.isEmpty(componentes.getMedidores().getText().toString()) ? null :
+                Integer.parseInt(componentes.getMedidores().getText().toString()));
+
+        liquidacionesTO.setTraspasosRecibidos(TextUtils.isEmpty(componentes.getTraspasosRecibidos().getText().toString()) ? null :
+                Integer.parseInt(componentes.getTraspasosRecibidos().getText().toString()));
+
+        liquidacionesTO.setTraspasosRealizados(TextUtils.isEmpty(componentes.getTraspasosRealizados().getText().toString()) ? null :
+                Integer.parseInt(componentes.getTraspasosRealizados().getText().toString()));
+
         if (variacion < 0 || variacion >2){
             liquidacionesTO.setVariacion(variacion.intValue());
             liquidacionesTO.setAlerta(1);
@@ -292,7 +311,10 @@ public class TapLiquidacionUnidades extends Fragment{
                 if(viajes.getTotalizadorFinal() != 0){
                     componentes.getTotalizadorInicial1().setText(viajes.getTotalizadorFinal().toString());
                 }else{
-                    componentes.getTotalizadorInicial1().setText("");
+                    if(bundle == null){
+                        componentes.getTotalizadorInicial1().setText("");
+                    }
+
                 }
             }
         }
@@ -344,16 +366,51 @@ public class TapLiquidacionUnidades extends Fragment{
     }
 
     private void editarLiquidacion(){
+        int  cont = 0;
         bundle = getActivity().getIntent().getExtras();
-        if (bundle != null){
-            componentes.getGuardar().setText("Actualizar");
-            LiquidacionesTO liquidacion = liquidacionBussines.getLiquidacionByIdLiquidacion(bundle.getInt("folio"));
+        if (bundle != null && bundle.getBoolean("bandera")){
+            liquidacion = liquidacionBussines.getLiquidacionByIdLiquidacion(bundle.getInt("folio"));
+
+            Toast.makeText(viewGroup.getContext(),"Favor de seleccionar una Ruta." + liquidacion.getIdLiquidacion(), Toast.LENGTH_LONG).show();
             componentes.getEconomico().setText(liquidacion.getEconomico());
             componentes.getSpinner().setSelection(liquidacion.getNoPipa());
             componentes.getChofer().setText(liquidacion.getNominaChofer());
             componentes.getAyudante().setText(liquidacion.getNominaAyudante());
             componentes.getNombreChofer().setText(liquidacion.getChofer());
             componentes.getNombreAyudante().setText(liquidacion.getAyudante());
+
+            if (liquidacion.getAutoconsumo() != null) {
+                componentes.getAutoconsumo().setText(liquidacion.getAutoconsumo());
+            }
+            if (liquidacion.getMedidores() != null){
+                componentes.getMedidores().setText(liquidacion.getAutoconsumo());
+            }
+            if (liquidacion.getTraspasosRecibidos() != null){
+                componentes.getTraspasosRecibidos().setText(liquidacion.getTraspasosRecibidos());
+            }
+            if (liquidacion.getTraspasosRealizados() != null){
+                componentes.getTraspasosRealizados().setText(liquidacion.getTraspasosRealizados());
+            }
+
+            for (ViajesTO viajes: liquidacion.getViajes()) {
+                if(cont == 0){
+                    componentes.getSalida1().setText(viajes.getPorcentajeInicial().toString());
+                    componentes.getLlegada1().setText(viajes.getPorcentajeFinal().toString());
+                    componentes.getTotalizadorInicial1().setText(viajes.getTotalizadorInicial().toString());
+                    componentes.getTotalizadorFinal1().setText(viajes.getTotalizadorFinal().toString());
+                }else if(cont == 1) {
+                    componentes.getSalida2().setText(viajes.getPorcentajeInicial().toString());
+                    componentes.getLlegada2().setText(viajes.getPorcentajeFinal().toString());
+                    componentes.getTotalizadorInicial2().setText(viajes.getTotalizadorInicial().toString());
+                    componentes.getTotalizadorFinal2().setText(viajes.getTotalizadorFinal().toString());
+                }else {
+                    componentes.getSalida3().setText(viajes.getPorcentajeInicial().toString());
+                    componentes.getLlegada3().setText(viajes.getPorcentajeFinal().toString());
+                    componentes.getTotalizadorInicial3().setText(viajes.getTotalizadorInicial().toString());
+                    componentes.getTotalizadorFinal3().setText(viajes.getTotalizadorFinal().toString());
+                }
+                cont++;
+            }
         }
     }
 

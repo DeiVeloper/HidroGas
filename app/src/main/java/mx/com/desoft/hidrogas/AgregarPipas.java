@@ -2,6 +2,7 @@ package mx.com.desoft.hidrogas;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -32,6 +33,7 @@ public class AgregarPipas extends Activity {
         fecha = utils.consultaFechaLong(new Date(), "dd/MM/yyyy");
         inicializarComponentes();
         cargarEventos();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
     private void inicializarComponentes() {
@@ -85,7 +87,7 @@ public class AgregarPipas extends Activity {
     }
 
     private void returnTab(int posicion){
-        Intent go = new Intent(getApplicationContext(), MainActivity.class);
+        Intent go = new Intent(this, MainActivity.class);
         go.putExtra("viewpager_position", posicion);
         startActivity(go);
     }

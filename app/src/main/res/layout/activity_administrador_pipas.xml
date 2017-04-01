@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fillViewport="true">
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <Button
         android:id="@+id/btnExportarPipas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Exportar"
-        android:textSize="15dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_below="@+id/lstPipas"
+        android:background="#dca951"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"/>
     <Button
         android:text="Agregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
         android:id="@+id/btnAgregar"
+        android:layout_below="@+id/lstPipas"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/btnExportarPipas"/>
+        android:layout_toLeftOf="@+id/btnExportarPipas"
+        android:layout_gravity="center"
+        android:background="#dca951"
+        android:layout_marginRight="5dp"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"/>
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <TableLayout
         android:id="@+id/tablaPersonal"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="0,1,2,3">
+        android:stretchColumns="0,1,2,3,4,"
+        android:collapseColumns="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <TableRow android:background="@color/ColorPrimary">
             <TextView
@@ -42,59 +51,69 @@
                 android:layout_span="5"
                 android:textColor="@android:color/white" />
         </TableRow>
-
         <TableRow>
             <EditText
                 android:id="@+id/txtPipa"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"
                 android:hint="Económico"
-                android:textSize="20dp"
-                android:inputType="number" />
+                android:textSize="15dp"
+                android:layout_span="2"/>
 
             <Button
                 android:text="Buscar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="right"
                 android:id="@+id/btnBuscar"
-                android:textSize="15dp"
-                android:layout_column="4"
-                android:layout_marginTop="20dp"/>
+                android:layout_span="3"
+                android:gravity="center"
+                android:background="#dca951"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"/>
         </TableRow>
-        <TableRow>
+        <TableRow android:background="@color/ColorPrimary">
             <TextView
                 android:id="@+id/lblPipa"
                 android:text="Pipa"
-                android:textSize="20dp"/>
+                android:textColor="@color/white"
+                android:textSize="15dp"/>
             <TextView
                 android:id="@+id/lblPorcentaje"
                 android:text="% Llenado"
-                android:textSize="20dp" />
+                android:textColor="@color/white"
+                android:textSize="15dp" />
             <TextView
                 android:id="@+id/lblCapacidad"
                 android:text="Capacidad"
-                android:textSize="20dp"/>
-
+                android:textColor="@color/white"
+                android:textSize="15dp"/>
             <TextView
                 android:id="@+id/lblChofer"
+                android:layout_width="wrap_content"
                 android:text="Chofer"
-                android:textSize="20dp"/>
-
+                android:textColor="@color/white"
+                android:textSize="15dp"/>
             <TextView
                 android:id="@+id/lblAyudante"
+                android:layout_width="wrap_content"
                 android:text="Ayudante"
-                android:textSize="20dp"/>
+                android:textColor="@color/white"
+                android:textSize="15dp"/>
         </TableRow>
-        <TableRow>
-            <ListView
-                android:id="@+id/lstPipas"
-                android:layout_span="5"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-            </ListView>
-        </TableRow>
+<TableRow>
+    <ListView
+        android:id="@+id/lstPipas"
+        android:layout_span="5"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/tablaPersonal"
+        android:layout_above="@+id/btnExportarPipas">
+    </ListView>
+</TableRow>
+
+
     </TableLayout>
 
+
 </RelativeLayout>
-</ScrollView>

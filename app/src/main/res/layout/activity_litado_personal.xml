@@ -7,7 +7,8 @@
         android:id="@+id/tablaPersonal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="0,1,2">
+        android:stretchColumns="0,1"
+        android:collapseColumns="50dp">
 
         <TableRow android:background="@color/ColorPrimary">
             <TextView
@@ -23,65 +24,75 @@
         <TableRow >
             <EditText
                 android:id="@+id/txtNoNomina"
-                android:textSize="20dp"
-                android:layout_width="match_parent"
+                android:textSize="15dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:hint="No. de Nómina"
-                android:inputType="number"/>
+                android:hint="No. de Nómina"/>
             <EditText
                 android:id="@+id/txtNombre"
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
                 android:hint="Nombre"
-                android:textSize="20dp" />
+                android:layout_gravity=""
+                android:textSize="15dp" />
 
             <Button
                 android:text="Buscar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="right"
                 android:id="@+id/btnBuscar"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="40dp"
+                android:background="#dca951"
+                android:textColor="@android:color/white"
                 android:textSize="15dp"/>
 
         </TableRow>
-        <TableRow>
+        <TableRow android:background="@color/ColorPrimary">
             <TextView
                 android:id="@+id/lblNomina"
                 android:text="Nómina"
-                android:textSize="20dp"/>
+                android:textColor="@color/white"
+                android:textSize="15dp"/>
             <TextView
                 android:id="@+id/lblNombre"
+                android:layout_width="250dp"
                 android:text="Nombre"
-                android:textSize="20dp"
-                />
+                android:textColor="@color/white"
+                android:textSize="15dp" />
             <TextView
                 android:id="@+id/lblPipa"
                 android:text="Pipa"
-                android:textSize="20dp"/>
+                android:textColor="@color/white"
+                android:textSize="15dp"/>
 
         </TableRow>
         <TableRow>
             <ListView
                 android:id="@+id/lstPersonal"
                 android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:layout_span="3" >
+                android:layout_height="450dp"
+                android:layout_span="3"
+                android:layout_below="@+id/tablaPersonal"
+                android:layout_above="@+id/btnAgregar">
             </ListView>
         </TableRow>
+
     </TableLayout>
+
+
     <Button
         android:text="Agregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:id="@+id/btnAgregar"
+        android:layout_gravity="center"
+        android:background="#dca951"
+        android:textColor="@android:color/white"
         android:textSize="15dp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

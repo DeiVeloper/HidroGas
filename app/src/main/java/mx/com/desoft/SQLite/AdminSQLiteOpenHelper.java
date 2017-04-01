@@ -21,7 +21,8 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREAR_LIQUIDACION = "CREATE TABLE Liquidacion(idLiquidacion INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "nominaChofer TEXT NOT NULL, nominaAyudante TEXT NOT NULL, idPipa INTEGER NOT NULL DEFAULT 0, alerta INTEGER NULL DEFAULT 0, " +
-            "variacion INTEGER NULL DEFAULT 0, fechaRegistro INTEGER NOT NULL, nominaRegistro TEXT NOT NULL, porcentajeVariacion REAL NOT NULL, economico TEXT NOT NULL)";
+            "variacion INTEGER NULL DEFAULT 0, fechaRegistro INTEGER NOT NULL, nominaRegistro TEXT NOT NULL, porcentajeVariacion REAL NOT NULL, " +
+            "economico TEXT NOT NULL, autoconsumo INTEGER NULL, medidores INTEGER NULL, traspasosRecibidos INTEGER NULL, traspasosRealizados INTEGER NULL)";
 
     private static final String SQL_CREAR_LLENADO = "CREATE TABLE Llenado(idLlenado INTEGER PRIMARY KEY AUTOINCREMENT, idPipa INTEGER NOT NULL," +
             "porcentajeLlenado INTEGER NOT NULL, fechaRegistro INTEGER NOT NULL, nominaRegistro TEXT NOT NULL)";

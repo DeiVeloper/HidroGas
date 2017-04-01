@@ -2,6 +2,7 @@ package mx.com.desoft.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,26 +13,27 @@ import java.util.ArrayList;
 
 import mx.com.desoft.hidrogas.R;
 import mx.com.desoft.hidrogas.to.LiquidacionesTO;
+import mx.com.desoft.utils.Utils;
 
-/**
- * Created by erick.martinez on 27/03/2017.
- */
 
 public class AdapterLiquidaciones extends ArrayAdapter<LiquidacionesTO> {
-    Context context;
+    private Context context;
     private int layoutResourceId;
-    ArrayList<LiquidacionesTO> liquidacionesTOs = new ArrayList<LiquidacionesTO>();
-    private LiquidacionesTO liquidacionesTO;
+    private ArrayList<LiquidacionesTO> liquidacionesTOs = new ArrayList<>();
+
     public AdapterLiquidaciones(Context context, int layoutResourceId, ArrayList<LiquidacionesTO> liquidacionesTOs) {
         super(context, layoutResourceId, liquidacionesTOs);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
         this.liquidacionesTOs = liquidacionesTOs;
     }
+
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
+        Utils utils = new Utils();
         View item = convertView;
-        LiquidacionTOWrapper liquidacionTOWrapper = null;
+        LiquidacionTOWrapper liquidacionTOWrapper;
         if (item == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             item = inflater.inflate(layoutResourceId, parent, false);
@@ -43,13 +45,14 @@ public class AdapterLiquidaciones extends ArrayAdapter<LiquidacionesTO> {
         } else {
             liquidacionTOWrapper = (LiquidacionTOWrapper) item.getTag();
         }
-        liquidacionesTO = liquidacionesTOs.get(position);
+        LiquidacionesTO liquidacionesTO = liquidacionesTOs.get(position);
         liquidacionTOWrapper.folio.setText(liquidacionesTO.getIdLiquidacion().toString());
-        liquidacionTOWrapper.fecha.setText(liquidacionesTO.getFechaRegistro().toString());
+        liquidacionTOWrapper.fecha.setText(utils.convertirFecha(liquidacionesTO.getFechaRegistro()));
         liquidacionTOWrapper.pipa.setText(liquidacionesTO.getNoPipa().toString());
         return item;
     }
-    static class LiquidacionTOWrapper {
+
+    private static class LiquidacionTOWrapper {
         TextView folio;
         TextView fecha;
         TextView pipa;

@@ -13,18 +13,19 @@
         <TableRow >
             <TextView
                 android:id="@+id/txtFolioLiquidacion"
-                android:layout_height="wrap_content" android:textSize="30dp"
-                android:layout_width="match_parent"
+                android:textSize="30dp"
+                android:layout_column="0"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
             <TextView
-                android:id="@+id/txtFechaLiquidacion" android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:textSize="30dp"
+                android:id="@+id/txtFechaLiquidacion"
+                android:layout_column="1"
+                android:textSize="30dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 />
             <TextView
-                android:id="@+id/txtPipaLiquidacion" android:textSize="30dp"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
+                android:id="@+id/txtPipaLiquidacion"
+                android:textSize="30dp"
+                android:layout_column="3"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </TableRow>
     </TableLayout>

@@ -6,22 +6,23 @@
     android:fillViewport="true">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
 
         <TableLayout
             android:id="@+id/tablaPersonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:stretchColumns="0,1,2,3,4">
+            android:stretchColumns="0,1,2,3">
 
             <TableRow android:background="@color/ColorPrimary">
                 <TextView
                     android:text="Filtros de Búsqueda"
-                    android:textSize="25dp"
+                    android:textSize="40dp"
                     android:textAlignment="center"
                     android:layout_gravity="center"
-                    android:layout_span="3"
+                    android:layout_span="5"
                     android:textColor="@android:color/white" />
             </TableRow>
 
@@ -30,15 +31,20 @@
                 android:layout_height="match_parent">
                 <EditText
                     android:id="@+id/txtFolioLiquidacionBusqueda"
-                    android:textSize="15dp"
+                    android:textSize="35dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Folio Liquidación"
                     android:inputType="number"/>
 
                 <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_column="0"
+                    android:layout_margin="3dp"
+                    android:scaleType="centerInside"
+                    android:layout_height="60dp"
+                    android:background="@color/white"
+                    android:textColor="@android:color/white"
                     android:src="@mipmap/calendario"
                     android:id="@+id/btnFechaBusqueda2" />
 
@@ -46,37 +52,47 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_column="1"
+                    android:gravity="center"
                     android:layout_gravity="center"
-                    android:textSize="25dp"
+                    android:textSize="35dp"
                     android:id="@+id/labelFechaBusqueda" />
 
                 <Button
                     android:id="@+id/btnBuscar"
                     android:layout_column="2"
-                    android:layout_width="20dp"
+                    android:layout_width="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="Buscar"
-                    android:layout_toRightOf="@+id/editFechaBusqueda"/>
+                    android:background="#dca951"
+                    android:textColor="@android:color/white"
+                    android:textSize="35dp"/>
 
 
 
             </TableRow>
 
-            <TableRow>
+            <TableRow android:background="@color/ColorPrimary">
                 <TextView
                     android:id="@+id/lblFolio"
-                    android:text="Folio" android:textSize="30dp"/>
+                    android:text="Folio"
+                    android:layout_column="0"
+                    android:textColor="@color/white"
+                    android:textSize="35dp"/>
                 <TextView
-                    android:id="@+id/lblFecha" android:layout_width="match_parent"
-                    android:text="Fecha" android:textSize="30dp"
+                    android:id="@+id/lblFecha"
+                    android:layout_width="match_parent"
+                    android:text="Fecha"
+                    android:layout_column="1"
+                    android:textColor="@color/white"
+                    android:textSize="35dp"
                     />
                 <TextView
                     android:id="@+id/lblPipa"
-                    android:text="Pipa" android:textSize="30dp"/>
-                <TextView
-                    android:id="@+id/lblnada"
-                    android:text="" android:textSize="30dp"/>
+                    android:text="Pipa"
+                    android:layout_column="3"
+                    android:textColor="@color/white"
+                    android:textSize="35dp"/>
 
             </TableRow>
             <TableRow>

@@ -43,7 +43,7 @@
             <TextView
                 android:layout_column="0"
                 android:text="Filtros de Búsqueda"
-                android:textSize="35dp"
+                android:textSize="40dp"
                 android:textAlignment="center"
                 android:layout_gravity="center"
                 android:layout_span="5"
@@ -52,38 +52,52 @@
         <TableRow>
             <EditText
                 android:id="@+id/txtPipa"
-                android:layout_width="100dp" android:layout_height="wrap_content"
-                android:hint="Económico" android:textSize="30dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Económico"
+                android:textSize="35dp"
                 android:layout_span="2"/>
 
             <Button
                 android:text="Buscar"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="right"
                 android:id="@+id/btnBuscar"
-                android:layout_marginTop="20dp"
                 android:layout_span="3"
+                android:gravity="center"
                 android:background="#dca951"
                 android:textColor="@android:color/white"
                 android:textSize="35dp"/>
         </TableRow>
-        <TableRow>
+        <TableRow android:background="@color/ColorPrimary">
             <TextView
                 android:id="@+id/lblPipa"
-                android:text="Pipa" android:textSize="30dp"/>
+                android:text="Pipa"
+                android:textColor="@color/white"
+                android:textSize="35dp"/>
             <TextView
                 android:id="@+id/lblPorcentaje"
-                android:text="% Llenado" android:textSize="30dp" />
+                android:text="% Llenado"
+                android:textColor="@color/white"
+                android:textSize="35dp" />
             <TextView
                 android:id="@+id/lblCapacidad"
-                android:text="Capacidad" android:textSize="30dp"/>
+                android:text="Capacidad"
+                android:textColor="@color/white"
+                android:textSize="35dp"/>
             <TextView
-                android:id="@+id/lblChofer" android:layout_width="300dp"
-                android:text="Chofer" android:textSize="30dp"/>
+                android:id="@+id/lblChofer"
+                android:layout_width="wrap_content"
+                android:text="Chofer"
+                android:textColor="@color/white"
+                android:textSize="35dp"/>
             <TextView
-                android:id="@+id/lblAyudante" android:layout_width="300dp"
-                android:text="Ayudante" android:textSize="30dp"/>
+                android:id="@+id/lblAyudante"
+                android:layout_width="wrap_content"
+                android:text="Ayudante"
+                android:textColor="@color/white"
+                android:textSize="35dp"/>
         </TableRow>
         <TableRow>
             <ListView

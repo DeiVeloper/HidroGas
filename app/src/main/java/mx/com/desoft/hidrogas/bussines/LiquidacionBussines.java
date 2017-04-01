@@ -3,6 +3,7 @@ package mx.com.desoft.hidrogas.bussines;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,8 @@ import mx.com.desoft.utils.Utils;
 public class LiquidacionBussines {
     private Utils utils = new Utils();
 
-    public Long guardarLiquidacion(LiquidacionesTO liquidacionesTO,List<ViajesTO> listaViajes) {
+    public Long guardarLiquidacion(LiquidacionesTO liquidacionesTO, List<ViajesTO> listaViajes, Bundle bundle) {
+        Long idLiquidacion;
         ContentValues registro = new ContentValues();
         registro.put("nominaChofer", liquidacionesTO.getNominaChofer());
         registro.put("nominaAyudante", liquidacionesTO.getNominaAyudante());
@@ -26,7 +28,17 @@ public class LiquidacionBussines {
         registro.put("nominaRegistro", liquidacionesTO.getNominaRegistro());
         registro.put("porcentajeVariacion", liquidacionesTO.getPorcentajeVariacion());
         registro.put("economico", liquidacionesTO.getEconomico());
-        Long idLiquidacion = LoginActivity.conexion.insert("liquidacion", null, registro);
+        registro.put("autoconsumo", liquidacionesTO.getAutoconsumo());
+        registro.put("medidores", liquidacionesTO.getMedidores());
+        registro.put("traspasosRecibidos", liquidacionesTO.getTraspasosRecibidos());
+        registro.put("traspasosRealizados", liquidacionesTO.getTraspasosRealizados());
+        if (liquidacionesTO.getIdLiquidacion() != null){
+            registro.put("idLiquidacion", liquidacionesTO.getIdLiquidacion());
+            LoginActivity.conexion.update("liquidacion", registro, "idLiquidacion = " + liquidacionesTO.getIdLiquidacion(), null);
+            idLiquidacion = liquidacionesTO.getIdLiquidacion().longValue();
+        }else{
+            idLiquidacion = LoginActivity.conexion.insert("liquidacion", null, registro);
+        }
 
 
         for (ViajesTO viajes : listaViajes) {
@@ -36,7 +48,12 @@ public class LiquidacionBussines {
             registroViajes.put("porcentajeFinal", viajes.getPorcentajeFinal());
             registroViajes.put("totalizadorInicial", viajes.getTotalizadorInicial());
             registroViajes.put("totalizadorFinal", viajes.getTotalizadorFinal());
-            LoginActivity.conexion.insert("viajes", null, registroViajes);
+
+            if (liquidacionesTO.getIdLiquidacion() != null ){
+                LoginActivity.conexion.update("viajes", registroViajes, "idLiquidacion = " + idLiquidacion, null);
+            }else{
+                LoginActivity.conexion.insert("viajes", null, registroViajes);
+            }
         }
         return idLiquidacion;
     }

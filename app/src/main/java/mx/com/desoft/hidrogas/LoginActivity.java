@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         setCredentialsIfExist();
 
+
         btnLogin.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 Integer usuario = Integer.valueOf(editTextUsuario.getText().toString());

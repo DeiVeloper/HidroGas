@@ -2,6 +2,7 @@ package mx.com.desoft.hidrogas;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -52,6 +53,7 @@ public class AgregarEditarPersonal extends Activity {
         bundle = getIntent().getExtras();
         inicializarComponentes();
         cargarEventos();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
     private void inicializarComponentes() {
@@ -221,7 +223,7 @@ public class AgregarEditarPersonal extends Activity {
     }
 
     private void returnTab(int posicion){
-        Intent go = new Intent(getApplicationContext(), MainActivity.class);
+        Intent go = new Intent(this, MainActivity.class);
         go.putExtra("viewpager_position", posicion);
         startActivity(go);
     }

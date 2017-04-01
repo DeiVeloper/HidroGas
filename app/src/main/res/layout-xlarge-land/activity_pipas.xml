@@ -17,7 +17,7 @@
         <TableRow android:background="@color/ColorPrimary">
             <TextView
                 android:text="Agregar Pipa"
-                android:textSize="35dp"
+                android:textSize="40dp"
                 android:layout_column="0"
                 android:layout_span="2"
                 android:textAlignment="center"
@@ -32,13 +32,13 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Económico"
-                android:textSize="30dp"/>
+                android:textSize="35dp"/>
             <EditText
                 android:id="@+id/txtCapacidad"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Capacidad"
-                android:textSize="30dp"/>
+                android:textSize="35dp"/>
         </TableRow>
     </TableLayout>
     <Button
@@ -51,6 +51,7 @@
         android:layout_alignParentEnd="true"
         android:layout_gravity="center"
         android:background="#dca951"
+        android:layout_marginLeft="10dp"
         android:textColor="@android:color/white"
         android:textSize="35dp"/>
     <Button

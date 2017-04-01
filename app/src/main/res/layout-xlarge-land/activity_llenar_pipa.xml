@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:layout_height="match_parent">
 
     <Button
         android:text="Guardar"
@@ -44,7 +42,7 @@
             <TextView
                 android:layout_column="0"
                 android:text="Datos de Llenado"
-                android:textSize="35dp"
+                android:textSize="40dp"
                 android:textAlignment="center"
                 android:layout_gravity="center"
                 android:layout_span="2"
@@ -54,30 +52,39 @@
         <TableRow android:layout_marginTop="30dp">
             <TextView
                 android:id="@+id/fecha"
-                android:layout_width="100dp" android:layout_height="wrap_content"
-                android:text="Fecha de llenado" android:textSize="30dp"/>
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Fecha de llenado"
+                android:textSize="35dp"/>
             <TextView
                 android:id="@+id/economico"
-                android:layout_width="100dp" android:layout_height="wrap_content"
-                android:text="Económico" android:textSize="30dp" />
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Económico"
+                android:textSize="35dp" />
         </TableRow>
         <TableRow android:layout_marginTop="30dp">
             <TextView
                 android:id="@+id/lblFecha"
-                android:layout_width="100dp" android:layout_height="wrap_content"
-                android:textSize="30dp"/>
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textSize="35dp"/>
 
             <TextView
                 android:id="@+id/txtEconomico"
-                android:layout_width="100dp" android:layout_height="wrap_content"
-                android:textSize="30dp" />
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textSize="35dp" />
         </TableRow>
 
         <TableRow android:layout_marginTop="30dp">
             <EditText
-                android:id="@+id/txtPorcentaje" android:layout_span="2"
-                android:layout_width="100dp" android:layout_height="wrap_content"
-                android:hint="Porcentaje" android:textSize="30dp"/>
+                android:id="@+id/txtPorcentaje"
+                android:layout_span="2"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Porcentaje"
+                android:textSize="35dp"/>
         </TableRow>
     </TableLayout>
 

@@ -2,6 +2,7 @@ package mx.com.desoft.hidrogas;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -37,6 +38,7 @@ public class LlenarPipa extends Activity {
         bundle = getIntent().getExtras();
         inicializarComponentes();
         cargarEventos();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
     private void inicializarComponentes() {
