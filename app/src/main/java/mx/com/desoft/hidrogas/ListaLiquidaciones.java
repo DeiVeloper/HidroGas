@@ -31,6 +31,7 @@ import java.util.Date;
 import mx.com.desoft.adapter.AdapterLiquidaciones;
 import mx.com.desoft.hidrogas.bussines.ReporteUnidadesBussines;
 import mx.com.desoft.hidrogas.to.LiquidacionesTO;
+import mx.com.desoft.utils.Utils;
 
 
 public class ListaLiquidaciones extends Fragment {
@@ -46,11 +47,13 @@ public class ListaLiquidaciones extends Fragment {
     private ArrayList<LiquidacionesTO> listaLiquidaciones = new ArrayList<>();
     private ListView listViewLiquidations;
     private AdapterLiquidaciones listAdapter;
+    private Utils utils;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewGroup = (ViewGroup) inflater.inflate(R.layout.activity_listado_liquidaciones, container, false);
         inicializarComponentes();
+        utils = new Utils();
         cargarEventos();
         return viewGroup;
     }
@@ -84,22 +87,31 @@ public class ListaLiquidaciones extends Fragment {
     public void buscar() {
         //try {
             reporteUnidadesBussines = new ReporteUnidadesBussines();
-            if (TextUtils.isEmpty(labelFechaBusqueda.getText().toString())){
-                fechaBusqueda = 0L;
-            }
             Integer liquidacion = 0;
+            boolean esNumero = true;
             if (!TextUtils.isEmpty(txtFolioLiquidacion.getText().toString())){
-                liquidacion = Integer.parseInt (txtFolioLiquidacion.getText().toString());
+                esNumero = utils.esNumero(txtFolioLiquidacion.getText().toString());
+                if (esNumero) {
+                    liquidacion = Integer.parseInt (txtFolioLiquidacion.getText().toString());
+                }
             }
-            listaLiquidaciones = reporteUnidadesBussines.getAllLiquidacionesByFecha(fechaBusqueda, liquidacion);
-            if (!listaLiquidaciones.isEmpty()){
-                listAdapter = new AdapterLiquidaciones(viewGroup.getContext(),R.layout.list_items_liquidaciones, listaLiquidaciones);
-                listViewLiquidations.setItemsCanFocus(false);
-                listViewLiquidations.setAdapter(listAdapter);
-                registerForContextMenu(listViewLiquidations);
-            }   else    {
-                Toast.makeText(viewGroup.getContext(), "No existen registros asociados a su busqueda.", Toast.LENGTH_LONG).show();
+            if (esNumero) {
+                if (TextUtils.isEmpty(labelFechaBusqueda.getText().toString())){
+                    fechaBusqueda = 0L;
+                }
+                listaLiquidaciones = reporteUnidadesBussines.getAllLiquidacionesByFecha(fechaBusqueda, liquidacion);
+                if (!listaLiquidaciones.isEmpty()){
+                    listAdapter = new AdapterLiquidaciones(viewGroup.getContext(),R.layout.list_items_liquidaciones, listaLiquidaciones);
+                    listViewLiquidations.setItemsCanFocus(false);
+                    listViewLiquidations.setAdapter(listAdapter);
+                    registerForContextMenu(listViewLiquidations);
+                }   else    {
+                    Toast.makeText(viewGroup.getContext(), "No existen registros asociados a su busqueda.", Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Toast.makeText(viewGroup.getContext(), "El Folio debe ser numérico.", Toast.LENGTH_LONG).show();
             }
+
         /*} catch (Exception e) {
             Toast.makeText(viewGroup.getContext(), "Ha ocurrido un error al realizar la búsqueda, Intente nuevamente por favor.", Toast.LENGTH_SHORT).show();
         }*/
@@ -139,7 +151,6 @@ public class ListaLiquidaciones extends Fragment {
                 Intent accion = new Intent (viewGroup.getContext(), MainActivity.class);
                 accion.putExtra("viewpager_position", 0);
                 accion.putExtra("folio", listaLiquidaciones.get(adapterContextMenuInfo.position).getIdLiquidacion());
-                accion.putExtra("bandera", true);
                 chargePage(accion);
                 return true;
             default:
