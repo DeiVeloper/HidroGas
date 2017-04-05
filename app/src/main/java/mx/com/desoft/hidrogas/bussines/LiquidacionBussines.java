@@ -50,7 +50,7 @@ public class LiquidacionBussines {
             registroViajes.put("totalizadorFinal", viajes.getTotalizadorFinal());
 
             if (liquidacionesTO.getIdLiquidacion() != null ){
-                LoginActivity.conexion.update("viajes", registroViajes, "idLiquidacion = " + idLiquidacion, null);
+                LoginActivity.conexion.update("viajes", registroViajes, "idLiquidacion = " + idLiquidacion + " AND idViaje = " + viajes.getIdViaje(), null);
             }else{
                 LoginActivity.conexion.insert("viajes", null, registroViajes);
             }

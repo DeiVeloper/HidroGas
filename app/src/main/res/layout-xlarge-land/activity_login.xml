@@ -58,7 +58,6 @@
         android:background="@color/white"
         android:hint="@string/hint_email"
         android:padding="10dp"
-        android:inputType="number"
         android:singleLine="true"
         android:textColor="@color/btn_logut_bg"
         android:textColorHint="@color/input_login_hint"

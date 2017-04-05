@@ -9,9 +9,11 @@ import android.os.Handler;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,8 +21,6 @@ import mx.com.desoft.hidrogas.bussines.LiquidacionBussines;
 import mx.com.desoft.hidrogas.to.LiquidacionesTO;
 import mx.com.desoft.hidrogas.to.PipasTO;
 import mx.com.desoft.hidrogas.to.ViajesTO;
-
-import static mx.com.desoft.hidrogas.R.id.fecha;
 
 public class ConexionBluetooth extends Activity {
 
@@ -136,11 +136,12 @@ public class ConexionBluetooth extends Activity {
 
     public void sendData(Long idLiquidacion, PipasTO pipa) throws IOException {
         try {
+            Utils utils = new Utils();
             int cont = 1;
             liquidacionesTO = liquidacionBussines.getLiquidacionByIdLiquidacion(idLiquidacion);
             liquidacionesTO.setViajes(liquidacionBussines.getViajesByIdLiquidacion(idLiquidacion.intValue()));
 
-            String msg ="FECHA: "+ fecha;
+            String msg ="FECHA: "+ utils.convertirFecha(new Date().getTime());
             msg += "\n";
             msg += "FOLIO: " + idLiquidacion;
             msg += "\n";
@@ -175,7 +176,7 @@ public class ConexionBluetooth extends Activity {
             msg += "\n";
             msg += "VARIACION: " + liquidacionesTO.getVariacion();
             msg += "\n";
-            msg += "CLAVE: " + pipa.getClave();
+            msg += "CLAVE: " + pipa.getClavePipa();
             msg += "\n";
             msg += "PORCENTAJE VARIACION: " + liquidacionesTO.getPorcentajeVariacion();
             msg += "\n";

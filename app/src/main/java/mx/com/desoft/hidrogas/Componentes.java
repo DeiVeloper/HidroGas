@@ -39,6 +39,34 @@ class Componentes  {
     private TextView clave;
     private TextView folio;
 
+    public Integer getIdViaje1() {
+        return idViaje1;
+    }
+
+    public void setIdViaje1(Integer idViaje1) {
+        this.idViaje1 = idViaje1;
+    }
+
+    public Integer getIdViaje2() {
+        return idViaje2;
+    }
+
+    public void setIdViaje2(Integer idViaje2) {
+        this.idViaje2 = idViaje2;
+    }
+
+    public Integer getIdViaje3() {
+        return idViaje3;
+    }
+
+    public void setIdViaje3(Integer idViaje3) {
+        this.idViaje3 = idViaje3;
+    }
+
+    private Integer idViaje1;
+    private Integer idViaje2;
+    private Integer idViaje3;
+
 
     Componentes(ViewGroup viewGroup){
         this.setEconomico((EditText) viewGroup.findViewById(R.id.input_economico));

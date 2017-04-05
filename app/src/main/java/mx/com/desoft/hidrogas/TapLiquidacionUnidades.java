@@ -119,6 +119,8 @@ public class TapLiquidacionUnidades extends Fragment{
                     conexionBluetooth.openBT();
                     conexionBluetooth.sendData(idLiquidacion, pipa);
                     componentes.limpiarCampos();
+                    liquidacion = new LiquidacionesTO();
+                    liquidacionesTO = new LiquidacionesTO();
                 } catch (IOException e) {
                     Toast.makeText(viewGroup.getContext(), "Error al imprimir el ticket" + e.getMessage(), Toast.LENGTH_LONG).show();
                     e.printStackTrace();
@@ -149,6 +151,9 @@ public class TapLiquidacionUnidades extends Fragment{
             @Override
             public void onClick(View v) {
                 componentes.limpiarCampos();
+                liquidacion = new LiquidacionesTO();
+                liquidacionesTO = new LiquidacionesTO();
+                bundle = new Bundle();
             }
         });
 
@@ -261,6 +266,7 @@ public class TapLiquidacionUnidades extends Fragment{
 
     private void setViajes(){
         ViajesTO viaje1 = new ViajesTO();
+        viaje1.setIdViaje(componentes.getIdViaje1());
         viaje1.setPorcentajeInicial(Integer.valueOf(componentes.getSalida1().getText().toString()));
         viaje1.setPorcentajeFinal(Integer.valueOf(componentes.getLlegada1().getText().toString()));
         viaje1.setTotalizadorInicial(Integer.valueOf(componentes.getTotalizadorInicial1().getText().toString()));
@@ -269,6 +275,7 @@ public class TapLiquidacionUnidades extends Fragment{
 
         if (!TextUtils.isEmpty(componentes.getSalida2().getText().toString())) {
             ViajesTO viaje2 = new ViajesTO();
+            viaje2.setIdViaje(componentes.getIdViaje2());
             viaje2.setPorcentajeInicial(Integer.valueOf(componentes.getSalida2().getText().toString()));
             viaje2.setPorcentajeFinal(Integer.valueOf(componentes.getLlegada2().getText().toString()));
             viaje2.setTotalizadorInicial(Integer.valueOf(componentes.getTotalizadorInicial2().getText().toString()));
@@ -278,6 +285,7 @@ public class TapLiquidacionUnidades extends Fragment{
 
         if (!TextUtils.isEmpty(componentes.getSalida3().getText().toString())) {
             ViajesTO viaje3 = new ViajesTO();
+            viaje3.setIdViaje(componentes.getIdViaje3());
             viaje3.setPorcentajeInicial(Integer.valueOf(componentes.getSalida3().getText().toString()));
             viaje3.setPorcentajeFinal(Integer.valueOf(componentes.getLlegada3().getText().toString()));
             viaje3.setTotalizadorInicial(Integer.valueOf(componentes.getTotalizadorInicial3().getText().toString()));
@@ -370,8 +378,6 @@ public class TapLiquidacionUnidades extends Fragment{
         bundle = getActivity().getIntent().getExtras();
         if (bundle != null && bundle.getBoolean("bandera")){
             liquidacion = liquidacionBussines.getLiquidacionByIdLiquidacion(bundle.getInt("folio"));
-
-            Toast.makeText(viewGroup.getContext(),"Favor de seleccionar una Ruta." + liquidacion.getIdLiquidacion(), Toast.LENGTH_LONG).show();
             componentes.getEconomico().setText(liquidacion.getEconomico());
             componentes.getSpinner().setSelection(liquidacion.getNoPipa());
             componentes.getChofer().setText(liquidacion.getNominaChofer());
@@ -394,16 +400,19 @@ public class TapLiquidacionUnidades extends Fragment{
 
             for (ViajesTO viajes: liquidacion.getViajes()) {
                 if(cont == 0){
+                    componentes.setIdViaje1(viajes.getIdViaje());
                     componentes.getSalida1().setText(viajes.getPorcentajeInicial().toString());
                     componentes.getLlegada1().setText(viajes.getPorcentajeFinal().toString());
                     componentes.getTotalizadorInicial1().setText(viajes.getTotalizadorInicial().toString());
                     componentes.getTotalizadorFinal1().setText(viajes.getTotalizadorFinal().toString());
                 }else if(cont == 1) {
+                    componentes.setIdViaje2(viajes.getIdViaje());
                     componentes.getSalida2().setText(viajes.getPorcentajeInicial().toString());
                     componentes.getLlegada2().setText(viajes.getPorcentajeFinal().toString());
                     componentes.getTotalizadorInicial2().setText(viajes.getTotalizadorInicial().toString());
                     componentes.getTotalizadorFinal2().setText(viajes.getTotalizadorFinal().toString());
                 }else {
+                    componentes.setIdViaje3(viajes.getIdViaje());
                     componentes.getSalida3().setText(viajes.getPorcentajeInicial().toString());
                     componentes.getLlegada3().setText(viajes.getPorcentajeFinal().toString());
                     componentes.getTotalizadorInicial3().setText(viajes.getTotalizadorInicial().toString());
