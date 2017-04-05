@@ -26,7 +26,7 @@ import mx.com.desoft.hidrogas.to.LiquidacionesTO;
 import mx.com.desoft.hidrogas.to.PersonalTO;
 import mx.com.desoft.hidrogas.to.PipasTO;
 import mx.com.desoft.hidrogas.to.ViajesTO;
-import mx.com.desoft.utils.ConexionBluetooth;
+import mx.com.desoft.utils.ConexionBlueTooth;
 import mx.com.desoft.utils.Utils;
 
 import static mx.com.desoft.hidrogas.bussines.PipasBussines.*;
@@ -47,7 +47,7 @@ public class TapLiquidacionUnidades extends Fragment{
     private Integer ventaPorcentual;
     private Long idLiquidacion;
     private Integer porcentajeLlenado;
-    private ConexionBluetooth conexionBluetooth;
+    private ConexionBlueTooth conexionBluetooth;
     private Componentes componentes;
     private Utils utils;
     private Bundle bundle;
@@ -114,7 +114,7 @@ public class TapLiquidacionUnidades extends Fragment{
         componentes.getImprimir().setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 try {
-                    conexionBluetooth = new ConexionBluetooth(viewGroup);
+                    conexionBluetooth = new ConexionBlueTooth(viewGroup);
                     conexionBluetooth.findBT();
                     conexionBluetooth.openBT();
                     conexionBluetooth.sendData(idLiquidacion, pipa);

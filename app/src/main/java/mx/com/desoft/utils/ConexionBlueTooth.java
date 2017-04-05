@@ -22,7 +22,7 @@ import mx.com.desoft.hidrogas.to.LiquidacionesTO;
 import mx.com.desoft.hidrogas.to.PipasTO;
 import mx.com.desoft.hidrogas.to.ViajesTO;
 
-public class ConexionBluetooth extends Activity {
+public class ConexionBlueTooth extends Activity {
 
     private LiquidacionesTO liquidacionesTO;
     private LiquidacionBussines liquidacionBussines;
@@ -37,7 +37,7 @@ public class ConexionBluetooth extends Activity {
     volatile boolean stopWorker;
     private ViewGroup viewGroup;
 
-    public ConexionBluetooth(ViewGroup viewGroup) {
+    public ConexionBlueTooth(ViewGroup viewGroup) {
         liquidacionBussines = new LiquidacionBussines();
         liquidacionesTO = new LiquidacionesTO();
         this.viewGroup = viewGroup;
