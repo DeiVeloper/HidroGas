@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <ImageView android:src="@drawable/logo"
             android:layout_width="150dp"
@@ -25,31 +26,32 @@
         <EditText
             android:id="@+id/usuario"
             android:layout_width="300dp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:hint="@string/hint_email"
-            android:padding="15dp"
+            android:layout_height="50dp"
             android:layout_marginTop="30dp"
+            android:padding="15dp"
+            android:gravity="start"
+            android:layout_gravity="center"
+            android:textAlignment="textStart"
+            android:hint="@string/hint_email"
             android:inputType="number"
-            android:singleLine="true"
+            android:drawableLeft="@mipmap/ic_user"
+            android:background="@color/white"
             android:textColor="@color/btn_logut_bg"
-            android:textColorHint="@color/input_login_hint" />
+            android:textColorHint="@color/input_login_hint"/>
 
         <EditText
             android:id="@+id/password"
             android:layout_width="300dp"
-            android:gravity="center"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:padding="15dp"
+            android:gravity="start"
             android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             android:hint="@string/hint_password"
             android:inputType="textPassword"
-            android:padding="15dp"
-            android:layout_marginTop="30dp"
-            android:singleLine="true"
+            android:drawableLeft="@mipmap/ic_key"
+            android:background="@color/white"
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
 
@@ -98,3 +100,4 @@
 
 
 </LinearLayout>
+
