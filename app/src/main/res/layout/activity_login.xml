@@ -50,7 +50,7 @@
             android:textAlignment="textStart"
             android:hint="@string/hint_password"
             android:inputType="textPassword"
-            android:drawableLeft="@mipmap/ic_key"
+            android:drawableLeft="@mipmap/ic_pass"
             android:background="@color/white"
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />

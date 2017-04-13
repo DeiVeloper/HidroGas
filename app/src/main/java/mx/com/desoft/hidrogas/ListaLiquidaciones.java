@@ -151,6 +151,7 @@ public class ListaLiquidaciones extends Fragment {
                 Intent accion = new Intent (viewGroup.getContext(), MainActivity.class);
                 accion.putExtra("viewpager_position", 0);
                 accion.putExtra("folio", listaLiquidaciones.get(adapterContextMenuInfo.position).getIdLiquidacion());
+                accion.putExtra("bandera", true);
                 chargePage(accion);
                 return true;
             default:

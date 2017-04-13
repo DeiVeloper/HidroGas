@@ -11,7 +11,7 @@ import mx.com.desoft.utils.Utils;
 public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     private Utils utils = new Utils();
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "hidrogas.db";
 
 
@@ -54,13 +54,46 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     private void addContact(SQLiteDatabase db) throws SQLiteConstraintException {
         ContentValues registro = new ContentValues();
-        registro.put("nominaEmpleado", 130191);
-        registro.put("nombre", "Administrador");
-        registro.put("apellidoPaterno", "");
-        registro.put("apellidoMaterno", "");
-        registro.put("password", "00000");
+        registro.put("nominaEmpleado", 2018);
+        registro.put("nombre", "Roberto");
+        registro.put("apellidoPaterno", "Nuñez");
+        registro.put("apellidoMaterno", "Luna");
+        registro.put("password", "1698");
         registro.put("fechaRegistro", utils.getFechaActual());
-        registro.put("nominaRegistro", "000001");
+        registro.put("nominaRegistro", "1698");
+        registro.put("tipoEmpleado", 0);
+        db.insert("Empleados", null, registro);
+
+        registro = new ContentValues();
+        registro.put("nominaEmpleado", 8888);
+        registro.put("nombre", "Rodolfo");
+        registro.put("apellidoPaterno", "Rodriguez");
+        registro.put("apellidoMaterno", "");
+        registro.put("password", "1965");
+        registro.put("fechaRegistro", utils.getFechaActual());
+        registro.put("nominaRegistro", "1698");
+        registro.put("tipoEmpleado", 0);
+        db.insert("Empleados", null, registro);
+
+        registro = new ContentValues();
+        registro.put("nominaEmpleado", 9999);
+        registro.put("nombre", "Ricardo");
+        registro.put("apellidoPaterno", "Nava");
+        registro.put("apellidoMaterno", "");
+        registro.put("password", "2000");
+        registro.put("fechaRegistro", utils.getFechaActual());
+        registro.put("nominaRegistro", "1698");
+        registro.put("tipoEmpleado", 0);
+        db.insert("Empleados", null, registro);
+
+        registro = new ContentValues();
+        registro.put("nominaEmpleado", 1234);
+        registro.put("nombre", "Antonio");
+        registro.put("apellidoPaterno", "Lopez");
+        registro.put("apellidoMaterno", "");
+        registro.put("password", "1234");
+        registro.put("fechaRegistro", utils.getFechaActual());
+        registro.put("nominaRegistro", "1698");
         registro.put("tipoEmpleado", 0);
         db.insert("Empleados", null, registro);
 

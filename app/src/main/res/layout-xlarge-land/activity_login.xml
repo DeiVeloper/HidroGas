@@ -13,14 +13,13 @@
         android:layout_height="wrap_content"
         android:background="@color/bg_login"
         android:text="@string/btn_login"
-        android:padding="10dp"
         android:textColor="@color/textColorPrimary"
         android:onClick="iniciarSesion"
         android:layout_below="@+id/recordarme"
         android:layout_alignStart="@+id/btnLinkToRegisterScreen"
-        android:layout_marginTop="46dp" />
+        android:layout_marginTop="40dp" />
 
-    <Button
+    <TextView
         android:id="@+id/btnLinkToRegisterScreen"
         android:layout_width="300dp"
         android:gravity="center"
@@ -30,11 +29,11 @@
         android:text="By Desoft."
         android:textAllCaps="false"
         android:textColor="#ffffff"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:textAlignment="center"
         android:layout_alignTop="@+id/btnLogin"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="67dp" />
+        android:layout_marginTop="70dp" />
 
     <CheckBox
         android:id="@+id/recordarme"
@@ -42,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:padding="10dp"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:textColor="@color/textColorPrimary"
         android:text="Recordarme"
         android:layout_marginTop="30dp"
@@ -52,31 +51,28 @@
     <EditText
         android:id="@+id/usuario"
         android:layout_width="300dp"
-        android:gravity="center"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:hint="@string/hint_email"
-        android:padding="10dp"
-        android:singleLine="true"
+        android:gravity="center"
+        android:drawableRight="@mipmap/ic_user"
         android:textColor="@color/btn_logut_bg"
         android:textColorHint="@color/input_login_hint"
         android:layout_below="@+id/imageView"
         android:layout_alignStart="@+id/password"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="25dp" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="300dp"
-        android:gravity="center"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:textAlignment="center"
         android:hint="@string/hint_password"
+        android:gravity="center"
+        android:drawableRight="@mipmap/ic_pass"
         android:inputType="textPassword"
-        android:padding="10dp"
-        android:singleLine="true"
         android:textColor="@color/input_login"
         android:textColorHint="@color/input_login_hint"
         android:layout_below="@+id/imageView"
@@ -90,7 +86,7 @@
         android:layout_gravity="center"
         android:textAlignment="center"
         android:id="@+id/imageView"
-        android:layout_marginTop="151dp"
+        android:layout_marginTop="150dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
     </ImageView>

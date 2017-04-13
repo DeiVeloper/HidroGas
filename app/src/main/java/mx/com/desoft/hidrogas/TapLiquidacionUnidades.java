@@ -84,13 +84,16 @@ public class TapLiquidacionUnidades extends Fragment{
                             if (!TextUtils.isEmpty(componentes.getEconomico().getText().toString())) {
                                 pipa = unidadesBussines.getCapacidadPipa(Integer.parseInt(componentes.getEconomico().getText().toString()));
                             }
-                            if(bundle == null){
-                                porcentajeLlenado = pipasBussines.getCapacidadDiaAnteriorPipa(idPipa);
-                            }
-                            List<ViajesTO> listaViajes = liquidacionBussines.getPorcentajeInicialAnterior(idPipa);
                             setEmpleadosPipa(listaPersonal);
-                            setViajesVista(listaViajes);
+
                             componentes.getClave().setText(pipa.getClavePipa());
+
+                            if (bundle == null) {
+                                porcentajeLlenado = pipasBussines.getCapacidadDiaAnteriorPipa(idPipa);
+                                ViajesTO viaje = liquidacionBussines.getPorcentajeInicial(idPipa);
+                                setPorcentajeTotalizador(viaje);
+                            }
+
                         }
                     }
 
@@ -153,7 +156,7 @@ public class TapLiquidacionUnidades extends Fragment{
                 componentes.limpiarCampos();
                 liquidacion = new LiquidacionesTO();
                 liquidacionesTO = new LiquidacionesTO();
-                bundle = new Bundle();
+                bundle = null;
             }
         });
 
@@ -313,17 +316,15 @@ public class TapLiquidacionUnidades extends Fragment{
         }
     }
 
-    private void setViajesVista(List<ViajesTO> listaViajes){
-        if (!listaViajes.isEmpty()) {
-            for (ViajesTO viajes : listaViajes) {
-                if(viajes.getTotalizadorFinal() != 0){
-                    componentes.getTotalizadorInicial1().setText(viajes.getTotalizadorFinal().toString());
-                }else{
-                    if(bundle == null){
-                        componentes.getTotalizadorInicial1().setText("");
-                    }
-
+    private void setPorcentajeTotalizador(ViajesTO viaje){
+        if (viaje != null) {
+            if(viaje.getTotalizadorFinal() != 0){
+                componentes.getTotalizadorInicial1().setText(viaje.getTotalizadorFinal().toString());
+            }else{
+                if(bundle == null){
+                    componentes.getTotalizadorInicial1().setText("");
                 }
+
             }
         }
         if(porcentajeLlenado != null && porcentajeLlenado != 0){

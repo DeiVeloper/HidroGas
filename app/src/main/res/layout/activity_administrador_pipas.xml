@@ -14,7 +14,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
-        android:layout_below="@+id/lstPipas"
         android:background="#dca951"
         android:textColor="@android:color/white"
         android:textSize="15dp"/>
@@ -23,7 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnAgregar"
-        android:layout_below="@+id/lstPipas"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/btnExportarPipas"
         android:layout_gravity="center"

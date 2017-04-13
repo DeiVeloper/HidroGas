@@ -87,34 +87,24 @@ public class LiquidacionBussines {
     }
 
     @SuppressLint("Recycle")
-    public List<ViajesTO> getPorcentajeInicialAnterior(Integer idPipa){
-        List<ViajesTO> lista = new ArrayList<>();
-        String selectQuery = "SELECT  min(idViaje), " +
+    public ViajesTO getPorcentajeInicial(Integer idPipa){
+        ViajesTO viaje = new ViajesTO();
+        String selectQuery = "SELECT  max(idViaje) as idViaje, " +
                 "        viajes.idLiquidacion, " +
-                "        porcentajeInicial, " +
-                "        porcentajeFinal, " +
-                "        totalizadorInicial, " +
                 "        totalizadorFinal " +
                 "FROM    Viajes viajes,  " +
                 "        Liquidacion liquidacion " +
                 "WHERE   viajes.idLiquidacion = liquidacion.idLiquidacion " +
-                "AND     liquidacion.fechaRegistro = " + utils.getFechaAnterior() +
                 " AND     liquidacion.idPipa = " + idPipa;
         Cursor cursor = LoginActivity.conexion.rawQuery(selectQuery, null);
-
         if (cursor.moveToFirst()) {
             do {
-                ViajesTO viaje = new ViajesTO();
-                viaje.setIdViaje(cursor.getInt(0));
-                viaje.setIdLiquidacion(cursor.getInt(1));
-                viaje.setPorcentajeInicial(cursor.getInt(2));
-                viaje.setPorcentajeFinal(cursor.getInt(3));
-                viaje.setTotalizadorInicial(cursor.getInt(4));
-                viaje.setTotalizadorFinal(cursor.getInt(5));
-                lista.add(viaje);
+                viaje.setIdViaje(cursor.getInt(cursor.getColumnIndex("idViaje")));
+                viaje.setIdLiquidacion(cursor.getInt(cursor.getColumnIndex("idLiquidacion")));
+                viaje.setTotalizadorFinal(cursor.getInt(cursor.getColumnIndex("totalizadorFinal")));
             } while (cursor.moveToNext());
         }
-        return lista;
+        return viaje;
     }
 
     @SuppressLint("Recycle")
