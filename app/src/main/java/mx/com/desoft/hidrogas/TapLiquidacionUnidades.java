@@ -26,7 +26,6 @@ import mx.com.desoft.hidrogas.to.LiquidacionesTO;
 import mx.com.desoft.hidrogas.to.PersonalTO;
 import mx.com.desoft.hidrogas.to.PipasTO;
 import mx.com.desoft.hidrogas.to.ViajesTO;
-import mx.com.desoft.utils.ConexionBlueTooth;
 import mx.com.desoft.utils.Utils;
 
 import static mx.com.desoft.hidrogas.bussines.PipasBussines.*;
@@ -47,7 +46,6 @@ public class TapLiquidacionUnidades extends Fragment{
     private Integer ventaPorcentual;
     private Long idLiquidacion;
     private Integer porcentajeLlenado;
-    private ConexionBlueTooth conexionBluetooth;
     private Componentes componentes;
     private Utils utils;
     private Bundle bundle;
@@ -85,14 +83,10 @@ public class TapLiquidacionUnidades extends Fragment{
                                 pipa = unidadesBussines.getCapacidadPipa(Integer.parseInt(componentes.getEconomico().getText().toString()));
                             }
                             setEmpleadosPipa(listaPersonal);
-
                             componentes.getClave().setText(pipa.getClavePipa());
-
-                            if (bundle == null) {
-                                porcentajeLlenado = pipasBussines.getCapacidadDiaAnteriorPipa(idPipa);
-                                ViajesTO viaje = liquidacionBussines.getPorcentajeInicial(idPipa);
-                                setPorcentajeTotalizador(viaje);
-                            }
+                            porcentajeLlenado = pipasBussines.getCapacidadDiaAnteriorPipa(idPipa);
+                            ViajesTO viaje = liquidacionBussines.getPorcentajeInicial(idPipa);
+                            setPorcentajeTotalizador(viaje);
 
                         }
                     }
@@ -117,13 +111,14 @@ public class TapLiquidacionUnidades extends Fragment{
         componentes.getImprimir().setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 try {
-                    conexionBluetooth = new ConexionBlueTooth(viewGroup);
-                    conexionBluetooth.findBT();
-                    conexionBluetooth.openBT();
-                    conexionBluetooth.sendData(idLiquidacion, pipa);
-                    componentes.limpiarCampos();
-                    liquidacion = new LiquidacionesTO();
-                    liquidacionesTO = new LiquidacionesTO();
+                    if(!TextUtils.isEmpty(componentes.getFolio().getText())) {
+                        LoginActivity.conexionBlueTooth.sendData(idLiquidacion);
+                        componentes.limpiarCampos();
+                        liquidacion = new LiquidacionesTO();
+                        liquidacionesTO = new LiquidacionesTO();
+                    }else{
+                        Toast.makeText(viewGroup.getContext(), "No se ha generado un folio, favor de guardar la liquidación.", Toast.LENGTH_LONG).show();
+                    }
                 } catch (IOException e) {
                     Toast.makeText(viewGroup.getContext(), "Error al imprimir el ticket" + e.getMessage(), Toast.LENGTH_LONG).show();
                     e.printStackTrace();
@@ -376,7 +371,7 @@ public class TapLiquidacionUnidades extends Fragment{
 
     private void editarLiquidacion(){
         int  cont = 0;
-        bundle = getActivity().getIntent().getExtras();
+        bundle= getActivity().getIntent().getExtras();
         if (bundle != null && bundle.getBoolean("bandera")){
             liquidacion = liquidacionBussines.getLiquidacionByIdLiquidacion(bundle.getInt("folio"));
             componentes.getEconomico().setText(liquidacion.getEconomico());
@@ -385,6 +380,7 @@ public class TapLiquidacionUnidades extends Fragment{
             componentes.getAyudante().setText(liquidacion.getNominaAyudante());
             componentes.getNombreChofer().setText(liquidacion.getChofer());
             componentes.getNombreAyudante().setText(liquidacion.getAyudante());
+            componentes.getFolio().setText(String.valueOf(bundle.getInt("folio")));
 
             if (liquidacion.getAutoconsumo() != null) {
                 componentes.getAutoconsumo().setText(liquidacion.getAutoconsumo());
@@ -421,6 +417,12 @@ public class TapLiquidacionUnidades extends Fragment{
                 }
                 cont++;
             }
+            componentes.getVariacion().setText(liquidacion.getVariacion().toString());
+            componentes.getAlerta().setText(liquidacion.getAlerta().toString());
+            componentes.getPorcentajeVariacion().setText(liquidacion.getPorcentajeVariacion().toString());
+            componentes.getEconomico().setEnabled(false);
+            componentes.getSpinner().setEnabled(false);
+            componentes.getSpinner().setClickable(false);
         }
     }
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.ViewGroup;
@@ -35,19 +36,19 @@ public class ConexionBlueTooth extends Activity {
     byte[] readBuffer;
     int readBufferPosition;
     volatile boolean stopWorker;
-    private ViewGroup viewGroup;
+    private Context context;
 
-    public ConexionBlueTooth(ViewGroup viewGroup) {
+    public ConexionBlueTooth(Context context) {
         liquidacionBussines = new LiquidacionBussines();
         liquidacionesTO = new LiquidacionesTO();
-        this.viewGroup = viewGroup;
+        this.context = context;
     }
 
     public void findBT() {
         try {
             mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             if(mBluetoothAdapter == null) {
-                Toast.makeText(viewGroup.getContext(),"No bluetooth adapter available.", Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"No bluetooth adapter available.", Toast.LENGTH_LONG).show();
             }
             if(!mBluetoothAdapter.isEnabled()) {
                 Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -62,24 +63,24 @@ public class ConexionBlueTooth extends Activity {
                     }
                 }
             }
-            Toast.makeText(viewGroup.getContext(),"Bluetooth device found.", Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"Bluetooth device found.", Toast.LENGTH_LONG).show();
         }catch(Exception e){
-            Toast.makeText(viewGroup.getContext(),"Error: Al Buscar Dispositivo", Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"Error: Al Buscar Dispositivo", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
 
     public  void openBT() throws IOException {
         try {
-            UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
+            UUID uuid = UUID.fromString("00001101-0000-1000-8000-000805F9B34FB");//00001101-0000-1000-8000-00805F9B34FB
             mmSocket = mmDevice.createRfcommSocketToServiceRecord(uuid);
             mmSocket.connect();
             mmOutputStream = mmSocket.getOutputStream();
             mmInputStream = mmSocket.getInputStream();
             beginListenForData();
-            Toast.makeText(viewGroup.getContext(),"Bluetooth Opened.", Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"Bluetooth Opened.", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(viewGroup.getContext(),"Error; Abriendo Conexion", Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"Error; Abriendo Conexion", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
@@ -112,7 +113,7 @@ public class ConexionBlueTooth extends Activity {
                                         readBufferPosition = 0;
                                         handler.post(new Runnable() {
                                             public void run() {
-                                                Toast.makeText(viewGroup.getContext(),"Datos." + data, Toast.LENGTH_LONG).show();
+                                                Toast.makeText(context,"Datos." + data, Toast.LENGTH_LONG).show();
                                             }
                                         });
 
@@ -129,12 +130,12 @@ public class ConexionBlueTooth extends Activity {
             });
             workerThread.start();
         } catch (Exception e) {
-            Toast.makeText(viewGroup.getContext(),"Error: En ListenForData", Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"Error: En ListenForData", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
 
-    public void sendData(Long idLiquidacion, PipasTO pipa) throws IOException {
+    public void sendData(Long idLiquidacion) throws IOException {
         try {
             Utils utils = new Utils();
             int cont = 1;
@@ -174,17 +175,16 @@ public class ConexionBlueTooth extends Activity {
             }
             msg += "**************************************";
             msg += "\n";
-            msg += "VARIACION: " + liquidacionesTO.getVariacion();
+            msg += "VARIACION: " +liquidacionesTO.getVariacion();
             msg += "\n";
-            msg += "CLAVE: " + pipa.getClavePipa();
+            msg += "CLAVE: " + liquidacionesTO.getClave();
             msg += "\n";
             msg += "PORCENTAJE VARIACION: " + liquidacionesTO.getPorcentajeVariacion();
             msg += "\n";
             mmOutputStream.write(msg.getBytes());
-            Toast.makeText(viewGroup.getContext(),"Imprimiendo Ticket...", Toast.LENGTH_LONG).show();
-            closeBT();
+            Toast.makeText(context,"Imprimiendo Ticket...", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(viewGroup.getContext(),"Error: Imprimiendo Ticket", Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"Error: Imprimiendo Ticket" + e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
@@ -195,9 +195,9 @@ public class ConexionBlueTooth extends Activity {
             mmOutputStream.close();
             mmInputStream.close();
             mmSocket.close();
-            Toast.makeText(viewGroup.getContext(),"Bluetooth Closed", Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"Bluetooth Closed", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(viewGroup.getContext(),"Error: Cerrando Concexion", Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"Error: Cerrando Concexion", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }

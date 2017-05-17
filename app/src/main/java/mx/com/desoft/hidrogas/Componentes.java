@@ -165,6 +165,8 @@ class Componentes  {
         this.getNombreChofer().setText("");
         this.getNombreAyudante().setText("");
         this.getSpinner().setSelection(0);
+        this.getSpinner().setEnabled(true);
+        this.getEconomico().setEnabled(true);
     }
 
     public Spinner getSpinner() {

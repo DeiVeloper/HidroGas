@@ -53,7 +53,7 @@ public class PersonalBussines {
         if (!personalTO.getNombre().equals("")) {
             condicion += " AND nombre = '" + personalTO.getNombre() + "' ";
         }
-        registros = LoginActivity.conexion.rawQuery("SELECT *,p.noPipa,p.idPipa FROM empleados e , pipas p  WHERE 1=1  AND p.idPipa = e.idPipa " + condicion, null);
+        registros = LoginActivity.conexion.rawQuery("SELECT *,p.noPipa,p.idPipa FROM empleados e  LEFT JOIN  pipas p ON (p.idPipa = e.idPipa) WHERE 1=1  " + condicion, null);
         return registros;
     }
 

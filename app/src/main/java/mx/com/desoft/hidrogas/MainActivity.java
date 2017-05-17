@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         view.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         importarDatos = new ImportarDatos();
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -72,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.cerrarSesion:
                 logOut();
                 removeSharedPreferences();
+                try {
+                    LoginActivity.conexionBlueTooth.closeBT();
+                }catch (IOException ioe){
+                    Toast.makeText(view.getContext(), "Error cerrando conexion BlueTooth" + ioe.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("Error","Cerrando Conexion",ioe);
+                }
                 return true;
             case R.id.impotarPipas:
                 try {

@@ -96,6 +96,7 @@ public class LlenarPipa extends Activity {
                     pipasTO.setNominaRegistro(LoginActivity.personalTO.getNomina());
                     pipasBussines.llenar(pipasTO);
                     Toast.makeText(getApplicationContext(), "La pipa número: " + pipasTO.getNoPipa() + " se ha llenado correctamente." + pipasTO.getPorcentajeLlenado(), Toast.LENGTH_SHORT).show();
+                    bundle = null;
                     return true;
                 }
             }
