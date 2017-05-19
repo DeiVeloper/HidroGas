@@ -7,7 +7,6 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 
@@ -20,7 +19,6 @@ import java.util.UUID;
 
 import mx.com.desoft.hidrogas.bussines.LiquidacionBussines;
 import mx.com.desoft.hidrogas.to.LiquidacionesTO;
-import mx.com.desoft.hidrogas.to.PipasTO;
 import mx.com.desoft.hidrogas.to.ViajesTO;
 
 public class ConexionBlueTooth extends Activity {
@@ -80,7 +78,7 @@ public class ConexionBlueTooth extends Activity {
             beginListenForData();
             Toast.makeText(context,"Bluetooth Opened.", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(context,"Error; Abriendo Conexion", Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"Error: Abriendo Conexion", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }

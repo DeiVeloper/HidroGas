@@ -1,6 +1,8 @@
 package mx.com.desoft.hidrogas;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.print.PrintManager;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import mx.com.desoft.hidrogas.bussines.LiquidacionBussines;
@@ -122,6 +125,19 @@ public class TapLiquidacionUnidades extends Fragment{
                 } catch (IOException e) {
                     Toast.makeText(viewGroup.getContext(), "Error al imprimir el ticket" + e.getMessage(), Toast.LENGTH_LONG).show();
                     e.printStackTrace();
+                }
+            }
+        });
+
+        componentes.getImprimirTMII().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!TextUtils.isEmpty(componentes.getFolio().getText())) {
+                    Printer adapter = new Printer(crearTicket(), getActivity());
+                    // Get the print manager from the context
+                    PrintManager printManager = (PrintManager)getActivity().getSystemService(Context.PRINT_SERVICE);
+                    // And print the document
+                    printManager.print("Printer", adapter, null);
                 }
             }
         });
@@ -424,6 +440,53 @@ public class TapLiquidacionUnidades extends Fragment{
             componentes.getSpinner().setEnabled(false);
             componentes.getSpinner().setClickable(false);
         }
+    }
+
+    private String crearTicket(){
+        int cont = 1;
+        LiquidacionesTO liquidacionesTO = liquidacionBussines.getLiquidacionByIdLiquidacion(idLiquidacion);
+        liquidacionesTO.setViajes(liquidacionBussines.getViajesByIdLiquidacion(idLiquidacion.intValue()));
+
+        String msg ="FECHA: "+ utils.convertirFecha(new Date().getTime());
+        msg += "\n";
+        msg += "FOLIO: " + idLiquidacion;
+        msg += "\n";
+        msg +="PIPA: "+liquidacionesTO.getNoPipa().toString();
+        msg += "\n";
+        msg += "ECONOMICO: " + liquidacionesTO.getEconomico();
+        msg += "\n";
+        msg += "No. NOMINA CHOFER: " + liquidacionesTO.getNominaChofer();
+        msg += "\n";
+        msg += "CHOFER: " + liquidacionesTO.getChofer();
+        msg += "\n";
+        msg += "No. NOMINA AYUDANTE: " + liquidacionesTO.getNominaAyudante();
+        msg += "\n";
+        msg += "AYUDANTE: " + liquidacionesTO.getAyudante();
+        msg += "\n";
+        msg += "*************** VIAJES ***************";
+        msg += "\n";
+        for (ViajesTO viajes: liquidacionesTO.getViajes()) {
+            msg += "VIAJE - " + cont;
+            msg += "\n";
+            msg += "SALIDA: " + viajes.getPorcentajeInicial();
+            msg += "\n";
+            msg += "LLEGADA: " + viajes.getPorcentajeFinal();
+            msg += "\n";
+            msg += "TOTALIZADOR INICIAL: " + viajes.getTotalizadorInicial();
+            msg += "\n";
+            msg += "TOTALIZADOR FINAL: " + viajes.getTotalizadorFinal();
+            msg += "\n";
+            cont++;
+        }
+        msg += "**************************************";
+        msg += "\n";
+        msg += "VARIACION: " +liquidacionesTO.getVariacion();
+        msg += "\n";
+        msg += "CLAVE: " + liquidacionesTO.getClave();
+        msg += "\n";
+        msg += "PORCENTAJE VARIACION: " + liquidacionesTO.getPorcentajeVariacion();
+        msg += "\n";
+       return  msg.toString();
     }
 
 }

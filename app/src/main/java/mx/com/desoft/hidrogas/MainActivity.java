@@ -108,6 +108,14 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(view.getContext(), "Error al importar claves," + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
                 return true;
+            case R.id.activarImpresora:
+                try{
+                    LoginActivity.conexionBlueTooth.findBT();
+                    LoginActivity.conexionBlueTooth.openBT();
+                }catch(Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(view.getContext(), "Error al conectar con la impresora," + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }

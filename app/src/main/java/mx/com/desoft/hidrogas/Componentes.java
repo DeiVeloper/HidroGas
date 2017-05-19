@@ -3,6 +3,7 @@ package mx.com.desoft.hidrogas;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -38,31 +39,7 @@ class Componentes  {
     private TextView porcentajeVariacion;
     private TextView clave;
     private TextView folio;
-
-    public Integer getIdViaje1() {
-        return idViaje1;
-    }
-
-    public void setIdViaje1(Integer idViaje1) {
-        this.idViaje1 = idViaje1;
-    }
-
-    public Integer getIdViaje2() {
-        return idViaje2;
-    }
-
-    public void setIdViaje2(Integer idViaje2) {
-        this.idViaje2 = idViaje2;
-    }
-
-    public Integer getIdViaje3() {
-        return idViaje3;
-    }
-
-    public void setIdViaje3(Integer idViaje3) {
-        this.idViaje3 = idViaje3;
-    }
-
+    private ImageButton imprimirTMII;
     private Integer idViaje1;
     private Integer idViaje2;
     private Integer idViaje3;
@@ -99,6 +76,7 @@ class Componentes  {
         this.porcentajeVariacion = (TextView) viewGroup.findViewById(R.id.labelPorcentajeVariacion);
         this.clave = (TextView) viewGroup.findViewById(R.id.labelClave);
         this.folio = (TextView) viewGroup.findViewById(R.id.lblFolio);
+        this.imprimirTMII = (ImageButton) viewGroup.findViewById(R.id.btnImprimirTmII);
     }
 
     void deshabilitarComponentes(){
@@ -313,5 +291,36 @@ class Componentes  {
         return folio;
     }
 
+    public ImageButton getImprimirTMII() {
+        return imprimirTMII;
+    }
+
+    public void setImprimirTMII(ImageButton imprimirTMII) {
+        this.imprimirTMII = imprimirTMII;
+    }
+
+    public Integer getIdViaje1() {
+        return idViaje1;
+    }
+
+    public void setIdViaje1(Integer idViaje1) {
+        this.idViaje1 = idViaje1;
+    }
+
+    public Integer getIdViaje2() {
+        return idViaje2;
+    }
+
+    public void setIdViaje2(Integer idViaje2) {
+        this.idViaje2 = idViaje2;
+    }
+
+    public Integer getIdViaje3() {
+        return idViaje3;
+    }
+
+    public void setIdViaje3(Integer idViaje3) {
+        this.idViaje3 = idViaje3;
+    }
 
 }

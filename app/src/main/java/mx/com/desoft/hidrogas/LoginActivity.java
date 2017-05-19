@@ -7,14 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.io.IOException;
 
 import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
 import mx.com.desoft.hidrogas.bussines.PersonalBussines;
@@ -41,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         bindUI();
         preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         setCredentialsIfExist();
-        conectarseBlueTooth();
+        conexionBlueTooth = new ConexionBlueTooth(getApplicationContext());
 
         btnLogin.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
@@ -109,13 +106,4 @@ public class LoginActivity extends AppCompatActivity {
         conexion = baseDatos.getWritableDatabase();
     }
 
-    private void conectarseBlueTooth(){
-        conexionBlueTooth = new ConexionBlueTooth(getApplicationContext());
-        try {
-            conexionBlueTooth.findBT();
-            conexionBlueTooth.openBT();
-        }catch (IOException ioe){
-            Log.e("Error","Conexion con Dispositivo",ioe);
-        }
-    }
 }

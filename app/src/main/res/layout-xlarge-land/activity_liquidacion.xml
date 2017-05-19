@@ -333,6 +333,20 @@
             android:textColor="@android:color/white"
             android:textSize="35dp"/>
 
+        <ImageButton
+            android:id="@+id/btnImprimirTmII"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Imprimir"
+            android:src="@mipmap/ic_printer"
+            android:layout_toLeftOf="@+id/btnImprimir"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:background="#dca951"
+            android:layout_marginRight="15dp"
+            android:textColor="@android:color/white"
+            android:textSize="35dp"/>
+
         <Button
             android:id="@+id/btnImprimir"
             android:layout_width="wrap_content"
