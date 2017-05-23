@@ -21,8 +21,8 @@
         <activity android:name=".LlenarPipa" />
         <activity android:name=".ImportarDatos" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".SplashActivity"
         <activity android:name=".PrintActivity"/>
+        <activity android:name=".SplashActivity"
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
