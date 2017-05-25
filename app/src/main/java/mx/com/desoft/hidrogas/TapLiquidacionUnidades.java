@@ -1,8 +1,6 @@
 package mx.com.desoft.hidrogas;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.print.PrintManager;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -17,9 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import mx.com.desoft.hidrogas.bussines.LiquidacionBussines;
@@ -53,6 +49,7 @@ public class TapLiquidacionUnidades extends Fragment{
     private Utils utils;
     private Bundle bundle;
     private LiquidacionesTO liquidacion;
+    private PrintActivity printActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -115,14 +112,16 @@ public class TapLiquidacionUnidades extends Fragment{
             public void onClick(View view) {
                 try {
                     if(!TextUtils.isEmpty(componentes.getFolio().getText())) {
-                        LoginActivity.conexionBlueTooth.sendData(idLiquidacion);
+                        //LoginActivity.conexionBlueTooth.sendData(idLiquidacion);
+                        printActivity = new PrintActivity();
+                        printActivity.runPrintReceiptSequence(idLiquidacion);
                         componentes.limpiarCampos();
                         liquidacion = new LiquidacionesTO();
                         liquidacionesTO = new LiquidacionesTO();
                     }else{
                         Toast.makeText(viewGroup.getContext(), "No se ha generado un folio, favor de guardar la liquidación.", Toast.LENGTH_LONG).show();
                     }
-                } catch (IOException e) {
+                } catch (Exception e) {
                     Toast.makeText(viewGroup.getContext(), "Error al imprimir el ticket" + e.getMessage(), Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
@@ -434,59 +433,11 @@ public class TapLiquidacionUnidades extends Fragment{
                 cont++;
             }
             componentes.getVariacion().setText(liquidacion.getVariacion().toString());
-            componentes.getAlerta().setText(liquidacion.getAlerta().toString());
             componentes.getPorcentajeVariacion().setText(liquidacion.getPorcentajeVariacion().toString());
             componentes.getEconomico().setEnabled(false);
             componentes.getSpinner().setEnabled(false);
             componentes.getSpinner().setClickable(false);
         }
-    }
-
-    private String crearTicket(){
-        int cont = 1;
-        LiquidacionesTO liquidacionesTO = liquidacionBussines.getLiquidacionByIdLiquidacion(idLiquidacion);
-        liquidacionesTO.setViajes(liquidacionBussines.getViajesByIdLiquidacion(idLiquidacion.intValue()));
-
-        String msg ="FECHA: "+ utils.convertirFecha(new Date().getTime());
-        msg += "\n";
-        msg += "FOLIO: " + idLiquidacion;
-        msg += "\n";
-        msg +="PIPA: "+liquidacionesTO.getNoPipa().toString();
-        msg += "\n";
-        msg += "ECONOMICO: " + liquidacionesTO.getEconomico();
-        msg += "\n";
-        msg += "No. NOMINA CHOFER: " + liquidacionesTO.getNominaChofer();
-        msg += "\n";
-        msg += "CHOFER: " + liquidacionesTO.getChofer();
-        msg += "\n";
-        msg += "No. NOMINA AYUDANTE: " + liquidacionesTO.getNominaAyudante();
-        msg += "\n";
-        msg += "AYUDANTE: " + liquidacionesTO.getAyudante();
-        msg += "\n";
-        msg += "*************** VIAJES ***************";
-        msg += "\n";
-        for (ViajesTO viajes: liquidacionesTO.getViajes()) {
-            msg += "VIAJE - " + cont;
-            msg += "\n";
-            msg += "SALIDA: " + viajes.getPorcentajeInicial();
-            msg += "\n";
-            msg += "LLEGADA: " + viajes.getPorcentajeFinal();
-            msg += "\n";
-            msg += "TOTALIZADOR INICIAL: " + viajes.getTotalizadorInicial();
-            msg += "\n";
-            msg += "TOTALIZADOR FINAL: " + viajes.getTotalizadorFinal();
-            msg += "\n";
-            cont++;
-        }
-        msg += "**************************************";
-        msg += "\n";
-        msg += "VARIACION: " +liquidacionesTO.getVariacion();
-        msg += "\n";
-        msg += "CLAVE: " + liquidacionesTO.getClave();
-        msg += "\n";
-        msg += "PORCENTAJE VARIACION: " + liquidacionesTO.getPorcentajeVariacion();
-        msg += "\n";
-       return  msg.toString();
     }
 
 }

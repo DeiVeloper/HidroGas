@@ -12,11 +12,11 @@ public class ShowMsg {
         String msg = "";
         if (e instanceof Epos2Exception) {
             msg = String.format(
-                      "%s\n\t%s\n%s\n\t%s",
-                      context.getString(R.string.title_err_code),
-                      getEposExceptionText(((Epos2Exception) e).getErrorStatus()),
-                      context.getString(R.string.title_err_method),
-                      method);
+                    "%s\n\t%s\n%s\n\t%s",
+                    context.getString(R.string.title_err_code),
+                    getEposExceptionText(((Epos2Exception) e).getErrorStatus()),
+                    context.getString(R.string.title_err_method),
+                    method);
         }
         else {
             msg = e.toString();
@@ -28,17 +28,17 @@ public class ShowMsg {
         String msg = "";
         if (errMsg.isEmpty()) {
             msg = String.format(
-                      "\t%s\n\t%s\n",
-                      context.getString(R.string.title_msg_result),
-                      getCodeText(code));
+                    "\t%s\n\t%s\n",
+                    context.getString(R.string.title_msg_result),
+                    getCodeText(code));
         }
         else {
             msg = String.format(
-                      "\t%s\n\t%s\n\n\t%s\n\t%s\n",
-                      context.getString(R.string.title_msg_result),
-                      getCodeText(code),
-                      context.getString(R.string.title_msg_description),
-                      errMsg);
+                    "\t%s\n\t%s\n\n\t%s\n\t%s\n",
+                    context.getString(R.string.title_msg_result),
+                    getCodeText(code),
+                    context.getString(R.string.title_msg_description),
+                    errMsg);
         }
         show(msg, context);
     }

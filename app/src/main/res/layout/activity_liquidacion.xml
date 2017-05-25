@@ -357,7 +357,7 @@
             android:layout_toLeftOf="@+id/btnImprimir"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
-            android:background="@color/white"
+            android:background="@color/color_white_semitransparent"
             android:layout_marginRight="15dp"
             android:textColor="@android:color/white"
             android:textSize="35dp"/>
