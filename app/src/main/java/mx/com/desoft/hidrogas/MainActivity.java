@@ -112,9 +112,10 @@ public class MainActivity extends AppCompatActivity {
                 try{
                     LoginActivity.conexionBlueTooth.findBT();
                     LoginActivity.conexionBlueTooth.openBT();
+                    Toast.makeText(view.getContext(), "Conexión establecida con éxito", Toast.LENGTH_LONG).show();
                 }catch(Exception e){
                     e.printStackTrace();
-                    Toast.makeText(view.getContext(), "Error al conectar con la impresora," + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Error al conectar con la impresora, favor de verificar BlueTooht de la impresora" + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             default:
                 return super.onOptionsItemSelected(item);

@@ -84,12 +84,12 @@ public class TapLiquidacionUnidades extends Fragment{
                             List<PersonalTO> listaPersonal = unidadesBussines.obtenerPersonal(idPipa);
                             if (!TextUtils.isEmpty(componentes.getEconomico().getText().toString())) {
                                 pipa = unidadesBussines.getCapacidadPipa(Integer.parseInt(componentes.getEconomico().getText().toString()));
+                                porcentajeLlenado = pipasBussines.getCapacidadDiaAnteriorPipa(Integer.parseInt(componentes.getEconomico().getText().toString()));
+                                ViajesTO viaje = liquidacionBussines.getPorcentajeInicial(Integer.parseInt(componentes.getEconomico().getText().toString()));
+                                setPorcentajeTotalizador(viaje);
                             }
                             setEmpleadosPipa(listaPersonal);
                             componentes.getClave().setText(pipa.getClavePipa());
-                            porcentajeLlenado = pipasBussines.getCapacidadDiaAnteriorPipa(idPipa);
-                            ViajesTO viaje = liquidacionBussines.getPorcentajeInicial(idPipa);
-                            setPorcentajeTotalizador(viaje);
 
                         }
                     }
@@ -129,7 +129,7 @@ public class TapLiquidacionUnidades extends Fragment{
             }
         });
 
-        componentes.getImprimirTMII().setOnClickListener(new View.OnClickListener() {
+        /*componentes.getImprimirTMII().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!TextUtils.isEmpty(componentes.getFolio().getText())) {
@@ -140,7 +140,7 @@ public class TapLiquidacionUnidades extends Fragment{
                     printManager.print("Printer", adapter, null);
                 }
             }
-        });
+        });*/
 
         componentes.getGuardar().setOnClickListener(new View.OnClickListener() {
             @Override

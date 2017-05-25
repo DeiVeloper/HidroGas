@@ -61,7 +61,7 @@ public class ConexionBlueTooth extends Activity {
                     }
                 }
             }
-            Toast.makeText(context,"Bluetooth device found.", Toast.LENGTH_LONG).show();
+            //Toast.makeText(context,"Bluetooth device found.", Toast.LENGTH_LONG).show();
         }catch(Exception e){
             Toast.makeText(context,"Error: Al Buscar Dispositivo", Toast.LENGTH_LONG).show();
             e.printStackTrace();
@@ -76,7 +76,7 @@ public class ConexionBlueTooth extends Activity {
             mmOutputStream = mmSocket.getOutputStream();
             mmInputStream = mmSocket.getInputStream();
             beginListenForData();
-            Toast.makeText(context,"Bluetooth Opened.", Toast.LENGTH_LONG).show();
+            //Toast.makeText(context,"Bluetooth Opened.", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             Toast.makeText(context,"Error: Abriendo Conexion", Toast.LENGTH_LONG).show();
             e.printStackTrace();
