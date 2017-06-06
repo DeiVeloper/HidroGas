@@ -1,4 +1,4 @@
-package mx.com.desoft.adapter;
+package mx.com.desoft.hidrogas.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

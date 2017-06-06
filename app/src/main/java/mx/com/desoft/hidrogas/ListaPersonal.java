@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import mx.com.desoft.adapter.AdapterPersonal;
+import mx.com.desoft.hidrogas.adapter.AdapterPersonal;
 import mx.com.desoft.hidrogas.bussines.PersonalBussines;
 import mx.com.desoft.hidrogas.bussines.PipasBussines;
 import mx.com.desoft.hidrogas.to.PersonalTO;

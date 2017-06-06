@@ -18,7 +18,7 @@ import mx.com.desoft.hidrogas.bussines.PersonalBussines;
 import mx.com.desoft.hidrogas.bussines.PipasBussines;
 import mx.com.desoft.hidrogas.to.PersonalTO;
 import mx.com.desoft.hidrogas.to.PipasTO;
-import mx.com.desoft.utils.Utils;
+import mx.com.desoft.hidrogas.utils.Utils;
 
 public class ImportarDatos extends Activity{
 

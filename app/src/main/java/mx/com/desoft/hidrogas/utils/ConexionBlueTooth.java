@@ -1,4 +1,4 @@
-package mx.com.desoft.utils;
+package mx.com.desoft.hidrogas.utils;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;

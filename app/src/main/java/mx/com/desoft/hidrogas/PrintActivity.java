@@ -14,19 +14,20 @@ import java.util.Date;
 import mx.com.desoft.hidrogas.bussines.LiquidacionBussines;
 import mx.com.desoft.hidrogas.to.LiquidacionesTO;
 import mx.com.desoft.hidrogas.to.ViajesTO;
-import mx.com.desoft.utils.Utils;
+import mx.com.desoft.hidrogas.utils.Utils;
 
 public class PrintActivity extends Activity implements  ReceiveListener {
 
     private Context mContext = null;
     private Printer  mPrinter = null;
 
-    public boolean runPrintReceiptSequence(Long idLiquidacion) {
+    public boolean runPrintReceiptSequence(Long idLiquidacion,String clave, Context context) {
+        mContext = context;
         if (!initializeObject()) {
             return false;
         }
 
-        if (!createReceiptData(idLiquidacion)) {
+        if (!createReceiptData(idLiquidacion, clave)) {
             finalizeObject();
             return false;
         }
@@ -39,7 +40,7 @@ public class PrintActivity extends Activity implements  ReceiveListener {
         return true;
     }
 
-    private boolean createReceiptData(Long idLiquidacion) {
+    private boolean createReceiptData(Long idLiquidacion,String clave) {
         String method = "";
         LiquidacionBussines liquidacionBussines = new LiquidacionBussines();
         Utils utils = new Utils();
@@ -62,7 +63,7 @@ public class PrintActivity extends Activity implements  ReceiveListener {
             ticket.append("CHOFER: " + liquidacionesTO.getChofer() + "\n");
             ticket.append("No. NOMINA AYUDANTE: " + liquidacionesTO.getNominaAyudante() + "\n");
             ticket.append("AYUDANTE: " + liquidacionesTO.getAyudante() + "\n");
-            ticket.append("*************** VIAJES ***************");
+            ticket.append("*************** VIAJES ***************\n");
             for (ViajesTO viajes: liquidacionesTO.getViajes()) {
                 ticket.append("VIAJE - " + cont + "\n");
                 ticket.append("SALIDA: " + viajes.getPorcentajeInicial() +"\n");
@@ -73,10 +74,13 @@ public class PrintActivity extends Activity implements  ReceiveListener {
             }
             ticket.append("**************************************\n");
             ticket.append("VARIACION: " +liquidacionesTO.getVariacion() +"\n");
-            ticket.append("CLAVE: " + liquidacionesTO.getClave() +"\n");
+            ticket.append("CLAVE: " + clave +"\n");
             ticket.append("PORCENTAJE VARIACION: " + liquidacionesTO.getPorcentajeVariacion() +"\n");
             method = "addText";
             mPrinter.addText(ticket.toString());
+
+            method = "addCut";
+            mPrinter.addCut(Printer.CUT_FEED);
             ticket = null;
         }
         catch (Exception e) {
@@ -301,7 +305,7 @@ public class PrintActivity extends Activity implements  ReceiveListener {
             warningsMsg += getString(R.string.handlingmsg_warn_battery_near_end);
         }
 
-        Toast.makeText(getApplicationContext(),warningsMsg,Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),warningsMsg,Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -309,7 +313,8 @@ public class PrintActivity extends Activity implements  ReceiveListener {
         runOnUiThread(new Runnable() {
             @Override
             public synchronized void run() {
-                ShowMsg.showResult(code, makeErrorMessage(status), mContext);
+                Toast.makeText(mContext, makeErrorMessage(status),Toast.LENGTH_SHORT);
+                //ShowMsg.showResult(code, makeErrorMessage(status), mContext);
 
                 dispPrinterWarnings(status);
 

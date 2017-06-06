@@ -1,4 +1,4 @@
-package mx.com.desoft.adapter;
+package mx.com.desoft.hidrogas.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import java.util.List;
 
 import mx.com.desoft.hidrogas.R;
 import mx.com.desoft.hidrogas.to.LlenadoTO;
-import mx.com.desoft.utils.Utils;
+import mx.com.desoft.hidrogas.utils.Utils;
 
 public class ListLlenadoAdapter extends BaseAdapter{
 

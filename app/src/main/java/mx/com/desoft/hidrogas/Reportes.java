@@ -17,7 +17,7 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 
 import mx.com.desoft.hidrogas.to.LlenadoTO;
 import mx.com.desoft.hidrogas.to.PipasTO;
-import mx.com.desoft.utils.Utils;
+import mx.com.desoft.hidrogas.utils.Utils;
 
 class Reportes  {
 

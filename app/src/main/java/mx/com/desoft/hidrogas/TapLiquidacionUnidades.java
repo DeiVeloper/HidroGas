@@ -25,7 +25,7 @@ import mx.com.desoft.hidrogas.to.LiquidacionesTO;
 import mx.com.desoft.hidrogas.to.PersonalTO;
 import mx.com.desoft.hidrogas.to.PipasTO;
 import mx.com.desoft.hidrogas.to.ViajesTO;
-import mx.com.desoft.utils.Utils;
+import mx.com.desoft.hidrogas.utils.Utils;
 
 import static mx.com.desoft.hidrogas.bussines.PipasBussines.*;
 
@@ -82,7 +82,7 @@ public class TapLiquidacionUnidades extends Fragment{
                             if (!TextUtils.isEmpty(componentes.getEconomico().getText().toString())) {
                                 pipa = unidadesBussines.getCapacidadPipa(Integer.parseInt(componentes.getEconomico().getText().toString()));
                                 porcentajeLlenado = pipasBussines.getCapacidadDiaAnteriorPipa(Integer.parseInt(componentes.getEconomico().getText().toString()));
-                                ViajesTO viaje = liquidacionBussines.getPorcentajeInicial(Integer.parseInt(componentes.getEconomico().getText().toString()));
+                                ViajesTO viaje = liquidacionBussines.getPorcentajeInicial(componentes.getEconomico().getText().toString());
                                 setPorcentajeTotalizador(viaje);
                             }
                             setEmpleadosPipa(listaPersonal);
@@ -110,21 +110,22 @@ public class TapLiquidacionUnidades extends Fragment{
 
         componentes.getImprimir().setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                try {
+                //try {
                     if(!TextUtils.isEmpty(componentes.getFolio().getText())) {
                         //LoginActivity.conexionBlueTooth.sendData(idLiquidacion);
                         printActivity = new PrintActivity();
-                        printActivity.runPrintReceiptSequence(idLiquidacion);
+                        printActivity.runPrintReceiptSequence(idLiquidacion, liquidacionesTO.getClave().toString(), viewGroup.getContext());
                         componentes.limpiarCampos();
                         liquidacion = new LiquidacionesTO();
                         liquidacionesTO = new LiquidacionesTO();
+
                     }else{
                         Toast.makeText(viewGroup.getContext(), "No se ha generado un folio, favor de guardar la liquidación.", Toast.LENGTH_LONG).show();
                     }
-                } catch (Exception e) {
-                    Toast.makeText(viewGroup.getContext(), "Error al imprimir el ticket" + e.getMessage(), Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-                }
+                //} catch (Exception e) {
+                  //  Toast.makeText(viewGroup.getContext(), "Error al imprimir el ticket" + e.getMessage(), Toast.LENGTH_LONG).show();
+                    //e.printStackTrace();
+                //}
             }
         });
 

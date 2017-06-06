@@ -11,7 +11,7 @@ import java.util.List;
 
 import mx.com.desoft.hidrogas.LoginActivity;
 import mx.com.desoft.hidrogas.to.PipasTO;
-import mx.com.desoft.utils.Utils;
+import mx.com.desoft.hidrogas.utils.Utils;
 
 public class PipasBussines {
 
@@ -157,9 +157,10 @@ public class PipasBussines {
     @SuppressLint("Recycle")
     public Integer getCapacidadDiaAnteriorPipa(Integer idPipa){
         String consulta = "   SELECT  porcentajeLlenado " +
-                "   FROM    Llenado " +
-                "   WHERE   fechaRegistro = " + utils.getFechaAnterior() +
-                "   AND     idPipa = " + idPipa;
+                "   FROM    Llenado ll, Pipas p " +
+                "   WHERE   ll.fechaRegistro = " + utils.getFechaAnterior() +
+                "   AND     ll.idPipa = p.idPipa" +
+                "   AND     p.noPipa = " +idPipa;
         Cursor cursor = LoginActivity.conexion.rawQuery(consulta, null);
         Integer porcentajeLlenado = 0;
         if (cursor.moveToFirst()) {

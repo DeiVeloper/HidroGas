@@ -22,7 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import mx.com.desoft.adapter.ListLlenadoAdapter;
+import mx.com.desoft.hidrogas.adapter.ListLlenadoAdapter;
 import mx.com.desoft.hidrogas.bussines.ReporteUnidadesBussines;
 import mx.com.desoft.hidrogas.to.LlenadoTO;
 

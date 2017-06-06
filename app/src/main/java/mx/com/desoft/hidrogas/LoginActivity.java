@@ -13,10 +13,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
+import mx.com.desoft.hidrogas.SQLite.AdminSQLiteOpenHelper;
 import mx.com.desoft.hidrogas.bussines.PersonalBussines;
 import mx.com.desoft.hidrogas.to.PersonalTO;
-import mx.com.desoft.utils.ConexionBlueTooth;
+import mx.com.desoft.hidrogas.utils.ConexionBlueTooth;
 
 public class LoginActivity extends AppCompatActivity {
 

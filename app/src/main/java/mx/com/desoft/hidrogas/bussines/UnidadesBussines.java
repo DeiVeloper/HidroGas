@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import mx.com.desoft.SQLite.AdminSQLiteOpenHelper;
+import mx.com.desoft.hidrogas.SQLite.AdminSQLiteOpenHelper;
 import mx.com.desoft.hidrogas.LoginActivity;
 import mx.com.desoft.hidrogas.to.PersonalTO;
 import mx.com.desoft.hidrogas.to.PipasTO;

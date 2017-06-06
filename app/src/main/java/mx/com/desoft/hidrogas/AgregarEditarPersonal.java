@@ -23,7 +23,7 @@ import mx.com.desoft.hidrogas.bussines.CatalogoBussines;
 import mx.com.desoft.hidrogas.bussines.PersonalBussines;
 import mx.com.desoft.hidrogas.bussines.PipasBussines;
 import mx.com.desoft.hidrogas.to.PersonalTO;
-import mx.com.desoft.utils.Utils;
+import mx.com.desoft.hidrogas.utils.Utils;
 
 public class AgregarEditarPersonal extends Activity {
     private EditText txtNomina, txtNombre, txtAPaterno, txtAMaterno, txtPass;

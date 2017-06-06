@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import mx.com.desoft.adapter.ViewPagerAdapter;
+import mx.com.desoft.hidrogas.adapter.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,45 +77,45 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     LoginActivity.conexionBlueTooth.closeBT();
                 }catch (IOException ioe){
-                    Toast.makeText(view.getContext(), "Error cerrando conexion BlueTooth" + ioe.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Error cerrando conexion BlueTooth" + ioe.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.e("Error","Cerrando Conexion",ioe);
                 }
                 return true;
             case R.id.impotarPipas:
                 try {
                     importarDatos.importarPipas();
-                    Toast.makeText(view.getContext(), "Se importaron los datos con éxito", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Se importaron los datos con éxito", Toast.LENGTH_SHORT).show();
                 }catch (IOException e){
                     e.printStackTrace();
-                    Toast.makeText(view.getContext(), "Error al importar datos," + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Error al importar datos," + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 return true;
             case R.id.impotarEmpleados:
                 try {
                     importarDatos.importarEmpleados();
-                    Toast.makeText(view.getContext(), "Se importaron los datos con éxito", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Se importaron los datos con éxito", Toast.LENGTH_SHORT).show();
                 }catch (IOException e){
                     e.printStackTrace();
-                    Toast.makeText(view.getContext(), "Error al importar datos," + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Error al importar datos," + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 return true;
             case R.id.impotarClaves:
                 try {
                     importarDatos.importarClavesPipas();
-                    Toast.makeText(view.getContext(), "Se importaron los datos con éxito", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Se importaron los datos con éxito", Toast.LENGTH_SHORT).show();
                 }catch (IOException e){
                     e.printStackTrace();
-                    Toast.makeText(view.getContext(), "Error al importar claves," + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Error al importar claves," + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 return true;
             case R.id.activarImpresora:
                 try{
                     LoginActivity.conexionBlueTooth.findBT();
                     LoginActivity.conexionBlueTooth.openBT();
-                    Toast.makeText(view.getContext(), "Conexión establecida con éxito", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Conexión establecida con éxito", Toast.LENGTH_SHORT).show();
                 }catch(Exception e){
                     e.printStackTrace();
-                    Toast.makeText(view.getContext(), "Error al conectar con la impresora, favor de verificar BlueTooht de la impresora" + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Error al conectar con la impresora, favor de verificar BlueTooht de la impresora" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             default:
                 return super.onOptionsItemSelected(item);

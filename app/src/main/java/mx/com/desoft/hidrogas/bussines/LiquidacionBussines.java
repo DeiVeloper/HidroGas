@@ -11,7 +11,7 @@ import java.util.List;
 import mx.com.desoft.hidrogas.LoginActivity;
 import mx.com.desoft.hidrogas.to.LiquidacionesTO;
 import mx.com.desoft.hidrogas.to.ViajesTO;
-import mx.com.desoft.utils.Utils;
+import mx.com.desoft.hidrogas.utils.Utils;
 
 public class LiquidacionBussines {
     private Utils utils = new Utils();
@@ -87,7 +87,7 @@ public class LiquidacionBussines {
     }
 
     @SuppressLint("Recycle")
-    public ViajesTO getPorcentajeInicial(Integer idPipa){
+    public ViajesTO getPorcentajeInicial(String economico){
         ViajesTO viaje = new ViajesTO();
         String selectQuery = "SELECT  max(idViaje) as idViaje, " +
                 "        viajes.idLiquidacion, " +
@@ -95,7 +95,7 @@ public class LiquidacionBussines {
                 "FROM    Viajes viajes,  " +
                 "        Liquidacion liquidacion " +
                 "WHERE   viajes.idLiquidacion = liquidacion.idLiquidacion " +
-                " AND     liquidacion.idPipa = " + idPipa;
+                " AND     liquidacion.economico = " + economico;
         Cursor cursor = LoginActivity.conexion.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {

@@ -1,4 +1,4 @@
-package mx.com.desoft.SQLite;
+package mx.com.desoft.hidrogas.SQLite;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import mx.com.desoft.utils.Utils;
+import mx.com.desoft.hidrogas.utils.Utils;
 
 public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 

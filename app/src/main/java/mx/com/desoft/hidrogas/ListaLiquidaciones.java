@@ -28,10 +28,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import mx.com.desoft.adapter.AdapterLiquidaciones;
+import mx.com.desoft.hidrogas.adapter.AdapterLiquidaciones;
 import mx.com.desoft.hidrogas.bussines.ReporteUnidadesBussines;
 import mx.com.desoft.hidrogas.to.LiquidacionesTO;
-import mx.com.desoft.utils.Utils;
+import mx.com.desoft.hidrogas.utils.Utils;
 
 
 public class ListaLiquidaciones extends Fragment {
